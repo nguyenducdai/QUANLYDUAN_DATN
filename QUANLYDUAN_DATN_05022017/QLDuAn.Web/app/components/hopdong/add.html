@@ -1,0 +1,75 @@
+﻿<section class="content-header">
+    <h1>
+        Thêm hợp đồng
+        <small><a ui-sref="hopdong"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> trở về</a></small>
+    </h1>
+    <div class="breadcrumb">
+         <button class="md-icon-button" ng-click="cancel()"><i class="fa fa-times" aria-hidden="true"></i>Đóng </button>
+    </div>
+</section>
+
+<section class="invoice">
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="box">
+                <form role="form" name="frmAddContract" novalidate ng-submit="ThemHopDong()">
+                    <div class="box-body">
+                        <div class="col-md-6">  
+                                <div class="form-group">
+                                    <label for="MoTaHangMucCv">Số HD</label>
+                                    <input class="form-control ng-pristine ng-valid md-input ng-empty ng-touched" id=""  type="text" name="" ng-model="HopDong.SoHopDong">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="TenHangMucCv"> Tên Hợp Đồng</label>
+                                    <input class="form-control" id="TenHopDong" type="text" name="TenHopDong"  ng-model="HopDong.TenHopDong">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="TenHangMucCv"> Nội dung</label>
+                                    <textarea class="form-control" id="NoiDung" name="NoiDung"  ng-model="HopDong.NoiDung"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="MoTaHangMucCv">giá trị hợp đồng</label>
+                                    <input class="form-control" id="GiaTriHopDong" type="number" name="GiaTriHopDong" ng-model="HopDong.GiaTriHopDong">
+                                </div>
+                            </div>
+                        <div class="col-md-5 col-md-offset-1">
+                            <div class="form-group">
+                                <label for="KhachHang">Khách Hàng</label>
+                               <select name="IdKhachHang" class="form-control" ng-model="HopDong.IdKhachHang" 
+                                       ng-options="option.ID as option.TenKhach for option in ListKhachHang"
+                                       >
+                                   <option value=""> _Khách hàng_</option>
+                               </select>
+                                <input type="hidden" ng-model="HopDong.IdKhachHang" name="IdKhachHang" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ThoiGianThucHien">Thời gian thưc hiện :</label>
+                                Từ :<md-datepicker ng-model="HopDong.NgayBatDau"></md-datepicker> 
+                                Đến :<md-datepicker ng-model="HopDong.NgayKetThuc"></md-datepicker> 
+                                ({{HopDong.SoNgayThucHien =(HopDong.NgayKetThuc- HopDong.NgayBatDau)/1000/60/60/24}} ngày)
+                            </div>
+
+                            <div class="form-group">
+                                <label for="NgayKy">Ngày Ký</label>
+                                <md-datepicker ng-model="HopDong.NgayKy"></md-datepicker>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary"> Thêm Mới</button>
+                        <a ng-click="clear()" class="btn btn-default">Làm sạch</a>
+                    </div>
+                </form>
+        </div>
+        <!-- /.box -->
+    </div>
+
+</div>
+</section>

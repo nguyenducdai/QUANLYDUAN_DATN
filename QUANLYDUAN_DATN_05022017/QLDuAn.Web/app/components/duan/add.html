@@ -1,0 +1,108 @@
+﻿<div class="panel">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel-heading">
+            <h3>Thêm Thông tin dự án</h3>
+            <button class="md-icon-button pull-right" ng-click="cancel()"><i class="fa fa-times" aria-hidden="true"></i>Đóng </button>
+        </div>
+        <!-- /.box-header -->
+        <div class="panel-body">
+            <form role="form" name="frmDuAn" novalidate ng-submit="addDuan()">
+                <div class="box-body">
+                    <div class="col-md-7 set-padding">
+                        <div class="form-group">
+                            <label for="InputProject">Số H/D </label>
+                            <select class="form-control" name="IdHopDong" ng-model="ObjDuAn.IdHopDong">
+                                <option value="">_số hợp đồng_</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputProject">Tên Dự án </label>
+                            <input type="text" class="form-control" id="InputProject" name="TenDuAn" ng-model="ObjDuAn.TenDuAn" />
+                        </div>
+                        <div class="form-group">
+                            <label for="InputDateAction">Số ngày thực hiện thực tế</label>
+                            <input type="number" class="form-control" id="InputDateAction" name="SoNgayThucHienThucTe" ng-model="ObjDuAn.SoNgayThucHienThucTe">
+                        </div>
+                        <div class="form-group">
+                            <label for="InputDescation">Mô tả</label>
+                            <textarea type="text" id="InputDescation" name="MoTa" class="form-control" ng-model="ObjDuAn.MoTa"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputNamQuyetToan">Năm Quyết Toán</label>
+                            <input type="text" id="InputNamQuyetToan" name="NamQuyetToan" class="form-control"  ng-model="ObjDuAn.NamQuyetToan" />
+                        </div>
+                        <div class="form-group">
+                            <label for="InputLoaiCongTrinh">Loại Công Trình</label>
+                            <select name="LoaiCongTrinh" class="form-control" ng-model="ObjDuAn.LoaiCongTrinh">
+                                <option value="">_chọn loại công trình_</option>
+                            </select>
+                            <input type="hidden"  ng-model="ObjDuAn.LoaiCongTrinh"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputTiLeTheoDt">Tỉ Lệ Theo Doanh thu</label>
+                            <select name="TyLeTheoDT" class="form-control" ng-model="ObjDuAn.TyLeTheoDT">
+                                <option value="">_chọn tỷ lệ_</option>
+                            </select>
+                            <input type="hidden" ng-model="ObjDuAn.TyLeTheoDT"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputLuongThueNgoai">Lương Thuê Ngoài</label>
+                            <input type="text" class="form-control" id="InputLuongThueNgoai" name="LuongThueNgoai" ng-model="ObjDuAn.LuongThueNgoai"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputTongChiQL">Tổng Chi QL</label>
+                            <input type="number" class="form-control" id="InputTongChiQL" name="TongChiQL" ng-model="ObjDuAn.TongChiQL">
+                        </div>
+                    </div>
+                    <div class="col-md-5 set-padding">
+                        <fieldset class="set-boder">
+                            <legend>Trực tiếp</legend>
+                            <div class="form-group">
+                                <label for="InputLuongTrucLuongTTQtt">Lương Trực tiếp Qtt</label>
+                                <input type="number" class="form-control" id="InputLuongTTQtt" name="LuongTTQtt" ng-model="ObjDuAn.LuongTTQtt">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="InputLuongDPQdp">Luơng DPQdpt</label>
+                                <input type="number" class="form-control" id="InputLuongDPQdp" name="LuongDPQdp" ng-model="ObjDuAn.LuongDPQdp">
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="set-boder">
+                            <legend>Gian tiếp tiếp</legend>
+                            <div class="form-group">
+                                <label for="InputLuongGTQgt">Lương gián tiếp Qgt</label>
+                                <input type="number" class="form-control" id="InputLuongGTQgt" name="LuongGTQgt" ng-model="ObjDuAn.LuongGTQgt">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="InputLuongGTV21">Luong gián tiếp V21</label>
+                                <input type="number" class="form-control" id="InputLuongGTV21" name="LuongGTV21" ng-model="ObjDuAn.LuongGTV21">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="InputLuongGTV22">Luong gián tiếp V22</label>
+                                <input type="number" class="form-control" id="InputLuongGTV22" name="LuongGTV22" ng-model="ObjDuAn.LuongGTV22">
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <label for="InputCheckBox">Tình trạng dự án</label>
+                            <div>
+                                <input type="radio" id="InputCheckBox1" name="TrangThai" value="0" checked="checked" ng-model="ObjDuAn.TrangThai"/> chờ
+                                <input type="radio" id="InputCheckBox2" name="TrangThai" value="1" ng-model="ObjDuAn.TrangThai"/> bắt đầu
+                                <input type="radio" id="InputCheckBox3" name="TrangThai" value="2" ng-model="ObjDuAn.TrangThai"/> Đã Hoàn Thành
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Thêm dự án</button>
+                    <button type="reset" class="btn btn-default">xóa sạch</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

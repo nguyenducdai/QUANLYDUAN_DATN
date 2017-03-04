@@ -1,0 +1,95 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Quản lý Hợp đồng
+        <small>...</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">danh sách hợp đồng</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <section class="invoice-control">
+        <div class="row no-print">
+            <div class="col-xs-12">
+                <button class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> In</button>
+                <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> xuất PDF </button>
+                <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Xuất Excel</button>
+                <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-files-o"></i> Nhập Excel </button>
+                <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-trash-o"></i> Xóa tất cả</button>
+                <button type="button" ng-click="showFrmAdd($event)" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-plus"></i> Thêm </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="invoice">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+                <div class="box">
+                    <div class="box-header">
+                        <div class="box-title">
+                            <div class="input-group input-group-sm" style="width:100%">
+                                <input name="table_search" class="form-control pull-right" placeholder="Search" type="text">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-tools">
+
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th style="width:5%"><input type="checkbox"></th>
+                                    <th>chọn tất cả hợp đồng</th>
+                                    <th style="width:5%"></th>
+                                </tr>
+                                <tr ng-repeat="item in HopDong" ng-click="viewDetail(item.ID)">
+                                    <td><input type="checkbox"></td>
+                                    <td>{{item.SoHopDong}}/{{item.TenHopDong}}</td>
+                                    <td class="dropdown"><button class="btn btn- dropdown-toggle" id="menu1" data-toggle="dropdown tooltip" title="hành động"><i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                               
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">sửa</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">xóa</a></li>
+                                               
+                                            </ul>
+                                        
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <div class="col-sm-12 col-md-5 col-lg-5" style="background:#FAFAFA ; min-height:600px">
+                <h3>{{alert}}</h3>
+                <div>
+                    <h4>
+                        {{ChiTietHopDong.TenHopDong}}
+                    </h4>
+                    <p>Mô tả : {{ChiTietHopDong.NoiDung}} </p>
+                    <p>{{ChiTietHopDong.GiaTriHopDong}} (vnd)</p>
+                    <p>Thời gian : {{ChiTietHopDong.NgayBatDau}} -> {{ChiTietHopDong.NgayKetThuc}}</p>
+                    <p> Ngày ký: {{ChiTietHopDong.NgayKy}}</p>
+                    <p>số hợp đồng :  {{ChiTietHopDong.SoHopDong}}</p>
+                    <p>số hợp đồng :  {{ChiTietHopDong. IdKhachHang}}</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+</section>
+<!-- /.content -->
+

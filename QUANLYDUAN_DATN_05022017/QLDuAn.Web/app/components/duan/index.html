@@ -1,0 +1,67 @@
+﻿<section class="content-header">
+    <div class="col-md-7">
+        <div class="row" style="margin:0 !important">
+            <div class="col-md-7">
+                <p>Tất cả dự án</p>
+            </div>
+            <div class="col-md-5">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-default" style="margin-right: 5px;" ng-click="showAdd($event)"><i class="fa fa-plus"></i></button>
+                    <button type="button" class="btn btn-default" style="margin-right: 5px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">hành động<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="fa fa-download"></i> xuất PDF </a></li>
+                        <li><a href="#"><i class="fa fa-download"></i> Xuất Excel</a></li>
+                        <li><a href="#"><i class="fa fa-files-o"></i> Nhập Excel </a></li>
+                        <li><a href="#"><i class="fa fa-print"></i> In</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="invoice">
+            <div class="box">
+                <div class="box-header">
+                    <div class="input-group input-group-sm" style="width:100%">
+                        <input name="table_search" class="form-control pull-right" placeholder="Search" type="text">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#pr-direct">
+                    <span class="caret"></span> Trực tiếp</button>
+                    <div id="pr-direct" class="collapse">
+                        Pre-order and get Font Awesome 5 Pro and ALL stretch goals for just $40!
+                    </div>
+
+                    <hr />
+                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#pr-indirect">
+                    <span class="caret"></span> Gián tiếp</button>
+                    <div id="pr-indirect" class="collapse">
+                        gián tiếp
+                    </div>
+
+                    <hr />
+                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#pr-success">
+                        <span class="caret"></span> Dự án đã hoàn thành
+                    </button>
+                    <div id="pr-success" class="collapse">
+                        dự án đã hoàn thành
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+    </div> <!--end env-->
+    <div class="col-md-5">
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Layout</a></li>
+            <li class="active">Collapsed Sidebar</li>
+        </ol>
+
+    </div>
+</section>

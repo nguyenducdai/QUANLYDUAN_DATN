@@ -1,0 +1,15 @@
+{
+	"name": "ASP.NET",
+	"private": true,
+  "dependencies": {
+    "bootstrap": "*",
+    "angular": "*",
+    "angular-ui-router": "*",
+    "jquery": "*",
+    "toastr": "*",
+    "ngBootbox": "*",
+    "fastclick": "*",
+    "jquery.slimscroll": "*",
+    "angular-material" :"*"
+  }
+}
