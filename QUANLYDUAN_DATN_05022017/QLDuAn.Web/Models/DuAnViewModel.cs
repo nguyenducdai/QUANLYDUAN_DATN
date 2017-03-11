@@ -20,9 +20,9 @@ namespace QLDuAn.Web.Models
 
         public decimal TyLeTheoDT { get; set; }
 
-        public decimal TongDiem { get; set; }
+        public decimal? TongDiem { get; set; }
 
-        public decimal DonGiaDiemDiem { get; set; }
+        public decimal? DonGiaDiemDiem { get; set; }
 
         public int? LuongThueNgoai { get; set; }
 

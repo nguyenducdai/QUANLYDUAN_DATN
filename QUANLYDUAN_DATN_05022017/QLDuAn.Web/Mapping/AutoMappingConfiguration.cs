@@ -13,6 +13,10 @@ namespace QLDuAn.Web.Mapping
                 cfg.CreateMap<HopDong, HopDongViewModel>();
                 cfg.CreateMap<KhachHang, KhachHangViewModel>();
                 cfg.CreateMap<DuAn, DuAnViewModel>();
+                cfg.CreateMap<ThamGia, ThamGiaViewModel>();
+                cfg.CreateMap<DuAnHangMuc, HangMucDuAnViewModel>();
+                cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
+                cfg.CreateMap<NhomCongViec, NhomCongViecViewModel>();
             });
         }
     }

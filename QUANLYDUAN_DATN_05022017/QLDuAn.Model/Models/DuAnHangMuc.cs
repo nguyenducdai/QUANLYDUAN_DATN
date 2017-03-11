@@ -28,19 +28,21 @@ namespace QLDuAn.Model.Models
 
         public int? IdNguoiThucHienTheoLenhSX { get; set; }
 
-        public int IdNguoiThucHienThucTe{ get; set; }
-
-        public int DiemThanhVien { get; set; }
-
-        public decimal ThuNhap { get; set; }
-
         public decimal HeSoLapLai { get; set; }
 
         public decimal HeSoNhanCong { get; set; }
 
-        public DateTime SoNgayThucHien { get; set; }
+        public decimal HeSoCongViec { get; set; }
+
+        public int SoNguoiThucHien { get; set; }
+
+        public int SoNgayThucHien { get; set; }
 
         public decimal HeSoThoiGian { get; set; }
+
+        public int DiemDanhGia{ get; set; }
+
+        public int DiemHangMuc{ get; set; }
 
         [ForeignKey("IdHangMuc")]
         public virtual HangMuc HangMuc { get; set; }

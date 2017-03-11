@@ -36,5 +36,7 @@ namespace QLDuAn.Model.Models
    
         [ForeignKey("IdKhachHang")]
         public  virtual KhachHang KhachHang { get; set; }
+
+        public IEnumerable<DuAn> DuAn { set; get; }
     }
 }

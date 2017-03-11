@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using QLDuAn.Service;
+using System.Linq;
 
 namespace QLDuAn.Web.Api
 {
@@ -97,6 +98,34 @@ namespace QLDuAn.Web.Api
                 HttpResponseMessage respose = request.CreateResponse(HttpStatusCode.OK, id); ;
                 return respose;
             });
+        }
+
+
+        [HttpGet]
+        [Route("getbylhm")]
+        public HttpResponseMessage GetByLHM(HttpRequestMessage request ,int option)
+        {
+            return CreateReponse(request, () =>
+            {
+                HttpResponseMessage response;
+                var query = _hangMucService.getAll();
+                if (option.Equals(0))
+                {
+                    query = query.Where(x=>x.LoaiHangMuc);
+
+                }else
+                {
+                    query = query.Where(x => x.LoaiHangMuc.Equals(false));
+                }
+
+                var reposeData = Mapper.Map<IEnumerable<HangMuc>, IEnumerable<HangMucViewModel>>(query);
+
+                response = request.CreateResponse(HttpStatusCode.OK,reposeData);
+                return response;
+
+
+            });
+
         }
     }
 }

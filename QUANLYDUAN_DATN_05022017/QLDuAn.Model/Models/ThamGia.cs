@@ -20,6 +20,10 @@ namespace QLDuAn.Model.Models
 
         public decimal HeSoThamGia { get; set; }
 
+        public decimal? ThuNhap { get; set; }
+
+        public decimal? DiemThanhVien { get; set; }
+
         [ForeignKey("IdDuAn")]
         public virtual DuAn DuAn { get; set; }
 

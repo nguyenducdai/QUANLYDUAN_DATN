@@ -61,9 +61,11 @@
     <Compile Include="DuAnService.cs" />
     <Compile Include="HopDongService.cs" />
     <Compile Include="KhachHangService.cs" />
+    <Compile Include="NhomCongViecService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ErrorService.cs" />
     <Compile Include="HangMucService.cs" />
+    <Compile Include="ThamGiaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -19,8 +19,9 @@
 
         protected override void Seed(QLDuAn.Data.QLDuAnDbContext context)
         {
-            this.AddRowThanhVien(context);
-            //this.AddRowUser(context);
+            // this.AddRowThanhVien(context);
+           // this.AddRowUser(context);
+            //this.AddGroupJob(context);
         }
 
         private void AddRowThanhVien(QLDuAn.Data.QLDuAnDbContext context)
@@ -103,8 +104,8 @@
             var userRole = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             var obj = new ApplicationUser();
-            obj.UserName = "admin";
-            obj.Email = "nguyenducdaiictu@gmail.com";
+            obj.UserName = "NguyenvanC";
+            obj.Email = "nguyenvanb@gmail.com";
             obj.EmailConfirmed = true;
             obj.PhoneNumberConfirmed = false;
             obj.TwoFactorEnabled = false;
@@ -112,18 +113,47 @@
             obj.AccessFailedCount = 0;
             user.Create(obj, "123456&");
 
-            if (!userRole.Roles.Any())
-            {
-                userRole.Create(new IdentityRole { Name = "Admin" });
-                userRole.Create(new IdentityRole { Name = "User" });
-            }
+            //if (!userRole.Roles.Any())
+            //{
+            //    userRole.Create(new IdentityRole { Name = "Admin" });
+            //    userRole.Create(new IdentityRole { Name = "User" });
+            //}
 
             // find by mail 
             var result = user.FindByEmail(obj.Email);
 
             // if success then add user in group created
-            user.AddToRolesAsync(result.Id, new string[] { "Admin", "User" });
+            user.AddToRolesAsync(result.Id, new string[] {"User" });
 
+        }
+
+        private void AddGroupJob(QLDuAn.Data.QLDuAnDbContext context)
+        {
+            List<NhomCongViec> cv = new List<NhomCongViec>()
+            {
+                new NhomCongViec
+                {
+                    NhomCV="A",
+                    HeSoCV = 3
+                },
+                new NhomCongViec
+                {
+                    NhomCV="B",
+                    HeSoCV = 2
+                },
+                new NhomCongViec
+                {
+                    NhomCV="C",
+                    HeSoCV = 1.5M
+                },
+                new NhomCongViec
+                {
+                    NhomCV="D",
+                    HeSoCV = 1
+                }
+            };
+            context.NhomCongViec.AddRange(cv);
+            context.SaveChanges();
         }
     }
 }

@@ -25,10 +25,10 @@ body {
   overflow-y: auto;
 }
 
-.set-padding{
+/*.set-padding{
     padding-left:15px;
     padding-right:15px;
-}
+}*/
 fieldset.set-boder{
     border: 1px solid #d2d6de !important;
     padding: 0 1.4em 1.4em 1.4em !important;
@@ -323,7 +323,7 @@ a:focus {
 }
 .content-header {
   position: relative;
-  padding: 15px 5px 0 5px;
+  padding: 0px 5px 0 5px;
 }
 .content-header > h1 {
   margin: 0;

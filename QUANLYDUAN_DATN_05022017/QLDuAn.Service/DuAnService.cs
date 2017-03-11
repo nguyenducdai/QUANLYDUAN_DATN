@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using QLDuAn.Data.Infrastrusture;
 using QLDuAn.Data.Repositories;
 using QLDuAn.Model.Models;
-using QLDuAn.Data.Infrastrusture;
+using System;
+using System.Collections.Generic;
 
 namespace QLDuAn.Service
 {
@@ -25,8 +22,11 @@ namespace QLDuAn.Service
 
         IEnumerable<DuAn> GetAll(string keyWord);
 
+        DuAn GetDetail(int id);
+
         void Save();
     }
+
     public class DuAnService : IDuAnService
     {
         private IDuAnRepository _duAnRepository;
@@ -37,6 +37,7 @@ namespace QLDuAn.Service
             this._duAnRepository = duAnRepository;
             this._iUnitOfWork = iUnitOfWork;
         }
+
         public DuAn Add(DuAn duAn)
         {
             return _duAnRepository.Add(duAn);
@@ -54,7 +55,7 @@ namespace QLDuAn.Service
 
         public IEnumerable<DuAn> GetAll(string keyWord)
         {
-            return _duAnRepository.GetMuti(x=>x.TenDuAn.Contains(keyWord) && x.MoTa.Contains(keyWord));
+            return _duAnRepository.GetMuti(x => x.TenDuAn.Contains(keyWord) && x.MoTa.Contains(keyWord));
         }
 
         public DuAn GetById(int id)
@@ -75,6 +76,11 @@ namespace QLDuAn.Service
         public void Save()
         {
             _iUnitOfWork.Commit();
+        }
+
+        public DuAn GetDetail(int id)
+        {
+            return _duAnRepository.GetDetail(id);
         }
     }
 }

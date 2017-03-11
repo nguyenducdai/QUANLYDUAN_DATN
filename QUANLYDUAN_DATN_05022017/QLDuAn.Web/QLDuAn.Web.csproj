@@ -226,10 +226,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\ApplicationUserController.cs" />
     <Compile Include="Api\DuAnController.cs" />
     <Compile Include="Api\HangMucController.cs" />
     <Compile Include="Api\HopDongController.cs" />
     <Compile Include="Api\KhachHangController.cs" />
+    <Compile Include="Api\NhomCongViecController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -245,17 +247,24 @@
     <Compile Include="Infastructure\Core\BaseController.cs" />
     <Compile Include="Infastructure\Extentions\EntityExtentions.cs" />
     <Compile Include="Mapping\AutoMappingConfiguration.cs" />
+    <Compile Include="Models\ApplicationUserViewModel.cs" />
     <Compile Include="Models\DuAnViewModel.cs" />
+    <Compile Include="Models\HangMucDuAnViewModel.cs" />
     <Compile Include="Models\HangMucViewModel.cs" />
     <Compile Include="Models\HopDongViewModel.cs" />
     <Compile Include="Models\KhachHangViewModel.cs" />
+    <Compile Include="Models\NhomCongViecViewModel.cs" />
+    <Compile Include="Models\ThamGiaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\components\componentmodule.js" />
+    <Content Include="app\components\duanhangmuc\duanhangmucController.js" />
+    <Content Include="app\components\duanhangmuc\index.html" />
     <Content Include="app\components\duan\add.html" />
     <Content Include="app\components\duan\DuAnController.js" />
+    <Content Include="app\components\duan\edit.html" />
     <Content Include="app\components\duan\index.html" />
     <Content Include="app\components\hangmuc\hangmuccontroller.js" />
     <Content Include="app\components\hangmuc\index.html" />

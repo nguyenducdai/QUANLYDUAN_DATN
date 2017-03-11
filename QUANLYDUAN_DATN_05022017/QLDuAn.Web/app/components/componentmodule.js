@@ -1,4 +1,5 @@
-﻿/// <reference path="E:\DATA_DRIVE_2017\QUANLYDUAN_DATN\QUANLYDUAN_DATN_05022017\QLDuAn.Web\Assets/librarys/angular/angular.js" />
+﻿/// <reference path="duanhangmuc/duanhangmucController.js" />
+/// <reference path="E:\DATA_DRIVE_2017\QUANLYDUAN_DATN\QUANLYDUAN_DATN_05022017\QLDuAn.Web\Assets/librarys/angular/angular.js" />
 /// <reference path="hangmuc/index.html" />
 /// <reference path="" />
 (function () {
@@ -26,7 +27,11 @@
             url: '/duan',
             templateUrl: '/app/components/duan/index.html',
             controller: 'DuAnController'
+         })
+        .state('themhangmuc', {
+            url: '/themhangmuc/:id',
+            templateUrl: '/app/components/duanhangmuc/index.html',
+            controller: 'duanhangmucController'
         });
-         
     }
 })();
