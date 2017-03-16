@@ -15,16 +15,21 @@
         $scope.autoHeSoNhanCongKcv = autoHeSoNhanCongKcv;
         $scope.changeSelectDkht = changeSelectDkht;
         $scope.changeMucDoTruyenThong = changeMucDoTruyenThong;
-        $scope.keyEvent = keyEvent;
+        $scope.AddHangMucDuAn = AddHangMucDuAn;
 
         //object
         $scope.dataUser = [];
+        $scope.DisplayUser = [];
         $scope.select = '';
         $scope.loadHangMuc = {};
         $scope.ThanhVien = {};
         $scope.NhomCvs = {};
         $scope.HmDa = {
-            SoNguoiThucHien: $scope.dataUser.length
+            IdDuAn: $stateParams.id,
+            SoNguoiThucHien: $scope.dataUser.length,
+            NgayHoanThanh: null,
+            TrangThai:false,
+            Created_at: new Date()
         };
         $scope.User = {};
         $scope.loading = false;
@@ -36,7 +41,6 @@
                 { key: 5,value :3.25},  { key: 6,value :3.84},  { key: 7,value :4.41},  { key: 8,value : 4.96},  { key: 9,value :5.49},  { key: 10,value :6.00}
             ]
         };
-        
         $scope.NgayDkHoanThanh = {
             data: [{ key: '1-4', value: 1.00 }, { key: '5-9', value: 1.50 }, { key: '10-14', value: 2.00 }, { key: '15-19', value: 2.40 }, 
                 { key: '20-24', value: 2.80 },{key: '25-29', value: 3.20 },{key: '30-34', value: 3.50 },{key: '>35', value:3.80 }]
@@ -59,7 +63,7 @@
             $scope.loading = true;
             var config = {
                 params: {
-                    option: $scope.select
+                    option: $scope.HmDa.LoaiHangMuc
                 }
             }
             service.get('api/hm/getbylhm', config, function (result) {
@@ -88,25 +92,29 @@
 
         function addThanhVien() {
             var status = false;
+            var Item = {
+                IdDuAn: $stateParams.id,
+                IdNhanVien: $scope.User.Id,
+                HeSoThamGia: $scope.User.TiLe,
+            };
             if ($scope.dataUser.length == 0) {
-                $scope.dataUser.push($scope.User);
+                $scope.dataUser.push(Item);
+                $scope.DisplayUser.push($scope.User);
                 $scope.HmDa.SoNguoiThucHien= $scope.dataUser.length;
             } 
             else {
-               
                 for (var i = 0; i < $scope.dataUser.length; i++) {
-                    if ($scope.dataUser[i].Email == $scope.User.Email) {
+                    if ($scope.dataUser[i].IdNhanVien == $scope.User.Id) {
                             status = true;
-                        } 
+                    } 
                 }
 
                 if (!status) {
-                    $scope.dataUser.push($scope.User);
-
+                    $scope.dataUser.push(Item);
+                    $scope.DisplayUser.push($scope.User);
                 } else {
                     notification.error('thành viên đã tồn tại');
                 }
-               
             }
             $scope.HmDa.SoNguoiThucHien = $scope.dataUser.length;
             autoHeSoNhanCongKcv();
@@ -150,9 +158,13 @@
             }
         }
 
-        function keyEvent() {
-            alert(ok);
-
+        function AddHangMucDuAn() {
+            console.log($scope.User);
+            service.post('api/duanhangmuc/created', JSON.stringify({ HangMucDa: $scope.HmDa, ThamGia: $scope.dataUser}), function (result) {
+                notification.success('Thêm mục công việc thành công');
+            }, function (errors) {
+                notification.error('có lỗi sảy ra !');
+            });
         }
 
         loadThanhVien();

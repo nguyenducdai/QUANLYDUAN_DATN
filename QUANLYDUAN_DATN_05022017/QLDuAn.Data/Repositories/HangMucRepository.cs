@@ -5,7 +5,7 @@ namespace QLDuAn.Data.Repositories
 {
     public interface IHangMucRepository : IRepository<HangMuc>
     {
-
+        
     }
 
     public class HangMucRepository : RepositoryBase<HangMuc> , IHangMucRepository

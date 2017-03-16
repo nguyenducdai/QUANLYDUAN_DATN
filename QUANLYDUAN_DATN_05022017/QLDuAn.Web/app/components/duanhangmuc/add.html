@@ -1,33 +1,39 @@
 ﻿<section class="content-header"></section>
 <section class="content">
- 
         <div class="box box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">Thêm Hạng mục công viêc cho dự án</h3>
+                <h3 class="box-title"><strong>Thêm Hạng mục công viêc cho dự án</strong></h3>
+                <div>
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <small>chú ý : Thêm thành viên tham gia dự án trước khi khi chọn hạng mục công việc</small>
+                    <button class="btn btn-default pull-right"  ui-sref ="duan">Đóng</button>
+                </div>
+                
+                
             </div>
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="box-group" id="accordion">
                     <div class="col-md-7">
-                        <form novalidate name="frmHmDa">
+                        <form novalidate name="frmHmDa" ng-submit="AddHangMucDuAn()">
+                            <input type="hidden" name="select" ng-model="HmDa.IdDuAn"/>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label for="Input1">Loại Hạng mục *</label>
-                                        <select name="select" class="form-control" ng-model="select" ng-change="changeSelect()">
+                                        <select name="select" class="form-control" ng-model="HmDa.LoaiHangMuc" ng-change="changeSelect()">
                                             <option value="">--chọn loại hạng mục--</option>
                                             <option value="0">Trực tiếp</option>
                                             <option value="1">gián tiếp</option>
                                         </select>
-                                        <input type="hidden" name="select" ng-model="select"/>
+                                        <input type="hidden" name="select" ng-model="HmDa.LoaiHangMuc"/>
                                     </div>
                                     <div class="col-md-7">
                                         <label for="Input2">hạng mục công việc</label>
                                         <span class="pull-right text-light-blue" ng-if="loading"><i class="fa fa-refresh fa-spin"></i>loading...</span>
-                                        <select name="" class="form-control" ng-model="HangMucDuAn.HangMucId" ng-options="option.ID as option.TenHangMuc for option in loadHangMuc">
+                                        <select name="IdHangMuc" class="form-control" ng-model="HmDa.IdHangMuc" ng-options="option.ID as option.TenHangMuc for option in loadHangMuc">
                                             <option value="">---chọn công việc---</option>
                                         </select>
-                                   
+                                        <input type="hidden" name="select" ng-model="HmDa.IdHangMuc" />
                                     </div>
                                     <div class="col-md-1">
                                         <label for="Input1"></label>
@@ -39,7 +45,7 @@
                                 <div class="row">
                                     <div class="col-md-9">
                                         <label for="Input2">Nhóm công việc</label>
-                                        <select name="" class="form-control" ng-model="HmDa.IdNhomCongViec" ng-options="option.ID as option.NhomCV for option in NhomCvs" ng-change="changNhomCongViec(HmDa.IdNhomCongViec)">
+                                        <select name="IdNhomCongViec" class="form-control" ng-model="HmDa.IdNhomCongViec" ng-options="option.ID as option.NhomCV for option in NhomCvs" ng-change="changNhomCongViec(HmDa.IdNhomCongViec)">
                                             <option value="">--chọn nhóm công việc--</option>
                                         </select>
                                         <input type="hidden" class="form-control" ng-model="HmDa.IdNhomCongViec"> 
@@ -57,26 +63,25 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="Input4">Ngày Thực Hiện</label>
-                                        <input type="date" class="form-control" id="Input4">
+                                        <input type="date" class="form-control" id="Input4" ng-model="HmDa.NgayBatDau" name="NgayBatDau">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="Input5">Ngày yêu cầu hoàn thành</label>
-                                        <input type="date" class="form-control" id="Input5">
+                                        <input type="date" class="form-control" id="Input5" ng-model="HmDa.NgayDuKienKetThuc">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="Input6">Người thực hiện theo lệnh sản xuất</label>
-                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" ng-model="HmDa.Id" ng-options="option.Id as option.Email for option in ThanhVien " >
+                                <select class="form-control" ng-model="HmDa.IdNguoiThucHienTheoLenhSX" ng-options="option.Id as option.Email for option in ThanhVien " >
                                     <option value="">__chọn người đại diện__</option>
                                 </select>
-                                <input type="hidden" ng-model="HmDa.Id"/>
+                                <input type="hidden" ng-model="HmDa.IdNguoiThucHienTheoLenhSX"/>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label for="Input12">Số người thực hiện</label>
-                     
                                         <input type="text" class="form-control" name="SoNguoiThucHien"  ng-model="HmDa.SoNguoiThucHien" disabled>
                                     </div>
                                     <div class="col-md-4">
@@ -124,7 +129,7 @@
                             </div>
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Thêm</button>
-                                <button type="submit" class="btn btn-default"><i class="fa fa-fw fa-mail-reply"></i> Trở về</button>
+                                <button class="btn btn-default" ui-sref ="duan"><i class="fa fa-fw fa-mail-reply"></i>Trở về</button>
                             </div>
                         </form>
                     </div><!--end/right-->
@@ -160,8 +165,8 @@
                                             <th style="width: 40px">Tỷ lệ tham gia</th>
                                             <th>X</th>
                                         </tr>
-                                        <tr ng-repeat="item in dataUser">
-                                            <td>1.</td>
+                                        <tr ng-repeat="item in DisplayUser">
+                                            <td>{{$index + 1 }}</td>
                                             <td>{{item.Email}}</td>
                                             <td><span class="badge bg-red">{{item.TiLe}}</span></td>
                                             <td><span class="badge bg-red" ng-click="removeUser(item.Id)">X</span></td>

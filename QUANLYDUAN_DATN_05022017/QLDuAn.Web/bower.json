@@ -10,6 +10,7 @@
     "ngBootbox": "*",
     "fastclick": "*",
     "jquery.slimscroll": "*",
-    "angular-material" :"*"
+    "angular-material": "*",
+    "ui-bootstrap": "*"
   }
 }

@@ -24,6 +24,8 @@ namespace QLDuAn.Service
 
         DuAn GetDetail(int id);
 
+        DuAn GetAllInfoById(int id);
+
         void Save();
     }
 
@@ -82,5 +84,11 @@ namespace QLDuAn.Service
         {
             return _duAnRepository.GetDetail(id);
         }
+
+        public DuAn GetAllInfoById(int id)
+        {
+            return _duAnRepository.GetAllInfo(id);
+        }
+
     }
 }

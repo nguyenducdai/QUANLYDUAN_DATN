@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QLDuAn.Web.Models
 {
@@ -43,5 +45,11 @@ namespace QLDuAn.Web.Models
         public DateTime? Created_at { get; set; }
 
         public DateTime? Updated_at { get; set; }
+
+        public virtual HopDongViewModel HopDong { get; set; }
+
+        public virtual IEnumerable<ThamGiaViewModel> ThamGia { get; set; }
+
+        public virtual IEnumerable<HangMucDuAnViewModel> DuAnHangMuc { get; set; }
     }
 }

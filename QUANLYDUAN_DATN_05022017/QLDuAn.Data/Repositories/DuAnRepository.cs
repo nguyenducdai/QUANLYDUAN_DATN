@@ -1,12 +1,15 @@
 ﻿using QLDuAn.Data.Infrastrusture;
 using QLDuAn.Model.Models;
 using System.Linq;
+using System;
 
 namespace QLDuAn.Data.Repositories
 {
     public interface IDuAnRepository : IRepository<DuAn>
     {
         DuAn GetDetail(int id);
+
+        DuAn GetAllInfo(int id);
     }
 
     public class DuAnRepository : RepositoryBase<DuAn>, IDuAnRepository
@@ -14,6 +17,14 @@ namespace QLDuAn.Data.Repositories
         public DuAnRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
+
+        public DuAn GetAllInfo(int id)
+        {
+            var query = from duan in DBContext.DuAn.Include("HopDong").Include("HopDong.KhachHang")
+                        select duan;
+            return query.SingleOrDefault(x => x.ID.Equals(id));
+        }
+
 
         public DuAn GetDetail(int id)
         {

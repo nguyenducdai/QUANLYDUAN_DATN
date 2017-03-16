@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -13,13 +14,15 @@ namespace QLDuAn.Web.Models
 
         public int IdNhomCongViec { get; set; }
 
+        public int MucDoTruyenThong { get; set; }
+
         public DateTime NgayBatDau { get; set; }
 
         public DateTime NgayDuKienKetThuc { get; set; }
 
-        public DateTime NgayHoanThanh { get; set; }
+        public DateTime? NgayHoanThanh { get; set; }
 
-        public int? IdNguoiThucHienTheoLenhSX { get; set; }
+        public string IdNguoiThucHienTheoLenhSX { get; set; }
 
         public decimal HeSoLapLai { get; set; }
 
@@ -29,16 +32,28 @@ namespace QLDuAn.Web.Models
 
         public int SoNguoiThucHien { get; set; }
 
-        public int SoNgayThucHien { get; set; }
-
         public decimal HeSoThoiGian { get; set; }
 
         public int DiemDanhGia { get; set; }
 
         public int DiemHangMuc { get; set; }
 
+        public int LoaiHangMuc { get; set; }
+
+        public bool TrangThai { get; set; }
+
         public DateTime? Created_at { get; set; }
 
         public DateTime? Updated_at { get; set; }
+
+        // public bool TrangThai { get; set; }
+        //public virtual DuAnViewModel DuAn { get; set; }
+
+        //public virtual HangMucViewModel HangMuc { get; set; }
+
+        //public virtual NhomCongViecViewModel NhomCongViec { get; set; }
+
+        //public virtual ApplicationUserViewModel User { get; set; }
+
     }
 }

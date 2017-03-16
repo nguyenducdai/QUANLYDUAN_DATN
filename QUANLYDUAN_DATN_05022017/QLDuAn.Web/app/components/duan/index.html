@@ -1,91 +1,112 @@
 ﻿<section class="content-header"></section>
 <section class="content">
-    <div class="col-md-7">
-        <div class="row" style="margin:0 !important">
-            <div class="col-md-3">
-                <p>Tất cả dự án</p>
-            </div>
-            <div class="col-md-9">
-                <div class="dropdown">
-                    <button class="btn btn-default" ng-click="showAdd($event)"><i class="fa fa-plus"></i></button>
-                    <button class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    <button class="btn btn-default"><i class="fa fa-download"></i> xuất PDF</button>
-                    <button class="btn btn-default"><i class="fa fa-files-o"></i> Nhập Excel</button>
-                    <button class="btn btn-default"><i class="fa fa-files-o"></i> xuất Excel</button>
-                    <button class="btn btn-default"><i class="fa fa-print"></i> In</button>
-                </div>
-            </div>
-        </div>
-        <div class="box">
-            <div class="box-header">
-                <div class="input-group input-group-sm" style="width:100%">
-                    <input name="table_search" class="form-control pull-right" placeholder="Search" type="text">
-                    <div class="input-group-btn">
-                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+    <div class="box-header with-border">
+        <h3 class="box-title"><strong>Quản Lý Dự án công ty Aso</strong></h3>
+        <button class="btn btn-default pull-right" ui-sref="duan">Trở về</button>
+    </div>
+    <div class="box-body">
+        <div class="box-group" id="accordion">
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Tất cả dự án</p>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="dropdown">
+                            <button class="btn btn-default" ng-click="showAdd($event)"><i class="fa fa-plus"></i></button>
+                            <button class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            <button class="btn btn-default"><i class="fa fa-download"></i> xuất PDF</button>
+                            <button class="btn btn-default"><i class="fa fa-files-o"></i> Nhập Excel</button>
+                            <button class="btn btn-default"><i class="fa fa-files-o"></i> xuất Excel</button>
+                            <button class="btn btn-default"><i class="fa fa-print"></i> In</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#pr-direct">
-                    <span class="caret"></span> Dự án chưa hoàn thành
-                </button>
-                <div id="pr-direct" class="collapses">
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                                <th style="width:5%"><input type="checkbox"></th>
-                                <th>chọn tất cả dự án</th>
-                            </tr>
+                <div class="row">
+                    <div class="box">
+                        <div class="box-header">
+                            <div class="input-group" style="width:100%">
+                                <input name="table_search" class="form-control pull-right" placeholder="Search" type="text">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body table-responsive no-padding">
+                            <h4 data-toggle="collapse" data-target="#pr-direct">
+                                <span class="caret"></span> Dự án đang thực hiện
+                            </h4>
+                            <div id="pr-direct" class="collapses">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width:5%"><input type="checkbox"></th>
+                                            <th>chọn tất cả dự án</th>
+                                        </tr>
 
-                            <tr ng-repeat="item in ListDuAn" ng-click="viewDetail(item.ID)">
-                                <td><input type="checkbox"></td>
-                                <td class="ng-binding">{{item.TenDuAn}} <span class="pull-right"> {{item.Created_at | date:'MMM d'}}</span></td>
-                            </tr><!-- end ngRepeat: item in HopDong -->
-                        </tbody>
-                    </table>
-                </div>
+                                        <tr ng-repeat="item in ListDuAn" ng-click="viewDetail(item.ID)">
+                                            <td><input type="checkbox"></td>
+                                            <td class="ng-binding">
+                                                {{item.TenDuAn}}
+                                                <span class="progress-bar progress-bar-success" style="width: 90%"></span>
+                                                <span class="pull-right"> {{item.Created_at | date:'MMM d'}}</span>
+                                            </td>
+                                        </tr><!-- end ngRepeat: item in HopDong -->
+                                    </tbody>
+                                </table>
+                            </div>
 
-                <hr />
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#pr-success">
-                    <span class="caret"></span> Dự án đã hoàn thành
-                </button>
-                <div id="pr-success" class="collapse">
-                    dự án đã hoàn thành
-                </div>
-            </div>
-            <!-- /.box-body -->
-        </div>
-    </div> <!--end env-->
-    <div class="col-md-5">
-        <div class="panel-default" style="min-height: 623px;">
-            <div class="panel-title" style="background:#FDFDFD ;min-height: 60px">
-                <div class="col-md-7 set-padding">
-                    <div>
-                        <i class="fa fa-clock-o"></i>  {{Detail.Created_at | date : 'MMM d ,y'}}
+                            <hr />
+                            <h4 data-toggle="collapse" data-target="#pr-success">
+                                <span class="caret"></span> Dự án đã hoàn thành
+                            </h4>
+                            <div id="pr-success" class="collapse">
+                                dự án đã hoàn thành
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
                     </div>
                 </div>
-                <div class="col-md-4 col-md-offset-1 set-padding">
-                    <div>
-                        <input type="checkbox" /> Hoàn thành
+            </div> <!--end env-->
+            <div class="col-md-5">
+                <div class="panel-default">
+                    <div class="panel-title" style="background:#FDFDFD ;min-height: 60px">
+                        <div class="col-md-7 set-padding">
+                            <div>
+                                <i class="fa fa-clock-o"></i>  {{Detail.Created_at | date : 'MMM d ,y'}}
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-md-offset-1 set-padding">
+                            <div>
+                                <input type="checkbox" /> Hoàn thành
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="panel-body" style="background:#FAFAFA ;min-height: 510px">
-                <h4 class="text-center">{{Detail.TenDuAn}}</h4>
-                <p>{{  Detail.SoNgayThucHienThucTe}}</p>
-                <p>{{  Detail.MoTa }}</p>
-                <p>{{  Detail.LoaiCongTrinh }}</p>
-                <p>{{  Detail.HopDong.TenHopDong }}</p>
-                <p>{{  Detail.HopDong.NgayBatDau | date : 'MMM d ,y' +'-'+ Detail.HopDong.NgayKetThuc | date : 'MMM d ,y'}}</p>
-                <p>{{  Detail.HopDong.NgayKy | date : 'MMM d ,y'}}</p>
+                    <div class="panel-body" style="background:#FAFAFA ;min-height: 510px">
+                        <h4 class="text-center">{{Detail.TenDuAn}}</h4>
+                        <p>{{  Detail.SoNgayThucHienThucTe}}</p>
+                        <p>{{  Detail.MoTa }}</p>
+                        <p>{{  Detail.LoaiCongTrinh }}</p>
+                        <p>{{  Detail.HopDong.TenHopDong }}</p>
+                        <p>{{  Detail.HopDong.NgayBatDau | date : 'MMM d ,y' +'-'+ Detail.HopDong.NgayKetThuc | date : 'MMM d ,y'}}</p>
+                        <p>{{  Detail.HopDong.NgayKy | date : 'MMM d ,y'}}</p>
 
-            </div>
-            <div class="panel-footer" style="background:#FDFDFD;min-height: 50px">
-                <button class="btn btn-default" ng-click="delete(Detail.ID)"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</button>
-                <button class="btn btn-default" ng-click="edit(Detail.ID,ev)"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</button>
-                <button class="btn btn-default" ui-sref="themhangmuc({id:Detail.ID})"><i class="fa fa-angle-right" aria-hidden="true"></i> P/c công việc</button>
-                <button class="btn btn-default" ui-sref="themhangmuc({id:Detail.ID})"><i class="fa fa-angle-right" aria-hidden="true"></i> Xem d/s công việc</button>
+                    </div>
+                    <div class="panel-footer" style="background:#FDFDFD;min-height: 50px" ng-if="Detail.ID != null">
+                        <button class="btn btn-default" ng-click="delete(Detail.ID)"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</button>
+                        <button class="btn btn-default" ng-click="edit(Detail.ID,ev)"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</button>
+                        <button class="btn btn-default" ui-sref="themhangmuc({id:Detail.ID})"><i class="fa fa-angle-right" aria-hidden="true"></i> P/c công việc</button>
+                        <button class="btn btn-default" ui-sref="chitietduan({id:Detail.ID})"><i class="fa fa-angle-right" aria-hidden="true"></i> Chi tiết dự án và Hmcvc</button>
+                    </div>
+                    <div class="panel-footer" style="background:#FDFDFD;min-height: 50px" ng-if="Detail.ID == null">
+                        <button class="btn btn-default" ng-click="delete(Detail.ID)" disabled><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</button>
+                        <button class="btn btn-default" ng-click="edit(Detail.ID,ev)" disabled><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</button>
+                        <button class="btn btn-default" ui-sref="themhangmuc({id:Detail.ID})" disabled><i class="fa fa-angle-right" aria-hidden="true"></i> P/c công việc</button>
+                        <button class="btn btn-default" ui-sref="chitietduan({id:Detail.ID})" disabled><i class="fa fa-angle-right" aria-hidden="true"></i> Chi tiết dự án và Hmcv</button>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

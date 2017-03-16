@@ -20,13 +20,18 @@ namespace QLDuAn.Model.Models
         [Column(Order = 3)]
         public int IdNhomCongViec { get; set; }
 
-        public DateTime NgayBatDau { get; set; }
+        [Key]
+        [Column(Order = 4)]
+        [StringLength(128)]
+        public string IdNguoiThucHienTheoLenhSX { get; set; }
 
-        public DateTime NgayDuKienKetThuc { get; set; }
+        public int MucDoTruyenThong { get; set; }
 
-        public DateTime NgayHoanThanh { get; set; }
+        public DateTime? NgayBatDau { get; set; }
 
-        public int? IdNguoiThucHienTheoLenhSX { get; set; }
+        public DateTime? NgayDuKienKetThuc { get; set; }
+
+        public DateTime? NgayHoanThanh { get; set; }
 
         public decimal HeSoLapLai { get; set; }
 
@@ -36,13 +41,18 @@ namespace QLDuAn.Model.Models
 
         public int SoNguoiThucHien { get; set; }
 
-        public int SoNgayThucHien { get; set; }
-
         public decimal HeSoThoiGian { get; set; }
 
-        public int DiemDanhGia{ get; set; }
+        public int DiemDanhGia { get; set; }
 
-        public int DiemHangMuc{ get; set; }
+        public int DiemHangMuc { get; set; }
+
+        public int LoaiHangMuc { get; set; }
+
+        public bool TrangThai { get; set; }
+
+        [ForeignKey("IdDuAn")]
+        public virtual DuAn DuAn { get; set; }
 
         [ForeignKey("IdHangMuc")]
         public virtual HangMuc HangMuc { get; set; }
@@ -50,8 +60,8 @@ namespace QLDuAn.Model.Models
         [ForeignKey("IdNhomCongViec")]
         public virtual NhomCongViec NhomCongViec { get; set; }
 
-        [ForeignKey("IdDuAn")]
-        public virtual DuAn DuAn { get; set; }
+        [ForeignKey("IdNguoiThucHienTheoLenhSX")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
     }
 }

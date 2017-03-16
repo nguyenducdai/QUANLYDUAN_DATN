@@ -13,6 +13,11 @@
             templateUrl: '/app/components/hangmuc/index.html',
             controller: 'hangmuccontroller'
         })
+        .state('thanhvien', {
+            url: '/thanhvien',
+            templateUrl: '/app/components/thanhvien/index.html',
+            controller: 'thanhvienController'
+        })
         .state('hopdong', {
             url: '/hopdong',
             templateUrl: '/app/components/hopdong/index.html',
@@ -30,8 +35,13 @@
          })
         .state('themhangmuc', {
             url: '/themhangmuc/:id',
-            templateUrl: '/app/components/duanhangmuc/index.html',
+            templateUrl: '/app/components/duanhangmuc/add.html',
             controller: 'duanhangmucController'
+        })
+        .state('chitietduan', {
+             url: '/chitet/:id',
+             templateUrl: '/app/components/duanhangmuc/chitetduan.html',
+             controller: 'chitietduanController'
         });
     }
 })();

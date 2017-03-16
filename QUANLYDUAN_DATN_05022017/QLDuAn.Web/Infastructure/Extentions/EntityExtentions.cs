@@ -66,5 +66,39 @@ namespace QLDuAn.Web.Infastructure.Extentions
             duAn.Created_at = duAnVM.Created_at;
             duAn.Updated_at = duAnVM.Updated_at;
         }
+
+        public static void UpdateDuAnHangMuc(this DuAnHangMuc duAnHangMuc, HangMucDuAnViewModel hangMucDuAnVM)
+        {
+            duAnHangMuc.IdDuAn = hangMucDuAnVM.IdDuAn;
+            duAnHangMuc.IdHangMuc = hangMucDuAnVM.IdHangMuc;
+            duAnHangMuc.IdNhomCongViec = hangMucDuAnVM.IdNhomCongViec;
+            duAnHangMuc.MucDoTruyenThong = hangMucDuAnVM.MucDoTruyenThong;
+            duAnHangMuc.NgayBatDau = hangMucDuAnVM.NgayBatDau;
+            duAnHangMuc.NgayDuKienKetThuc = hangMucDuAnVM.NgayDuKienKetThuc;
+            duAnHangMuc.NgayHoanThanh = hangMucDuAnVM.NgayHoanThanh;
+            duAnHangMuc.IdNguoiThucHienTheoLenhSX = hangMucDuAnVM.IdNguoiThucHienTheoLenhSX;
+            duAnHangMuc.HeSoLapLai = hangMucDuAnVM.HeSoLapLai;
+            duAnHangMuc.HeSoNhanCong = hangMucDuAnVM.HeSoNhanCong;
+            duAnHangMuc.HeSoCongViec = hangMucDuAnVM.HeSoCongViec;
+            duAnHangMuc.SoNguoiThucHien = hangMucDuAnVM.SoNguoiThucHien;
+            duAnHangMuc.HeSoThoiGian = hangMucDuAnVM.HeSoThoiGian;
+            duAnHangMuc.DiemDanhGia = hangMucDuAnVM.DiemDanhGia;
+            duAnHangMuc.DiemHangMuc = hangMucDuAnVM.DiemHangMuc;
+            duAnHangMuc.LoaiHangMuc = hangMucDuAnVM.LoaiHangMuc;
+            duAnHangMuc.TrangThai = hangMucDuAnVM.TrangThai;
+            duAnHangMuc.Created_at = hangMucDuAnVM.Created_at;
+            duAnHangMuc.Updated_at = hangMucDuAnVM.Updated_at;
+            //duAnHangMuc.TrangThai = hangMucDuAnVM.TrangThai;
+        }
+
+        public static void UpdateThamGia(this ThamGia thamGia, ThamGiaViewModel thamGiaVM)
+        {
+            thamGia.IdDuAn = thamGiaVM.IdDuAn;
+            thamGia.IdHangMuc = thamGiaVM.IdHangMuc;
+            thamGia.IdNhanVien = thamGiaVM.IdNhanVien;
+            thamGia.HeSoThamGia = thamGiaVM.HeSoThamGia;
+            thamGia.ThuNhap = thamGiaVM.ThuNhap;
+            thamGia.DiemThanhVien = thamGiaVM.DiemThanhVien;
+        }
     }
 }

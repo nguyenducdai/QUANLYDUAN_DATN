@@ -16,7 +16,7 @@ namespace QLDuAn.Model.Models
 
         [Key]
         [Column(Order = 3)]
-        public int IdNhanVien { get; set; }
+        public string IdNhanVien { get; set; }
 
         public decimal HeSoThamGia { get; set; }
 
@@ -31,6 +31,6 @@ namespace QLDuAn.Model.Models
         public virtual HangMuc HangMuc { get; set; }
 
         [ForeignKey("IdNhanVien")]
-        public virtual NhanVien NhanVien { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

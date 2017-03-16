@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DuAnHangMucService.cs" />
     <Compile Include="DuAnService.cs" />
     <Compile Include="HopDongService.cs" />
     <Compile Include="KhachHangService.cs" />

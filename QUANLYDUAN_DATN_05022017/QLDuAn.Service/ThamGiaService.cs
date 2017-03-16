@@ -8,7 +8,7 @@ namespace QLDuAn.Service
 {
     public interface IThamGiaService
     {
-        ThamGia Add(ThamGia tg);
+        void Add(ThamGia tg);
 
         void Delete(int id);
 
@@ -34,9 +34,9 @@ namespace QLDuAn.Service
             this._unitOfWork = unitOfWork;
         }
 
-        public ThamGia Add(ThamGia tg)
+        public void Add(ThamGia tg)
         {
-            return _thamGiaRepository.Add(tg);
+             _thamGiaRepository.Add(tg);
         }
 
         public void Delete(int id)
@@ -60,14 +60,14 @@ namespace QLDuAn.Service
             throw new NotImplementedException();
         }
 
-        public void Save()
-        {
-            _unitOfWork.Commit();
-        }
-
         public void Update(ThamGia tg)
         {
             _thamGiaRepository.Update(tg);
+        }
+
+        public void Save()
+        {
+            _unitOfWork.Commit();
         }
     }
 }

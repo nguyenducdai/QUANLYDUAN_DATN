@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace QLDuAn.Model.Models
 {
-    public class ApplicationUser:IdentityUser
+    public class ApplicationUser : IdentityUser
     {
-
         public string Adress { get; set; }
 
         public bool? Sex { get; set; }
@@ -24,5 +20,7 @@ namespace QLDuAn.Model.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public virtual IEnumerable<DuAnHangMuc> DuAnHangMuc { get; set; }
     }
 }

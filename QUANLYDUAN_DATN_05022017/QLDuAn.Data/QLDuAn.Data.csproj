@@ -107,6 +107,30 @@
     <Compile Include="Migrations\201703080611398_changeDuanHangMucVaThanGia.Designer.cs">
       <DependentUpon>201703080611398_changeDuanHangMucVaThanGia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703110702203_changeDuAnv21.cs" />
+    <Compile Include="Migrations\201703110702203_changeDuAnv21.Designer.cs">
+      <DependentUpon>201703110702203_changeDuAnv21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703111637417_changeDuAnv22.cs" />
+    <Compile Include="Migrations\201703111637417_changeDuAnv22.Designer.cs">
+      <DependentUpon>201703111637417_changeDuAnv22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703131528282_addDuaAnHangMucv.3.cs" />
+    <Compile Include="Migrations\201703131528282_addDuaAnHangMucv.3.Designer.cs">
+      <DependentUpon>201703131528282_addDuaAnHangMucv.3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703140926124_updateDuanhangmuc.cs" />
+    <Compile Include="Migrations\201703140926124_updateDuanhangmuc.Designer.cs">
+      <DependentUpon>201703140926124_updateDuanhangmuc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703140943058_updateDuanhangmuc2.cs" />
+    <Compile Include="Migrations\201703140943058_updateDuanhangmuc2.Designer.cs">
+      <DependentUpon>201703140943058_updateDuanhangmuc2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703141908511_addForginkey.cs" />
+    <Compile Include="Migrations\201703141908511_addForginkey.Designer.cs">
+      <DependentUpon>201703141908511_addForginkey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QLDuAnDbContext.cs" />
@@ -153,6 +177,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703080611398_changeDuanHangMucVaThanGia.resx">
       <DependentUpon>201703080611398_changeDuanHangMucVaThanGia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703110702203_changeDuAnv21.resx">
+      <DependentUpon>201703110702203_changeDuAnv21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703111637417_changeDuAnv22.resx">
+      <DependentUpon>201703111637417_changeDuAnv22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703131528282_addDuaAnHangMucv.3.resx">
+      <DependentUpon>201703131528282_addDuaAnHangMucv.3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703140926124_updateDuanhangmuc.resx">
+      <DependentUpon>201703140926124_updateDuanhangmuc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703140943058_updateDuanhangmuc2.resx">
+      <DependentUpon>201703140943058_updateDuanhangmuc2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703141908511_addForginkey.resx">
+      <DependentUpon>201703141908511_addForginkey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

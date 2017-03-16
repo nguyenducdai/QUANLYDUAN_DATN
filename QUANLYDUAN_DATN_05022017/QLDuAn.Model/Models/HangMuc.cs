@@ -21,9 +21,9 @@ namespace QLDuAn.Model.Models
 
         public bool TrangThai { get; set; }
 
-        public virtual IEnumerable<DuAnHangMuc> DuAnHangMuc { get; set; }
+        public virtual ICollection<DuAnHangMuc> DuAnHangMuc { get; set; }
 
-        public virtual IEnumerable<ThamGia> ThamGia { get; set; }
+        public virtual ICollection<ThamGia> ThamGia { get; set; }
 
     }
 }

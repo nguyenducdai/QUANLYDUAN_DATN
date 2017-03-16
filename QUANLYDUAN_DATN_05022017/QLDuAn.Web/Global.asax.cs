@@ -20,6 +20,12 @@ namespace QLDuAn.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // fix lỗi
+            HttpConfiguration config = GlobalConfiguration.Configuration;
+            config.Formatters.JsonFormatter
+                        .SerializerSettings
+                        .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
     }
 }

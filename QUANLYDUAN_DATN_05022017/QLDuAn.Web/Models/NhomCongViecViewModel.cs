@@ -14,5 +14,8 @@ namespace QLDuAn.Web.Models
         public decimal HeSoCV { get; set; }
 
         public string GhiChu { get; set; }
+
+        public virtual IEnumerable<HangMucDuAnViewModel> DuAnHangMuc { get; set; }
+
     }
 }

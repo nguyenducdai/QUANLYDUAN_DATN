@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace QLDuAn.Web.Models
 {
@@ -31,5 +32,7 @@ namespace QLDuAn.Web.Models
         public bool TwoFactorEnabled { get; set; }
 
         public string UserName { get; set; }
+
+        public virtual IEnumerable<HangMucDuAnViewModel> DuAnHangMuc { get; set; }
     }
 }

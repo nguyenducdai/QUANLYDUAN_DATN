@@ -430,7 +430,7 @@ a:focus {
   position: absolute;
   top: 0;
   left: 0;
-  padding-top: 50px;
+  padding-top: 15px;
   min-height: 100%;
   width: 230px;
   /*z-index: 810;*/
@@ -4972,3 +4972,4 @@ md-dialog {
     height: 100%;
     border-radius: 0;
 }
+

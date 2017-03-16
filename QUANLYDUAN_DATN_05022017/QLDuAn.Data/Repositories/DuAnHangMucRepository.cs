@@ -9,7 +9,6 @@ namespace QLDuAn.Data.Repositories
 {
     public interface IDuAnHangMucRepository : IRepository<DuAnHangMuc>
     {
-
     }
     public class DuAnHangMucRepository : RepositoryBase<DuAnHangMuc>, IDuAnHangMucRepository
     {

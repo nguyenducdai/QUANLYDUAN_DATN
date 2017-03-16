@@ -67,7 +67,6 @@ namespace QLDuAn.Web.Api
 
         }
 
-
         [Route("getdetail")]
         [HttpGet]
         public HttpResponseMessage GetById(HttpRequestMessage request, int id)
@@ -135,5 +134,20 @@ namespace QLDuAn.Web.Api
                 return response;
             });
         }
+
+        [HttpGet]
+        [Route("getInfo")]
+        public HttpResponseMessage GetInfoById(HttpRequestMessage request, int id)
+        {
+            return CreateReponse(request, () =>
+            {
+                HttpResponseMessage response;
+                var data = _daService.GetAllInfoById(id);
+                response = request.CreateResponse(HttpStatusCode.OK, data);
+                return response;
+            });
+
+        }
+       
     }
 }
