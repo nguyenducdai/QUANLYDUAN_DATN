@@ -21,11 +21,11 @@
        
         function ThemHangMuc() {
             if (status == 0) {
-                service.post('api/hm/create', $scope.HangMuc, function (result) {
+                service.post('/api/hm/create', $scope.HangMuc, function (result) {
                     loadData();
                     notification.success('Thêm hạng mục thành công');
                 }, function () {
-                    console.log('có lỗi sảy ra');
+                    notification.success('thất bại');
                 });
             } else if (status == 1) {
                 service.put('api/hm/update', $scope.HangMuc, function (result) {

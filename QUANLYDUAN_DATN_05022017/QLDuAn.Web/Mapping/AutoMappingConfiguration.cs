@@ -17,6 +17,7 @@ namespace QLDuAn.Web.Mapping
                 cfg.CreateMap<DuAnHangMuc, HangMucDuAnViewModel>();
                 cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
                 cfg.CreateMap<NhomCongViec, NhomCongViecViewModel>();
+                cfg.CreateMap<ApplicationGroup, ApplicationGroupViewModel>();
             });
         }
     }

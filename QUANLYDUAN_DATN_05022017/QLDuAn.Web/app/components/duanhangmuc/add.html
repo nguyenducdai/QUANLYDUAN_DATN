@@ -73,7 +73,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="Input6">Người thực hiện theo lệnh sản xuất</label>
-                                <select class="form-control" ng-model="HmDa.IdNguoiThucHienTheoLenhSX" ng-options="option.Id as option.Email for option in ThanhVien " >
+                                <select class="form-control" ng-model="HmDa.IdNguoiThucHienTheoLenhSX" ng-options="option.Id as option.FullName for option in ThanhVien " >
                                     <option value="">__chọn người đại diện__</option>
                                 </select>
                                 <input type="hidden" ng-model="HmDa.IdNguoiThucHienTheoLenhSX"/>
@@ -139,7 +139,7 @@
                                 <legend>Thêm nhân viên tham gia</legend>
                                 <div class="form-group">
                                     <label for="Input7">Nhân viên tham gia</label>
-                                    <select class="form-control" style="width: 100%;" ng-model="User" ng-options="option.Email for option in ThanhVien track by option.Id">
+                                    <select class="form-control" style="width: 100%;" ng-model="User" ng-options="option.FullName for option in ThanhVien track by option.Id">
                                         <option value="">_chọn thành viên tham gia_</option>
                                     </select>
                                     <input type="hidden" ng-model="User">
@@ -167,7 +167,7 @@
                                         </tr>
                                         <tr ng-repeat="item in DisplayUser">
                                             <td>{{$index + 1 }}</td>
-                                            <td>{{item.Email}}</td>
+                                            <td>{{item.FullName}}</td>
                                             <td><span class="badge bg-red">{{item.TiLe}}</span></td>
                                             <td><span class="badge bg-red" ng-click="removeUser(item.Id)">X</span></td>
                                              

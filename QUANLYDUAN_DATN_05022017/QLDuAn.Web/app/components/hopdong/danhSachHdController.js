@@ -15,6 +15,7 @@
 
         $scope.showFrmAdd = showFrmAdd;
         $scope.viewDetail = viewDetail;
+        $scope.refresh = refresh;
 
         function showFrmAdd(ev) {
             $mdDialog.show({
@@ -47,6 +48,10 @@
 
         }
 
+        function refresh() {
+               DanhSachHd();
+        }
+
         function DanhSachHd() {
             service.get('api/hd/getall', null, function (result) {
                 $scope.HopDong = result.data;
@@ -54,7 +59,6 @@
                 notification.error('có lỗi dảy ra');
             });
         }
-
         DanhSachHd();
     }
 
@@ -72,7 +76,6 @@
         function ThemHopDong() {
             service.post('api/hd/create', $scope.HopDong, function (result) {
                 $mdDialog.cancel();
-                DanhSachHd();
                 notification.success('Thêm hợp đồng thành công');
             }, function (error) {
                 notification.error('có lỗi dảy ra');

@@ -8,22 +8,19 @@ namespace QLDuAn.Model.Models
     [Table("DuAnHangMuc")]
     public class DuAnHangMuc : NgayTao
     {
+    
         [Key]
-        [Column(Order = 1)]
+        [Column(Order = 0)]
         public int IdDuAn { get; set; }
 
         [Key]
-        [Column(Order = 2)]
-        public int IdHangMuc { get; set; }
+        [Column(Order = 1)]
+        public int? IdHangMuc { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
-        public int IdNhomCongViec { get; set; }
-
-        [Key]
-        [Column(Order = 4)]
         [StringLength(128)]
-        public string IdNguoiThucHienTheoLenhSX { get; set; }
+        public string IdNguoiThucHienTheoLenhSX { get; set; } 
+
+        public int IdNhomCongViec { get; set; } 
 
         public int MucDoTruyenThong { get; set; }
 

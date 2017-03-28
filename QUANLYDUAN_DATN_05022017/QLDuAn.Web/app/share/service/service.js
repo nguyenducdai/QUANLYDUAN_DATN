@@ -2,9 +2,9 @@
 (function (app) {
     app.service('service', service);
 
-    service.$inject = ['$http'];
+    service.$inject = ['$http','authenticationService'];
 
-    function service($http) {
+    function service($http, authenticationService) {
         return {
             get: get,
             post: post,
@@ -12,15 +12,9 @@
             del: del
         }
 
-        function get(url, params, success, failure) {
-            $http.get(url, params).then(function (result) {
-                success(result);
-            }, function (error) {
-                failure(error);
-            });
-        }
 
         function post(url, params, success, failure) {
+            authenticationService.setHeader();
             $http.post(url, params).then(function (result) {
                 success(result);
             }, function (error) {
@@ -29,6 +23,7 @@
         }
 
         function put(url, params, success, failure) {
+            authenticationService.setHeader();
             $http.put(url, params).then(function (result) {
                 success(result);
             }, function (error) {
@@ -37,7 +32,17 @@
         }
 
         function del(url, params, success, failure) {
+            authenticationService.setHeader();
             $http.delete(url, params).then(function (result) {
+                success(result);
+            }, function (error) {
+                failure(error);
+            });
+        }
+
+        function get(url, params, success, failure) {
+            authenticationService.setHeader();
+            $http.get(url, params).then(function (result) {
                 success(result);
             }, function (error) {
                 failure(error);

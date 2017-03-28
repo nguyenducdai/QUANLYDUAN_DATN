@@ -13,18 +13,21 @@ namespace QLDuAn.Web.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Site()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        [ChildActionOnly]
+        public ActionResult Sidebar()
         {
-            ViewBag.Message = "Your contact page.";
+            return PartialView();
+        }
 
-            return View();
+        [ChildActionOnly]
+        public ActionResult Footer()
+        {
+            return PartialView();
         }
     }
 }

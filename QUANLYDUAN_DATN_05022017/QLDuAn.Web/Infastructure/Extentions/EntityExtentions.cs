@@ -35,12 +35,12 @@ namespace QLDuAn.Web.Infastructure.Extentions
         public static void UpdateKhachHang(this KhachHang khachHang, KhachHangViewModel khachHangVM)
         {
             khachHang.ID = khachHangVM.ID;
-            khachHang.TenKhach = khachHang.TenKhach;
-            khachHang.SoDienThoai = khachHang.SoDienThoai;
-            khachHang.SoFax = khachHang.SoFax;
-            khachHang.Email = khachHang.Email;
-            khachHang.DiaChi = khachHang.DiaChi;
-            khachHang.GioiTinh = khachHang.GioiTinh;
+            khachHang.TenKhach = khachHangVM.TenKhach;
+            khachHang.SoDienThoai = khachHangVM.SoDienThoai;
+            khachHang.SoFax = khachHangVM.SoFax;
+            khachHang.Email = khachHangVM.Email;
+            khachHang.DiaChi = khachHangVM.DiaChi;
+            khachHang.GioiTinh = khachHangVM.GioiTinh;
         }
 
         public static void UpdateDuAn(this DuAn duAn, DuAnViewModel duAnVM)
@@ -93,12 +93,43 @@ namespace QLDuAn.Web.Infastructure.Extentions
 
         public static void UpdateThamGia(this ThamGia thamGia, ThamGiaViewModel thamGiaVM)
         {
+            thamGia.Id = thamGiaVM.Id;
             thamGia.IdDuAn = thamGiaVM.IdDuAn;
             thamGia.IdHangMuc = thamGiaVM.IdHangMuc;
             thamGia.IdNhanVien = thamGiaVM.IdNhanVien;
+            thamGia.LoaiHangMuc = thamGiaVM.LoaiHangMuc;
             thamGia.HeSoThamGia = thamGiaVM.HeSoThamGia;
             thamGia.ThuNhap = thamGiaVM.ThuNhap;
             thamGia.DiemThanhVien = thamGiaVM.DiemThanhVien;
         }
+
+
+        public static void UpdateApplicationUser(this ApplicationUser applicationUser, ApplicationUserViewModel applicationUserVM)
+        {
+            applicationUser.Id = applicationUserVM.Id;
+            applicationUser.AccessFailedCount = applicationUserVM.AccessFailedCount;
+            applicationUser.Adress = applicationUserVM.Adress;
+            applicationUser.Sex = applicationUserVM.Sex;
+            applicationUser.Bio = applicationUserVM.Bio;
+            applicationUser.FullName = applicationUserVM.FullName;
+            applicationUser.Email = applicationUserVM.Email;
+            applicationUser.EmailConfirmed = applicationUserVM.EmailConfirmed;
+            applicationUser.LockoutEnabled = applicationUserVM.LockoutEnabled;
+            applicationUser.LockoutEndDateUtc = applicationUserVM.LockoutEndDateUtc;
+            applicationUser.PasswordHash = applicationUserVM.PasswordHash;
+            applicationUser.PhoneNumber = applicationUserVM.PhoneNumber;
+            applicationUser.PhoneNumberConfirmed = applicationUserVM.PhoneNumberConfirmed;
+            applicationUser.SecurityStamp = applicationUserVM.SecurityStamp;
+            applicationUser.TwoFactorEnabled = applicationUserVM.TwoFactorEnabled;
+            applicationUser.UserName = applicationUserVM.UserName;
+            applicationUser.Image = applicationUserVM.Image;
+            applicationUser.Function = applicationUserVM.Function;
+            applicationUser.Birthday = applicationUserVM.Birthday;
+            applicationUser.Startdate = applicationUserVM.Startdate;
+            applicationUser.Created_at = applicationUserVM.Created_at;
+            applicationUser.Updatted_at = applicationUserVM.Updatted_at;
+
+        }
+
     }
 }

@@ -7,7 +7,7 @@
         <!-- /.box-header -->
         <div class="box-body">
             <div class="box-group" id="accordion">
-                <div class="col-md-3" id="list-user" style="border-right:solid 1px; color: #dddfe2;">
+                <div class="col-md-4" id="list-user" style="border-right:solid 1px; color: #dddfe2;">
                     <div class="box">
                         <div class="box-header post">
                             <div class="input-group input-group-sm">
@@ -19,102 +19,15 @@
                             </div>
                         </div>
                         <div class="box-body post"  style="height:400px;overflow-y: scroll;">
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
+                            <div class="user-block" ng-repeat="item in ListNhanVien">
+                                <img class="img-circle img-bordered-sm" src="{{ item.Image }}">
                                 <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                                    <a href="javascript:void(0)" ng-click="viewDetail(item.Id)">{{ item.FullName }}</a>
+                                    <a href="javascript:void(0)" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
                                 </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
+                                <span class="description">Chức vụ - {{item.Function}}</span>
                             </div>
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>  
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../../Assets/admin/img/user6-128x128.jpg" alt="User Image">
-                                <span class="username">
-                                    <a href="#">Adam Jones</a>
-                                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                                </span>
-                                <span class="description">Chức vụ - Trưởng phỏng</span>
-                            </div>
+                           
                         </div>
                         <div>
                             <button class="btn btn-default"> QL quyền</button>
@@ -122,15 +35,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="box">
                         <div class="box-header post">
                             <div class="note-block">
-                              
-                                <strong><i class="fa fa-file-text-o margin-r-5"></i> Chọn thành viên để xem hồ sơ của thành viên đó</strong>
+                              <div class="col-md-9">
+                                  <strong><i class="fa fa-file-text-o margin-r-5"></i> Chọn thành viên để xem hồ sơ của thành viên đó</strong>
+                              </div>
+                                <div class="btn-group col-md-3">
+                                    <button class="btn btn-default btn-sm" ng-click="themThanhVien($event)"><i class="fa fa-plus"></i></button>
+                                    <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                    <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                                    <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                                </div>
                             </div>
                         </div>
-                        <div class="box-body">
+                        <div class="box-body" id="main-body-user">
+                           
                         </div>
                     </div>
         </div>

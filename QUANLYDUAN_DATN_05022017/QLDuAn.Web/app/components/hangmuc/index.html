@@ -1,97 +1,113 @@
 ﻿<section class="content-header"></section>
 <section class="content">
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-        <div class="row" style="margin:0 !important">
-            <div class="col-md-3">
-                <p>Tất cả dự án</p>
-            </div>
-            <div class="col-md-9">
-                <div class="dropdown">
-                    <button class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    <button class="btn btn-default"><i class="fa fa-download"></i> xuất PDF</button>
-                    <button class="btn btn-default"><i class="fa fa-files-o"></i> Nhập Excel</button>
-                    <button class="btn btn-default"><i class="fa fa-files-o"></i> xuất Excel</button>
-                    <button class="btn btn-default"><i class="fa fa-print"></i> In</button>
-                </div>
-            </div>
-        </div>
-        <div class="box">
-            <div class="box-header">
-                <div class="box-title">
-                    <div class="input-group input-group-sm" style="width:100%">
-                        <input name="table_search" class="form-control pull-right" placeholder="Search" type="text">
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+    <div class="box-header with-border">
+        <h3 class="box-title"><strong>Quản Lý Hạng mục Dự án </strong></h3>
+        <button class="btn btn-default pull-right" ui-sref="duan">Trở về</button>
+    </div>
+    <div class="box-body">
+        <div class="box-group" id="accordion">
+            <div class="col-md-7">
+                <div class="box">
+                    <div class="box-header  with-border">
+                        <h3 class="box-title">Tất cả các hạng mục</h3>
+                        <div class="box-tools pull-right">
+                            <div class="has-feedback">
+                                <input type="text" class="form-control input-sm" placeholder="tim kiem">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
                         </div>
+                        <!-- /.box-tools -->
                     </div>
-                </div>
-                <div class="box-tools">
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                                <i class="fa fa-square-o"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                                <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                            <div class="pull-right">
+                                1-50/200
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tên hạng Mục</th>
+                                        <th>Loại hạng mục</th>
+                                        <th>Trạng Thái</th>
+                                        <th>hành động</th>
+                                    </tr>
+                                    <tr ng-repeat="item in ListHangMuc">
+                                        <td>{{item.ID}}</td>
+                                        <td>{{item.TenHangMuc}}</td>
+                                        <td>{{item.LoaiHangMuc | ConverFilter : 'trực tiếp' : 'gián tiếp' }}</td>
+                                        <td><span ng-class="{'label label-success':item.TrangThai == true , 'label label-danger' :item.TrangThai == false}">{{ item.TrangThai | ConverFilter :'mở' :'đóng' }}</span></td>
+                                        <td>
+                                            <button ng-click="editHangMuc(item.ID)" class="btn btn-info btn-xs"> <i class="fa-trash-o">sửa</i></button>
+                                            <button ng-click="deleteHangMuc(item.ID)" class="btn btn-danger btn-xs"> <i class="fa-trash-o">Xóa</i></button>
+                                        </td>
+                                    </tr>
 
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
                 </div>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th>#</th>
-                            <th>Tên hạng Mục</th>
-                            <th>Loại hạng mục</th>
-                            <th>Trạng Thái</th>
-                            <th>hành động</th>
-                        </tr>
-                        <tr ng-repeat="item in ListHangMuc">
-                            <td>{{item.ID}}</td>
-                            <td>{{item.TenHangMuc}}</td>
-                            <td>{{item.LoaiHangMuc | ConverFilter : 'trực tiếp' : 'gián tiếp' }}</td>
-                            <td><span ng-class="{'label label-success':item.TrangThai == true , 'label label-danger' :item.TrangThai == false}">{{ item.TrangThai | ConverFilter :'mở' :'đóng' }}</span></td>
-                            <td>
-                                <button ng-click="editHangMuc(item.ID)" class="btn btn-info btn-xs"> <i class="fa-trash-o">sửa</i></button>
-                                <button ng-click="deleteHangMuc(item.ID)" class="btn btn-danger btn-xs"> <i class="fa-trash-o">Xóa</i></button>
-                            </td>
-                        </tr>
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                    <p>Thực hiện cập nhật hạng mục : {{HangMuc.TenHangMuc}}</p>
+                    <form role="form" name="frmAddProductCategory" novalidate ng-submit="ThemHangMuc()">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="TenHangMucCv">Tên hạng mục công việc</label>
+                                <input class="form-control" id="TenHangMucCv" type="text" name="TenHangMuc" ng-model="HangMuc.TenHangMuc">
+                            </div>
+                            <div class="form-group">
+                                <label for="MoTaHangMucCv">Mô tả hạng mục công việc</label>
+                                <textarea class="form-control" rows="3" name="MoTaHangMuc" ng-model="HangMuc.MoTaHangMuc"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="HangMuc.TrangThai" ng-checked="HangMuc.TrangThai"> Mở
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="checkbox">
+                                <div class="checkbox">
+                                    <label>
 
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.box-body -->
+                                        <input type="checkbox" ng-model="HangMuc.LoaiHangMuc">trực tiếp
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary"> Lưu</button>
+                            <a ng-click="clear()" class="btn btn-default">Làm sạch</a>
+                        </div>
+                    </form>
+                </div>
         </div>
-        <!-- /.box -->
-        </div>
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-        <p>Thực hiện cập nhật hạng mục : {{HangMuc.TenHangMuc}}</p>
-        <form role="form" name="frmAddProductCategory" novalidate ng-submit="ThemHangMuc()">
-            <div class="box-body">
-                <div class="form-group">
-                    <label for="TenHangMucCv">Tên hạng mục công việc</label>
-                    <input class="form-control" id="TenHangMucCv" type="text" name="TenHangMuc" ng-model="HangMuc.TenHangMuc">
-                </div>
-                <div class="form-group">
-                    <label for="MoTaHangMucCv">Mô tả hạng mục công việc</label>
-                    <textarea class="form-control" rows="3" name="MoTaHangMuc" ng-model="HangMuc.MoTaHangMuc"></textarea>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="HangMuc.TrangThai" ng-checked="HangMuc.TrangThai"> Mở
-                        </label>
-                    </div>
-                </div>
-                <div class="checkbox">
-                    <div class="checkbox">
-                        <label>
-
-                            <input type="checkbox" ng-model="HangMuc.LoaiHangMuc">trực tiếp
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <!-- /.box-body -->
-
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary"> Lưu</button>
-                <a ng-click="clear()" class="btn btn-default">Làm sạch</a>
-            </div>
-        </form>
     </div>
 </section>

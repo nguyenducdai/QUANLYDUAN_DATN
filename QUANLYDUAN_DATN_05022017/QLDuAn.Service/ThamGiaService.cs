@@ -20,6 +20,8 @@ namespace QLDuAn.Service
 
         IEnumerable<ThamGia> Paginate(int page, out int total, int pageSize);
 
+        ThamGia GetByIdHm(int IdHangMuc, int IdDuAn, int LoaiHangMuc , string IdNhanVien);
+
         void Save();
     }
 
@@ -68,6 +70,11 @@ namespace QLDuAn.Service
         public void Save()
         {
             _unitOfWork.Commit();
+        }
+
+        public ThamGia GetByIdHm(int IdHangMuc, int IdDuAn, int LoaiHangMuc , string IdNhanVien)
+        {
+            return _thamGiaRepository.GetByConditon(x=>x.IdHangMuc==IdHangMuc && x.IdDuAn==IdDuAn && x.LoaiHangMuc==LoaiHangMuc && x.IdNhanVien == IdNhanVien);
         }
     }
 }

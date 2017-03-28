@@ -21,17 +21,25 @@ namespace QLDuAn.Service
 
         IEnumerable<DuAnHangMuc> GetInfoByIdProject(int id , int loaihangmuc);
 
-        void Save();
+        bool DeleteMediate(int IdHangMuc, int IdDuAn, int IdNhomCV, int LoaiHm);
 
-    }
-    public class DuAnHangMucService : IDuAnHangMucService
+        DuAnHangMuc GetSingleById(int IdHangMuc, int IdDuAn, int IdNhomCV, int LoaiHm);
+
+        DuAnHangMuc GetSingleUpdate(int IdHangMuc, int IdDuAn, int LoaiHm);
+
+
+        void Save();
+}
+public class DuAnHangMucService : IDuAnHangMucService
     {
         private IDuAnHangMucRepository _duAnHangMucRepository;
+        private IThamGiaRepository _thamGiaRepository;
         private IUnitOfWork _unitOfWork;
 
-        public DuAnHangMucService(IDuAnHangMucRepository duAnHangMucRepository , IUnitOfWork unitOfWork)
+        public DuAnHangMucService(IDuAnHangMucRepository duAnHangMucRepository , IThamGiaRepository thamGiaRepository ,IUnitOfWork unitOfWork)
         {
             this._duAnHangMucRepository = duAnHangMucRepository;
+            this._thamGiaRepository = thamGiaRepository;
             this._unitOfWork = unitOfWork;
         }
 
@@ -62,7 +70,30 @@ namespace QLDuAn.Service
 
         public IEnumerable<DuAnHangMuc> GetInfoByIdProject(int id , int loaihangmuc)
         {
-            return _duAnHangMucRepository.GetMuti(x=>x.IdDuAn.Equals(id) && x.LoaiHangMuc.Equals(loaihangmuc) , new string[] {"HangMuc" , "NhomCongViec", "HangMuc.ThamGia"});
+            return _duAnHangMucRepository.GetMuti(x=>x.IdDuAn.Equals(id) && x.LoaiHangMuc.Equals(loaihangmuc), new string[] {"HangMuc","ApplicationUser" ,"NhomCongViec", "HangMuc.ThamGia", "HangMuc.ThamGia.ApplicationUser" });
+        }
+
+        public bool DeleteMediate(int IdHangMuc, int IdDuAn, int IdNhomCV, int LoaiHm)
+        {
+            if (_duAnHangMucRepository.DeleteMediate(IdHangMuc, IdDuAn, IdNhomCV, LoaiHm))
+            {
+                _thamGiaRepository.DeleteHangMuc( IdDuAn, IdHangMuc, LoaiHm);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public DuAnHangMuc GetSingleById(int IdHangMuc, int IdDuAn, int IdNhomCV, int LoaiHm)
+        {
+            return _duAnHangMucRepository.GetByConditon(x => x.IdDuAn==IdDuAn && x.IdNhomCongViec==IdNhomCV && x.IdHangMuc==IdHangMuc && x.LoaiHangMuc == LoaiHm, new string[] { "HangMuc", "ApplicationUser", "NhomCongViec", "HangMuc.ThamGia", "HangMuc.ThamGia.ApplicationUser" });
+        }
+
+        public DuAnHangMuc GetSingleUpdate(int IdHangMuc, int IdDuAn, int LoaiHm)
+        {
+            return _duAnHangMucRepository.GetByConditon(x => x.IdDuAn == IdDuAn && x.IdHangMuc == IdHangMuc && x.LoaiHangMuc == LoaiHm, new string[] { "HangMuc", "ApplicationUser", "NhomCongViec", "HangMuc.ThamGia", "HangMuc.ThamGia.ApplicationUser" });
         }
     }
 }

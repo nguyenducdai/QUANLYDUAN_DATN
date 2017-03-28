@@ -7,153 +7,134 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Data.Entity.Validation;
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<QLDuAn.Data.QLDuAnDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(QLDuAn.Data.QLDuAnDbContext context)
         {
-            // this.AddRowThanhVien(context);
-           // this.AddRowUser(context);
-            //this.AddGroupJob(context);
+            //  This method will be called after migrating to the latest version.
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
+
+           // AddApplicationGroup(context);
+
         }
 
-        private void AddRowThanhVien(QLDuAn.Data.QLDuAnDbContext context)
+        private void AddAdnin(QLDuAnDbContext context)
         {
-            List<KhachHang> thanhvien = new List<KhachHang>()
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new QLDuAnDbContext()));
+            var userRole = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(new QLDuAnDbContext()));
+            var user = new ApplicationUser()
             {
-                new KhachHang()
-                 {
-                    TenKhach = "Nguyễn văn A",
-                    SoDienThoai = 01656199283,
-                    SoFax="Fax:2035",
-                    Email="example@gmail.com",
-                    DiaChi = "Tây Nguyên",
-                    GioiTinh=true
-                },
-                 new KhachHang()
-                 {
-                    TenKhach = "Nguyễn văn B",
-                    SoDienThoai = 01656199284,
-                    SoFax="Fax:2035",
-                    Email="example1@gmail.com",
-                    DiaChi = "Hà Nội",
-                    GioiTinh=true
-                },
-                  new KhachHang()
-                 {
-                    TenKhach = "Nguyễn văn C",
-                    SoDienThoai = 01656199285,
-                    SoFax="Fax:2035",
-                    Email="example2@gmail.com",
-                    DiaChi = "PHú Lương",
-                    GioiTinh=false
-                },
-                   new KhachHang()
-                 {
-                    TenKhach = "Nguyễn văn D",
-                    SoDienThoai = 01656199286,
-                    SoFax="Fax:2035",
-                    Email="example3@gmail.com",
-                    DiaChi = "Thái Nguyên",
-                    GioiTinh=true
-                },
-                    new KhachHang()
-                 {
-                    TenKhach = "Nguyễn văn F",
-                    SoDienThoai = 01656199287,
-                    SoFax="Fax:2035",
-                    Email="example4@gmail.com",
-                    DiaChi = "Quảng Ninh",
-                    GioiTinh=false
-                }
+                UserName = "aso2017",
+                Email = "aso.codien.2017@gmail.com",
+                EmailConfirmed = true,
+                FullName = "Aso Company"
+
             };
 
-            context.KhachHang.AddRange(thanhvien);
+            userManager.Create(user, "123456");
+
+            if (!userRole.Roles.Any())
+            {
+                userRole.Create(new ApplicationRole { Name = "Admin" });
+                userRole.Create(new ApplicationRole { Name = "User" });
+            }
+
+            var adminUser = userManager.FindByEmail(user.Email);
+
+            userManager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
+        }
+
+        private void AddUser(QLDuAnDbContext context)
+        {
+            var list = new List<KhachHang>()
+            {
+                new KhachHang()
+                {
+                  TenKhach="Nguyễn văn Bình",
+                  SoDienThoai=0988777888,
+                  Email="nguyenvanbinh.aso@gmail.com",
+                  GioiTinh=true,
+                  DiaChi="Thái nguyên",
+                  SoFax="Fax:098877577"
+                },
+                  new KhachHang()
+                {
+                  TenKhach="Nguyễn văn Thắng",
+                  SoDienThoai=0988777355,
+                  Email="nguyenvanthang.aso@gmail.com",
+                  GioiTinh=true,
+                  DiaChi="Hà nội",
+                  SoFax="Fax:098877537"
+                },
+                    new KhachHang()
+                {
+                  TenKhach="Bùi thì lan",
+                  SoDienThoai=0988777222,
+                  Email="buithilan.aso@gmail.com",
+                  GioiTinh=true,
+                  DiaChi="bắc ninh",
+                  SoFax="Fax:098877537"
+                }
+            };
 
             try
             {
+                context.KhachHang.AddRange(list);
                 context.SaveChanges();
+
             }
-            catch (DbEntityValidationException e)
+            catch (Exception ex)
             {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
+
                 throw;
             }
-
         }
 
-        private void AddRowUser(QLDuAn.Data.QLDuAnDbContext context)
+        private void AddApplicationGroup(QLDuAnDbContext context)
         {
-            var user = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-            var userRole = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-
-            var obj = new ApplicationUser();
-            obj.UserName = "NguyenvanC";
-            obj.Email = "nguyenvanb@gmail.com";
-            obj.EmailConfirmed = true;
-            obj.PhoneNumberConfirmed = false;
-            obj.TwoFactorEnabled = false;
-            obj.LockoutEnabled = false;
-            obj.AccessFailedCount = 0;
-            user.Create(obj, "123456&");
-
-            //if (!userRole.Roles.Any())
-            //{
-            //    userRole.Create(new IdentityRole { Name = "Admin" });
-            //    userRole.Create(new IdentityRole { Name = "User" });
-            //}
-
-            // find by mail 
-            var result = user.FindByEmail(obj.Email);
-
-            // if success then add user in group created
-            user.AddToRolesAsync(result.Id, new string[] {"User" });
-
-        }
-
-        private void AddGroupJob(QLDuAn.Data.QLDuAnDbContext context)
-        {
-            List<NhomCongViec> cv = new List<NhomCongViec>()
+            var list = new List<ApplicationGroup>()
             {
-                new NhomCongViec
+                new ApplicationGroup()
                 {
-                    NhomCV="A",
-                    HeSoCV = 3
+                    Name="Admin",
+                    Description="nhóm người có quyền tối điều hành hệ thống"
                 },
-                new NhomCongViec
+                new ApplicationGroup()
                 {
-                    NhomCV="B",
-                    HeSoCV = 2
-                },
-                new NhomCongViec
-                {
-                    NhomCV="C",
-                    HeSoCV = 1.5M
-                },
-                new NhomCongViec
-                {
-                    NhomCV="D",
-                    HeSoCV = 1
+                   Name="User",
+                    Description="nhóm thành viên"
                 }
+               
             };
-            context.NhomCongViec.AddRange(cv);
-            context.SaveChanges();
+
+            try
+            {
+                context.ApplicationGroup.AddRange(list);
+                context.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

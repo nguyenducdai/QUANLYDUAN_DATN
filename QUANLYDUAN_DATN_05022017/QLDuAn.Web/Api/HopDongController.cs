@@ -46,7 +46,7 @@ namespace QLDuAn.Web.Api
 
         [HttpPost]
         [Route("create")]
-        public HttpResponseMessage created(HttpRequestMessage request, HopDongViewModel hopDongViewModel)
+        public HttpResponseMessage Tao(HttpRequestMessage request, HopDongViewModel hopDongViewModel)
         {
             return CreateReponse(request, () =>
             {

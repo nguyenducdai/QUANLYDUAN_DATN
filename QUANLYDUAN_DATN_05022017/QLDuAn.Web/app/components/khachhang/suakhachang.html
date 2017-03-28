@@ -1,0 +1,37 @@
+﻿<form role="form" novalidate name="frmThemKh" ng-submit="suaKhachHang(KhachHangEdit.ID)">
+    <div class="box-body">
+        <div class="form-group">
+            <label for="TenKhach">Tên khách Hàng</label>
+            <input type="text" class="form-control" placeholder="nhập tên khách hàng" ng-model="KhachHangEdit.TenKhach">
+        </div>
+        <div class="form-group">
+            <label for="TenKhach">Địa chỉ mail</label>
+            <input type="text" class="form-control" placeholder="nhập địa chỉ mail" ng-model="KhachHangEdit.Email">
+        </div>
+        <div class="form-group">
+            <label for="sodienthoai">Số diện thoại</label>
+            <input type="text" class="form-control" placeholder="nhập số điện thoại" ng-model="KhachHangEdit.SoDienThoai">
+        </div>
+        <div class="form-group">
+            <label for="soFax">Số Fax</label>
+            <input type="text" class="form-control" placeholder="nhập số fax" ng-model="KhachHangEdit.SoFax">
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="radio" ng-model="KhachHangEdit.GioiTinh" ng-value="true"> Nam <br>
+                <input type="radio" ng-model="KhachHangEdit.GioiTinh" ng-value="false"> Nữ
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="diaChi">Địa chỉ</label>
+            <textarea type="text" class="form-control" ng-model="KhachHangEdit.DiaChi"></textarea>
+        </div>
+    </div>
+    <!-- /.box-body -->
+
+    <div class="box-footer">
+        <button type="submit" class="btn btn-primary">cập nhật khách hàng</button>
+        <button class="btn btn-danger" ng-click="cancel()">trở về</button>
+    </div>
+</form>

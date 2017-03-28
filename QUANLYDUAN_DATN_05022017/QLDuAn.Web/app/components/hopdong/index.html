@@ -1,79 +1,71 @@
-﻿<!-- Content Header (Page header) -->
-<section class="content-header">
-    <h1>
-        Quản lý Hợp đồng
-        <small>...</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">danh sách hợp đồng</li>
-    </ol>
-</section>
+﻿<section class="content-header"></section>
 
 <!-- Main content -->
 <section class="content">
-    <section class="invoice-control">
-        <div class="row no-print">
-            <div class="col-xs-12">
-                <button class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> In</button>
-                <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> xuất PDF </button>
-                <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Xuất Excel</button>
-                <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-files-o"></i> Nhập Excel </button>
-                <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-trash-o"></i> Xóa tất cả</button>
-                <button type="button" ng-click="showFrmAdd($event)" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-plus"></i> Thêm </button>
-            </div>
-        </div>
-    </section>
-
-    <section class="invoice">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+    <div class="box-header with-border">
+        <h3 class="box-title"><strong>Quản Lý Hợp đồng</strong></h3>
+        <button class="btn btn-default pull-right" ui-sref="duan">Đóng</button>
+    </div>
+    <div class="box-body">
+        <div class="box-group" id="accordion">
+            <div class="col-md-8">
                 <div class="box">
-                    <div class="box-header">
-                        <div class="box-title">
-                            <div class="input-group input-group-sm" style="width:100%">
-                                <input name="table_search" class="form-control pull-right" placeholder="Search" type="text">
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                </div>
+                    <div class="box-header  with-border">
+                        <h3 class="box-title">Tất cả các  hợp đồng</h3>
+                        <div class="box-tools pull-right">
+                            <div class="has-feedback">
+                                <input type="text" class="form-control input-sm" placeholder="tim kiem">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
                             </div>
                         </div>
-                        <div class="box-tools">
-
-                        </div>
+                        <!-- /.box-tools -->
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover">
-                            <tbody>
-                                <tr>
-                                    <th style="width:5%"><input type="checkbox"></th>
-                                    <th>chọn tất cả hợp đồng</th>
-                                    <th style="width:5%"></th>
-                                </tr>
-                                <tr ng-repeat="item in HopDong" ng-click="viewDetail(item.ID)">
-                                    <td><input type="checkbox"></td>
-                                    <td>{{item.SoHopDong}}/{{item.TenHopDong}}</td>
-                                    <td class="dropdown"><button class="btn btn- dropdown-toggle" id="menu1" data-toggle="dropdown tooltip" title="hành động"><i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                               
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">sửa</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">xóa</a></li>
-                                               
-                                            </ul>
-                                        
-                                    </td>
-                                </tr>
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                                <i class="fa fa-square-o"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" ng-click="showFrmAdd($event)" ><i class="fa fa-plus"></i></button>
+                                <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                                <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button class="btn btn-default btn-sm" ng-click="refresh()"><i class="fa fa-refresh"></i></button>
+                            <div class="pull-right">
+                                1-50/200
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    <tr ng-repeat="item in HopDong" ng-click="viewDetail(item.ID)">
+                                        <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
+                                        <td class="mailbox-name"><a>{{item.SoHopDong}}/{{item.TenHopDong}}</a> </td>
 
-                            </tbody>
-                        </table>
+                                        <td class="mailbox-date pull-right"><i class="fa fa-globe"></i> {{item.Created_at | date:'MMM d'}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                       
                     </div>
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
             </div>
-            <div class="col-sm-12 col-md-5 col-lg-5" style="background:#FAFAFA ; min-height:600px">
+            <div class="col-sm-12 col-md-4 col-lg-4" style="background:#FAFAFA ; min-height:600px">
                 <h3>{{alert}}</h3>
                 <div>
                     <h4>
@@ -86,10 +78,10 @@
                     <p>số hợp đồng :  {{ChiTietHopDong.SoHopDong}}</p>
                     <p>số hợp đồng :  {{ChiTietHopDong. IdKhachHang}}</p>
                 </div>
-                
+
             </div>
         </div>
-    </section>
+    </div>
 </section>
 <!-- /.content -->
 

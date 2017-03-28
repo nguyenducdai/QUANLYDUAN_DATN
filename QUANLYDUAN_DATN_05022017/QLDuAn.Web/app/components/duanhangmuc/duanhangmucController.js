@@ -95,7 +95,7 @@
             var Item = {
                 IdDuAn: $stateParams.id,
                 IdNhanVien: $scope.User.Id,
-                HeSoThamGia: $scope.User.TiLe,
+                HeSoThamGia: $scope.User.TiLe
             };
             if ($scope.dataUser.length == 0) {
                 $scope.dataUser.push(Item);
@@ -121,9 +121,10 @@
         }
 
         function removeUser(id) {
-            for (var i = 0; i < $scope.dataUser.length; i++) {
-                var obj = $scope.dataUser[i];
+            for (var i = 0; i < $scope.DisplayUser.length; i++) {
+                var obj = $scope.DisplayUser[i];
                 if (obj.Id == id) {
+                    $scope.DisplayUser.splice(i, 1);
                     $scope.dataUser.splice(i, 1);
                 }
             }
@@ -159,7 +160,6 @@
         }
 
         function AddHangMucDuAn() {
-            console.log($scope.User);
             service.post('api/duanhangmuc/created', JSON.stringify({ HangMucDa: $scope.HmDa, ThamGia: $scope.dataUser}), function (result) {
                 notification.success('Thêm mục công việc thành công');
             }, function (errors) {

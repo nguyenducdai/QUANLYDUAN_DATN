@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNet.Identity
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="../../Assets/admin/img/user1-128x128.jpg" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                @if (Request.IsAuthenticated)
+                {
+                    <p>Xin chào : @User.Identity.Name</p>
+                }
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-home" aria-hidden="true"></i> <span>Trang Chủ</span>
+                </a>
+            </li>
+            <li><a><i class="fa fa-fw fa-bell-o"></i> Thông Báo</a></li>
+            <li><a><i class="fa fa-pie-chart"></i> Thống Kê</a></li>
+            <li><a ui-sref="thanhvien"><i class="fa fa-fw fa-indent"></i>Quản Lý Nhân Viên</a></li>
+            <li ui-sref="hangmuc"><a href="javascript:void(0)"><i class="fa fa-fw fa-indent"></i> Hạng Mục Dự án</a></li>
+            <li><a ui-sref="hopdong"><i class="fa fa-fw fa-indent"></i>Hợp Đồng </a></li>
+            <li><a ui-sref="duan"><i class="fa fa-fw fa-indent"></i>Danh sách dự án </a></li>
+            <li><a ui-sref="duan"><i class="fa fa-fw fa-wrench"></i>Cài đặt </a></li>
+            <li class="header">Thông Tin Tài khoản</li>
+            <li><a href="javascript:void(0)"><i class="fa fa-fw fa-expeditedssl"></i> Đổi Mật Khẩu</a></li>
+            @using (Html.BeginForm("Logout","Account", FormMethod.Post , new {@id="frmLogout"}))
+            {
+                @Html.AntiForgeryToken()
+                <li class="IdentityLogout"><a href=""><i class="fa fa-fw fa-sign-in"></i> Đăng xuất</a></li>
+            }
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

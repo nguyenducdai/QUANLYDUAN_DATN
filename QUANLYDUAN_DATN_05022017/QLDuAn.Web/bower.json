@@ -11,6 +11,12 @@
     "fastclick": "*",
     "jquery.slimscroll": "*",
     "angular-material": "*",
-    "ui-bootstrap": "*"
+    "ui-bootstrap": "*",
+    "iCheck": "*",
+    "angular-local-storage": "*",
+    "angular-loading-bar": "*",
+    "checklist-model": "*"
   }
 }
+
+

@@ -1,0 +1,39 @@
+﻿<div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>ASO</b>company</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Đăng nhập để bắt đầu phiên làm việc</p>
+            <form role="form" ng-submit="doLogin()">
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" placeholder="tên đăng nhập" ng-model="loginData.userName">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" placeholder="mật khẩu" ng-model="loginData.password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox"> nhớ mật khẩu
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+            <a href="#">Quên mật khẩu ? </a><br>
+            <a href="register.html" class="text-center">Đăng ký thành viên</a>
+
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+

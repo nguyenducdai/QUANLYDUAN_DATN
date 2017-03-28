@@ -8,11 +8,14 @@ namespace QLDuAn.Web.Models
 {
     public class ThamGiaViewModel
     {
+        public int Id { get; set; }
         public int IdDuAn { get; set; }
 
         public int IdHangMuc { get; set; }
 
         public string IdNhanVien { get; set; }
+
+        public int LoaiHangMuc { get; set; }
 
         public decimal HeSoThamGia { get; set; }
 

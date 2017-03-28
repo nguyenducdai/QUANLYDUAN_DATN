@@ -19,8 +19,5 @@ namespace QLDuAn.Web.Models
 
         public DateTime? Updated_at { get; set; }
 
-        public virtual IEnumerable<HangMucDuAnViewModel> DuAnHangMuc { get; set; }
-
-        public virtual IEnumerable<ThamGiaViewModel> ThamGia { get; set; }
     }
 }

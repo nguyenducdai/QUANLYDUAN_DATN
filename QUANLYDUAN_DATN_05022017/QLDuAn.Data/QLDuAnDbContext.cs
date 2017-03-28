@@ -23,11 +23,17 @@ namespace QLDuAn.Data
 
         public DbSet<ThamGia> ThamGia { get; set; }
 
-        public DbSet<NhanVien> NhanVien { get; set; }
-
         public DbSet<HopDong> HopDong { get; set; }
 
         public DbSet<Errors> Errors { get; set; }
+
+        public DbSet<ApplicationRole> ApplicationRole { get; set; }
+
+        public DbSet<ApplicationGroup> ApplicationGroup { get; set; }
+
+        public DbSet<ApplicationRoleGroup> ApplicationRoleGroup { get; set; }
+
+        public DbSet<ApplicationUserGroup> ApplicationUserGroup { get; set; }
 
         public static QLDuAnDbContext Create()
         {
@@ -36,7 +42,11 @@ namespace QLDuAn.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            // base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityUserRole>().HasKey(x => new { x.RoleId, x.UserId }).ToTable("ApplicationUserRoles");
+            modelBuilder.Entity<IdentityUserLogin>().HasKey(x => x.UserId).ToTable("ApplicationUserLogins");
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("ApplicationUserClaims");
+            modelBuilder.Entity<IdentityRole>().ToTable("ApplicationRoles");
         }
     }
 }

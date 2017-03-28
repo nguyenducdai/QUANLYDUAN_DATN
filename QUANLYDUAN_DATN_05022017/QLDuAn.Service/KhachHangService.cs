@@ -10,7 +10,7 @@ namespace QLDuAn.Service
     {
         KhachHang Add(KhachHang khachHang);
 
-        void Delete(KhachHang khachHang);
+        void Delete(int id);
 
         void Update(KhachHang khachHang);
 
@@ -43,9 +43,9 @@ namespace QLDuAn.Service
             return _iKhacHangRepository.Add(khachHang);
         }
 
-        public void Delete(KhachHang khachHang)
+        public void Delete(int id)
         {
-            _iKhacHangRepository.Delete(khachHang);
+            _iKhacHangRepository.Delete(id);
         }
 
         public IEnumerable<KhachHang> GetAll()

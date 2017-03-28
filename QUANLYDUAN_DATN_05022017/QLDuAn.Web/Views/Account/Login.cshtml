@@ -1,0 +1,49 @@
+﻿@model QLDuAn.Web.Models.LoginViewModel
+@{
+    ViewBag.Title = "Đăng Nhập";
+    Layout = "~/Views/Shared/_RootLayout.cshtml";
+}
+
+<div class="login-box">
+    <div class="login-logo">
+        <a href="#"><b>ASO</b>company</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Đăng ký để bắt đầu phiên làm việc</p>
+        @using (Html.BeginForm("Login" ,"Account" ,new {returnUrl = @ViewBag.ReturnUrl } ,FormMethod.Post))
+        {
+            @Html.ValidationSummary(true)
+            <div class="form-group has-feedback">
+                @Html.TextBoxFor(model=>model.userName , new {@class= "form-control" })
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <p class="text-danger">@Html.ValidationMessageFor(model => model.userName)</p>
+            </div>
+            <div class="form-group has-feedback">
+                    @Html.PasswordFor(model => model.password, new { @class = "form-control" })
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <p class="text-danger">@Html.ValidationMessageFor(model => model.password)</p>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            @Html.CheckBoxFor(model => model.remember) nhớ mật khẩu ? 
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        }
+        <a href="#">Quên mật khẩu</a><br>
+        <a href="register.html" class="text-center">Đăng ký thành viên</a>
+
+    </div>
+    <!-- /.login-box-body -->
+</div>
+
+

@@ -13,6 +13,7 @@ using System.Linq;
 namespace QLDuAn.Web.Api
 {
     [RoutePrefix("api/hm")]
+    [Authorize]
     public class HangMucController : BaseController
     {
         #region
@@ -57,12 +58,20 @@ namespace QLDuAn.Web.Api
         {
             return CreateReponse(request, () =>
             {
-                var hangMuc = new HangMuc();
-                hangMuc.UpdateHangMuc(hangMucViewModel);
-                var model = _hangMucService.Add(hangMuc);
-                _hangMucService.save();
-                var reposeData = Mapper.Map<HangMuc, HangMucViewModel>(model);
-                HttpResponseMessage respose = request.CreateResponse(HttpStatusCode.Created, reposeData);
+                HttpResponseMessage respose;
+                if (!ModelState.IsValid)
+                {
+                    respose = request.CreateResponse(HttpStatusCode.BadRequest, ModelState.IsValid);
+                }else
+                {
+                    var hangMuc = new HangMuc();
+                    hangMuc.UpdateHangMuc(hangMucViewModel);
+                    var model = _hangMucService.Add(hangMuc);
+                    _hangMucService.save();
+                    var reposeData = Mapper.Map<HangMuc, HangMucViewModel>(model);
+                    respose = request.CreateResponse(HttpStatusCode.Created, reposeData);
+                }
+                
                 return respose;
             });
         }

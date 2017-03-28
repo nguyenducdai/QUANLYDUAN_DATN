@@ -6,70 +6,66 @@
     </div>
     <div class="box-body">
         <div class="box-group" id="accordion">
-            <div class="col-md-7">
-                <div class="row">
-                    <div class="col-md-3">
-                        <p>Tất cả dự án</p>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="dropdown">
-                            <button class="btn btn-default" ng-click="showAdd($event)"><i class="fa fa-plus"></i></button>
-                            <button class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                            <button class="btn btn-default"><i class="fa fa-download"></i> xuất PDF</button>
-                            <button class="btn btn-default"><i class="fa fa-files-o"></i> Nhập Excel</button>
-                            <button class="btn btn-default"><i class="fa fa-files-o"></i> xuất Excel</button>
-                            <button class="btn btn-default"><i class="fa fa-print"></i> In</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
+            <div class="col-md-8">            
                     <div class="box">
-                        <div class="box-header">
-                            <div class="input-group" style="width:100%">
-                                <input name="table_search" class="form-control pull-right" placeholder="Search" type="text">
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        <div class="box-header  with-border">
+                            <h3 class="box-title">Tất cả các dự án</h3>
+                            <div class="box-tools pull-right">
+                                <div class="has-feedback">
+                                    <input type="text" class="form-control input-sm" placeholder="tim kiem">
+                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
                                 </div>
                             </div>
+                                <!-- /.box-tools -->
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body table-responsive no-padding">
-                            <h4 data-toggle="collapse" data-target="#pr-direct">
-                                <span class="caret"></span> Dự án đang thực hiện
-                            </h4>
-                            <div id="pr-direct" class="collapses">
-                                <table class="table table-hover">
-                                    <tbody>
-                                        <tr>
-                                            <th style="width:5%"><input type="checkbox"></th>
-                                            <th>chọn tất cả dự án</th>
-                                        </tr>
-
-                                        <tr ng-repeat="item in ListDuAn" ng-click="viewDetail(item.ID)">
-                                            <td><input type="checkbox"></td>
-                                            <td class="ng-binding">
-                                                {{item.TenDuAn}}
-                                                <span class="progress-bar progress-bar-success" style="width: 90%"></span>
-                                                <span class="pull-right"> {{item.Created_at | date:'MMM d'}}</span>
-                                            </td>
-                                        </tr><!-- end ngRepeat: item in HopDong -->
-                                    </tbody>
-                                </table>
+                            <div class="mailbox-controls">
+                                <!-- Check all button -->
+                                <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                                    <i class="fa fa-square-o"></i>
+                                </button>
+                                <div class="btn-group">
+                                    <button class="btn btn-default btn-sm" ng-click="showAdd($event)"><i class="fa fa-plus"></i></button>
+                                    <button  class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                    <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                                    <button  class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                                <div class="pull-right">
+                                    1-50/{{ListDuAn.length}}
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                                    </div>
+                                    <!-- /.btn-group -->
+                                </div>
+                                <!-- /.pull-right -->
                             </div>
 
-                            <hr />
-                            <h4 data-toggle="collapse" data-target="#pr-success">
-                                <span class="caret"></span> Dự án đã hoàn thành
-                            </h4>
-                            <div id="pr-success" class="collapse">
-                                dự án đã hoàn thành
+                            <div class="table-responsive mailbox-messages">
+                                <table class="table table-hover table-striped">
+                                    <tbody>
+                                        <tr ng-repeat="item in ListDuAn" ng-click="viewDetail(item.ID)">
+                                            <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
+                                            <td class="mailbox-name"><a>{{item.TenDuAn}}</a><br />
+                                                <!--<div class="progress progress-xxs progress-striped active"><div class="progress-bar progress-bar-info" style="width: 90%"></div></div>-->
+                                            
+                                            </td>
+                                            
+                                            <td class="mailbox-date pull-right"><i class="fa fa-globe"></i> {{item.Created_at | date:'MMM d'}}</td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                                <!-- /.table -->
                             </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
-                </div>
             </div> <!--end env-->
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="panel-default">
                     <div class="panel-title" style="background:#FDFDFD ;min-height: 60px">
                         <div class="col-md-7 set-padding">

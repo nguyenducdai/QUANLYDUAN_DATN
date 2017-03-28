@@ -26,8 +26,9 @@ namespace QLDuAn.Web.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+           
             Config(app);
+            ConfigureAuth(app);
 
         }
 
