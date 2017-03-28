@@ -298,7 +298,13 @@
     <Content Include="app\components\khachhang\danhsachkhachhangController.js" />
     <Content Include="app\components\khachhang\suakhachang.html" />
     <Content Include="app\components\khachhang\themkhachhang.html" />
+    <Content Include="app\components\nhomnguoidung\dsnhomnguoidung.html" />
+    <Content Include="app\components\nhomnguoidung\dsnhomnguoidungController.js" />
+    <Content Include="app\components\nhomnguoidung\suanhomnguoidung.html" />
+    <Content Include="app\components\nhomnguoidung\suatnhomnguoidungController.js" />
+    <Content Include="app\components\thanhvien\chitietthanhvien.html" />
     <Content Include="app\components\thanhvien\index.html" />
+    <Content Include="app\components\thanhvien\suathanhvien.html" />
     <Content Include="app\components\thanhvien\thanhvienController.js" />
     <Content Include="app\components\thanhvien\themthanhvien.html" />
     <Content Include="app\share\filter\filter.js" />

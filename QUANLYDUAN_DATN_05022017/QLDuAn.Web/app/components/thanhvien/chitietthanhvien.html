@@ -1,0 +1,16 @@
+﻿<button class="btn btn-xs" ng-click="suaThanhVien($ev , Detail.Id)"> chỉnh sửa</button>
+<button class="btn btn-xs" ng-click="delete(Detail.Id)"> xóa</button>
+<div class="box box-primary">
+    <div class="box-body box-profile">
+        <ul class="list-group list-group-unbordered">
+            <li class="list-group-item"><i class="fa fa-user-o" aria-hidden="true"></i> Họ và Tên <b>{{Detail.FullName}}</b> </li>
+            <li class="list-group-item"><i class="fa fa-map-marker margin-r-5"></i> Địa chỉ {{ Detail.Adress }}Giới tính <span class="label label-info">{{ Detail.Sex | ConverFilter:'Nam':'Nữ' }}</span></li>
+            <li class="list-group-item"><i class="fa fa-birthday-cake" aria-hidden="true"></i> Ngày Sinh : <a> {{Detail.Birthday | date :'dd/MM/yyyy'}}</a></li>
+            <li class="list-group-item"><i class="fa fa-mobile" aria-hidden="true"></i> Số điện thoại : <a> {{Detail.PhoneNumber  }}</a></li>
+            <li class="list-group-item"><i class="fa fa-envelope-o" aria-hidden="true"></i> Địa chỉ Mail <a> {{ Detail.Email}} </a></li>
+            <li class="list-group-item"><i class="fa fa-key" aria-hidden="true"></i> Chức Vụ <a> {{Detail.Function}}</a></li>
+            <li class="list-group-item"><i class="fa fa-calendar" aria-hidden="true"></i> Thời gian bắt đầu làm việc <a>{{Detail.Startdate | date :'dd/MM/yyyy'}}</a></li>
+            <li class="list-group-item">giới thiệu bản thân <br><a>{{Detail.Bio}}</a></li>
+        </ul>
+    </div>
+</div>

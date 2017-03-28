@@ -115,6 +115,79 @@ namespace QLDuAn.Web.Api
             }
 
         }
-        
+
+        [HttpPut]
+        [Route("updated")]
+        public async Task<HttpResponseMessage> Updated(HttpRequestMessage request, ApplicationUserViewModel applicationUserVM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = await _userManager.FindByIdAsync(applicationUserVM.Id);
+                    user.UpdateApplicationUser(applicationUserVM);
+                    var result = await _userManager.UpdateAsync(user);
+
+                    if (result.Succeeded)
+                    {
+                        var list = new List<ApplicationUserGroup>();
+                        foreach (var group in applicationUserVM.Groups)
+                        {
+                            list.Add(new ApplicationUserGroup()
+                            {
+                                IdGroup = group.Id,
+                                IdUser = user.Id
+                            });
+                        }
+                        _applicationGroupService.AddUserGroup(list, user.Id);
+                        _applicationGroupService.save();
+                        return request.CreateResponse(HttpStatusCode.Created, user);
+                    }
+                    else
+                    {
+                        return request.CreateResponse(HttpStatusCode.BadRequest, "cập nhật không thành công");
+
+                    }
+                }
+                catch (NameDuplicateException nx)
+                {
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, nx.Message);
+                }
+                catch (Exception ex)
+                {
+
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+                }
+            }
+            else
+            {
+                return request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+        }
+
+
+
+        [HttpDelete]
+        [Route("delete")]
+        public async Task<HttpResponseMessage> Delete(HttpRequestMessage request, string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, nameof(id) + " không có dữ liệu ");
+            }
+            var user = await _userManager.FindByIdAsync(id);
+            var result = await _userManager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                return request.CreateResponse(HttpStatusCode.OK,user.UserName);
+            }
+            else
+            {
+                return request.CreateResponse(HttpStatusCode.BadRequest,result.Errors);
+            }
+
+        }
+
     }
 }

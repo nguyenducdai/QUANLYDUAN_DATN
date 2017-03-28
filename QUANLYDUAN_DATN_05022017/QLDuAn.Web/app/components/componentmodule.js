@@ -21,6 +21,19 @@
             templateUrl: '/app/components/thanhvien/index.html',
             controller: 'thanhvienController'
         })
+         .state('nhomnguoidung', {
+             url: '/dsnguoidung',
+             parent: 'baseTemplate',
+             templateUrl: '/app/components/nhomnguoidung/dsnhomnguoidung.html',
+             controller: 'dsnhomnguoidungController'
+         })
+        .state('suanhomnguoidung', {
+            url: '/suanhomnguoidung/:id',
+            parent: 'baseTemplate',
+            templateUrl: '/app/components/nhomnguoidung/suanhomnguoidung.html',
+            controller: 'suatnhomnguoidungController'
+        })
+
         .state('hopdong', {
             url: '/hopdong',
             parent: 'baseTemplate',

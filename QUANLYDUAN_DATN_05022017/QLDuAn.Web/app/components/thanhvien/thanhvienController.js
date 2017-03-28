@@ -1,8 +1,9 @@
-﻿(function (app) {
+﻿/// <reference path="../nhomnguoidung/dsnhomnguoidung.html" />
+(function (app) {
     app.controller('thanhvienController', thanhvienController);
 
-    thanhvienController.$inject = ['$scope', 'service', '$state', 'notification', '$mdDialog', '$rootScope']
-    function thanhvienController($scope, service, $state, notification, $mdDialog, $rootScope) {
+    thanhvienController.$inject = ['$scope', 'service', '$state', 'notification', '$mdDialog', '$rootScope', '$ngBootbox']
+    function thanhvienController($scope, service, $state, notification, $mdDialog, $rootScope, $ngBootbox) {
 
         $scope.ThanhVien = {
             Created_at: new Date,
@@ -10,9 +11,16 @@
             Groups: []
         }
         $scope.themThanhVien = themThanhVien;
+        $scope.suaThanhVien = suaThanhVien;
         $scope.groups = {}
         $scope.ListNhanVien = {}
         $scope.Detail = {}
+        $scope.templateUrl = '';
+        $scope.UpdateThanhVien = {
+            Created_at: new Date,
+            Updatted_at: new Date,
+            Groups: []
+        }
 
         function themThanhVien(ev) {
             $mdDialog.show({
@@ -30,6 +38,49 @@
             });
         }
 
+        function suaThanhVien(ev, id) {
+            var config = {
+                params: {
+                    id: id
+                }
+            }
+            service.get('api/appuser/detail', config, function (result) {
+                $scope.UpdateThanhVien = result.data;
+                $scope.UpdateThanhVien.Birthday = new Date(result.data.Birthday);
+                $scope.UpdateThanhVien.Startdate = new Date(result.data.Startdate);
+            }, function (error) {
+                notification.error(error);
+            });
+            $mdDialog.show({
+                locals:{
+                    UpdateThanhVien: $scope.UpdateThanhVien
+                },
+                controller: thanhvienController,
+                templateUrl: '/app/components/thanhvien/suaThanhVien.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: false,
+                fullscreen: $scope.customFullscreen,
+                scope: $scope,
+                preserveScope: true
+            })
+            .then(function (answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                $scope.status = 'You cancelled the dialog.';
+            });
+        }
+
+        $scope.capnhatThanhVien = function(){
+            service.put('api/appuser/updated', $scope.UpdateThanhVien, function (result) {
+                notification.success('cập nhật thành viên thành công');
+                $scope.cancel();
+                loadApplicationUser();
+            }, function (error) {
+                notification.error('Có lỗi sảy ra');
+            })
+        }
+
         $scope.chooseImage = function () {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
@@ -42,6 +93,23 @@
 
         $scope.cancel = function () {
             $mdDialog.cancel();
+        }
+
+        $scope.delete = function (id) {
+            $ngBootbox.confirm('bạn có chắc chắn muốn xóa không').then(function () {
+                var config = {
+                    params: {
+                        id: id
+                    }
+                }
+                service.del('api/appuser/delete', config, function (result) {
+                    loadApplicationUser();
+                    notification.success('xóa thành viên ' + result.data.FullName + ' thành công');
+                }, function (error) {
+                    notification.error('xóa bản ghi không thành công');
+                })
+            });
+           
         }
 
         function loadApplicationGroup() {
@@ -62,6 +130,7 @@
 
         $scope.AddApplicationUser = function () {
             service.post('api/appuser/created', $scope.ThanhVien, function (result) {
+                loadApplicationUser();
                 notification.success('Thêm thành viên thành công');
                 $scope.cancel();
             }, function (error) {
@@ -76,19 +145,8 @@
                 }
             }
             service.get('api/appuser/detail', config, function (result) {
-               $scope.Detail = result.data;
-                var html = '';
-                html +=' <div class="box box-primary"><div class="box-body box-profile"><ul class="list-group list-group-unbordered">';
-                html += ' <li class="list-group-item"><i class="fa fa-user-o" aria-hidden="true"></i> Họ và Tên <b>' + $scope.Detail.FullName + '</b></li>';
-                html += ' <li class="list-group-item"><i class="fa fa-map-marker margin-r-5"></i> Địa chỉ ' + $scope.Detail.Adress + ' Giới tính <span class="label label-info">' + $scope.Detail.Sex + '</span></li>';
-                html += ' <li class="list-group-item"><i class="fa fa-birthday-cake" aria-hidden="true"></i> Ngày Sinh : <a> ' + $scope.Detail.Birthday + '</a></li>';
-                html += ' <li class="list-group-item"><i class="fa fa-mobile" aria-hidden="true"></i> Số điện thoại : <a> ' + $scope.Detail.PhoneNumber + '</a></li>';
-                html += ' <li class="list-group-item"><i class="fa fa-envelope-o" aria-hidden="true"></i> Địa chỉ Mail <a> ' + $scope.Detail.Email + '</a></li>';
-                html += ' <li class="list-group-item"><i class="fa fa-key" aria-hidden="true"></i> Chức Vụ <a> ' + $scope.Detail.Function + '</a></li>';
-                html += ' <li class="list-group-item"><i class="fa fa-calendar" aria-hidden="true"></i> Thời gian bắt đầu làm việc <a>' + $scope.Detail.Startdate + '</a></li>';
-                html += ' <li class="list-group-item">giới thiệu bản thân <br><a>' + $scope.Detail.Bio + '</a></li>';
-                html +='  </ul></div></div>';
-               $('#main-body-user').html(html);
+                $scope.Detail = result.data;
+                $scope.templateUrl = '/app/components/thanhvien/chitietthanhvien.html';
             }, function (error) {
                 notification.error(error);
             })
