@@ -83,6 +83,38 @@
     <Compile Include="Migrations\201703271443357_addColunmCreatedAtAppUserTB.Designer.cs">
       <DependentUpon>201703271443357_addColunmCreatedAtAppUserTB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703291550305_removeColunmIdThamGiaTB.cs" />
+    <Compile Include="Migrations\201703291550305_removeColunmIdThamGiaTB.Designer.cs">
+      <DependentUpon>201703291550305_removeColunmIdThamGiaTB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703300705315_removeFginkeyTGTB.cs" />
+    <Compile Include="Migrations\201703300705315_removeFginkeyTGTB.Designer.cs">
+      <DependentUpon>201703300705315_removeFginkeyTGTB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703300722077_addFginkeyTGTB.cs" />
+    <Compile Include="Migrations\201703300722077_addFginkeyTGTB.Designer.cs">
+      <DependentUpon>201703300722077_addFginkeyTGTB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703300817427_addTable.cs" />
+    <Compile Include="Migrations\201703300817427_addTable.Designer.cs">
+      <DependentUpon>201703300817427_addTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703301518567_changeDaHmTB.cs" />
+    <Compile Include="Migrations\201703301518567_changeDaHmTB.Designer.cs">
+      <DependentUpon>201703301518567_changeDaHmTB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703301550435_changeDaHmTBv2.cs" />
+    <Compile Include="Migrations\201703301550435_changeDaHmTBv2.Designer.cs">
+      <DependentUpon>201703301550435_changeDaHmTBv2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703301553297_changeDaHmTBv3.cs" />
+    <Compile Include="Migrations\201703301553297_changeDaHmTBv3.Designer.cs">
+      <DependentUpon>201703301553297_changeDaHmTBv3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703311756096_addColunmKcn.cs" />
+    <Compile Include="Migrations\201703311756096_addColunmKcn.Designer.cs">
+      <DependentUpon>201703311756096_addColunmKcn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QLDuAnDbContext.cs" />
@@ -94,6 +126,9 @@
     <Compile Include="Repositories\DuAnRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\HangMucRepository.cs" />
+    <Compile Include="Repositories\HeSoLapRepository.cs" />
+    <Compile Include="Repositories\HeSoNhanCongRepository.cs" />
+    <Compile Include="Repositories\HeSoThoiGianRepository.cs" />
     <Compile Include="Repositories\HopDongRepository.cs" />
     <Compile Include="Repositories\KhachHangRepository.cs" />
     <Compile Include="Repositories\NhomCongViecRepository.cs" />
@@ -115,6 +150,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703271443357_addColunmCreatedAtAppUserTB.resx">
       <DependentUpon>201703271443357_addColunmCreatedAtAppUserTB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703291550305_removeColunmIdThamGiaTB.resx">
+      <DependentUpon>201703291550305_removeColunmIdThamGiaTB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703300705315_removeFginkeyTGTB.resx">
+      <DependentUpon>201703300705315_removeFginkeyTGTB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703300722077_addFginkeyTGTB.resx">
+      <DependentUpon>201703300722077_addFginkeyTGTB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703300817427_addTable.resx">
+      <DependentUpon>201703300817427_addTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703301518567_changeDaHmTB.resx">
+      <DependentUpon>201703301518567_changeDaHmTB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703301550435_changeDaHmTBv2.resx">
+      <DependentUpon>201703301550435_changeDaHmTBv2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703301553297_changeDaHmTBv3.resx">
+      <DependentUpon>201703301553297_changeDaHmTBv3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703311756096_addColunmKcn.resx">
+      <DependentUpon>201703311756096_addColunmKcn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

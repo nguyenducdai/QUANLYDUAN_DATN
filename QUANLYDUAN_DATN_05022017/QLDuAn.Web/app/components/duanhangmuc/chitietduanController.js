@@ -47,6 +47,7 @@
                 }
                 if (loaihangmuc == 0) {
                     $scope.HangMucDuAnTT = result.data;
+                    console.log($scope.HangMucDuAnTT);
                 } else {
                     $scope.HangMucDuAnGt = result.data;
                 }

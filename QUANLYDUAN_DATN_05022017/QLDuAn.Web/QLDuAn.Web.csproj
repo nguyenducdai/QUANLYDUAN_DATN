@@ -234,10 +234,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\ApplicationGroupController.cs" />
+    <Compile Include="Api\ApplicationRoleController.cs" />
     <Compile Include="Api\ApplicationUserController.cs" />
     <Compile Include="Api\DuAnController.cs" />
     <Compile Include="Api\DuAnHangMucController.cs" />
     <Compile Include="Api\HangMucController.cs" />
+    <Compile Include="Api\HeSoLapController.cs" />
+    <Compile Include="Api\HeSoNhanCongController.cs" />
+    <Compile Include="Api\HeSoThoiGianController.cs" />
     <Compile Include="Api\HomeController.cs" />
     <Compile Include="Api\HopDongController.cs" />
     <Compile Include="Api\KhachHangController.cs" />
@@ -259,10 +263,14 @@
     <Compile Include="Infastructure\Extentions\EntityExtentions.cs" />
     <Compile Include="Mapping\AutoMappingConfiguration.cs" />
     <Compile Include="Models\ApplicationGroupViewModel.cs" />
+    <Compile Include="Models\ApplicationRoleViewModel.cs" />
     <Compile Include="Models\ApplicationUserViewModel.cs" />
     <Compile Include="Models\DuAnViewModel.cs" />
     <Compile Include="Models\HangMucDuAnViewModel.cs" />
     <Compile Include="Models\HangMucViewModel.cs" />
+    <Compile Include="Models\HeSoLapViewModel.cs" />
+    <Compile Include="Models\HeSoNhanCongViewModel.cs" />
+    <Compile Include="Models\HeSoTgViewModel.cs" />
     <Compile Include="Models\HopDongViewModel.cs" />
     <Compile Include="Models\KhachHangViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -275,7 +283,7 @@
     <Content Include="app\components\componentmodule.js" />
     <Content Include="app\components\duanhangmuc\chitetduan.html" />
     <Content Include="app\components\duanhangmuc\chitietduanController.js" />
-    <Content Include="app\components\duanhangmuc\duanhangmucController.js" />
+    <Content Include="app\components\duanhangmuc\themduanhangmucController.js" />
     <Content Include="app\components\duanhangmuc\add.html" />
     <Content Include="app\components\duanhangmuc\edithm.html" />
     <Content Include="app\components\duanhangmuc\suaduanhmController.js" />
@@ -301,7 +309,9 @@
     <Content Include="app\components\nhomnguoidung\dsnhomnguoidung.html" />
     <Content Include="app\components\nhomnguoidung\dsnhomnguoidungController.js" />
     <Content Include="app\components\nhomnguoidung\suanhomnguoidung.html" />
-    <Content Include="app\components\nhomnguoidung\suatnhomnguoidungController.js" />
+    <Content Include="app\components\nhomnguoidung\suanhomnguoidungController.js" />
+    <Content Include="app\components\nhomnguoidung\themnguoidungController.js" />
+    <Content Include="app\components\nhomnguoidung\themnhomnguoidung.html" />
     <Content Include="app\components\thanhvien\chitietthanhvien.html" />
     <Content Include="app\components\thanhvien\index.html" />
     <Content Include="app\components\thanhvien\suathanhvien.html" />
@@ -2017,6 +2027,7 @@
     <Content Include="Assets\librarys\ui-bootstrap\template\typeahead\typeahead-match.html" />
     <Content Include="Assets\librarys\ui-bootstrap\template\typeahead\typeahead-popup.html" />
     <Content Include="Assets\site.js" />
+    <Content Include="Assets\site\custom.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
@@ -2347,6 +2358,7 @@
     <Content Include="Views\Shared\_RootLayout.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Site.cshtml" />
+    <Content Include="Views\Shared\_LayoutHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Assets\librarys\ngBootbox\typings\angularjs\angular.d.ts" />
@@ -2355,6 +2367,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

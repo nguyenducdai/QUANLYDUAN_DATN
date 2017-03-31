@@ -21,11 +21,17 @@ namespace QLDuAn.Web.Api
     {
         private ApplicationUserManager _userManager;
         private IApplicationGroupService _applicationGroupService;
+        private IApplicationRoleService _applicationRoleService;
 
-        public ApplicationUserController(ErrorService errorService , ApplicationUserManager userManager , IApplicationGroupService applicationGroupService) : base(errorService)
+        public ApplicationUserController(
+            ErrorService errorService , 
+            ApplicationUserManager userManager , 
+            IApplicationGroupService applicationGroupService,
+            IApplicationRoleService applicationRoleService) : base(errorService)
         {
             this._userManager = userManager;
             this._applicationGroupService = applicationGroupService;
+            this._applicationRoleService = applicationRoleService;
         }
 
         [HttpGet]
@@ -65,6 +71,18 @@ namespace QLDuAn.Web.Api
                                     IdGroup = group.Id,
                                     IdUser = user.Id
                                 });
+
+                                // thêm quyền cho thành viên dựa vào nhóm người dùng
+                                var roles = _applicationRoleService.GetRoleByGroupId(group.Id);
+                                var users = _applicationGroupService.GetListUserByGroupId(group.Id);
+                                foreach (var u in users)
+                                {
+                                    foreach (var role in roles)
+                                    {
+                                         await _userManager.RemoveFromRoleAsync(u.Id , role.Name);
+                                         await _userManager.AddToRoleAsync(u.Id , role.Name);
+                                    }
+                                }
                             }
                             _applicationGroupService.AddUserGroup(list, user.Id);
                             _applicationGroupService.save();
@@ -138,6 +156,18 @@ namespace QLDuAn.Web.Api
                                 IdGroup = group.Id,
                                 IdUser = user.Id
                             });
+
+                            // thêm quyền cho thành viên dựa vào nhóm người dùng
+                            var roles = _applicationRoleService.GetRoleByGroupId(group.Id);
+                            var users = _applicationGroupService.GetListUserByGroupId(group.Id);
+                            foreach (var u in users)
+                            {
+                                foreach (var role in roles)
+                                {
+                                    await _userManager.RemoveFromRoleAsync(u.Id, role.Name);
+                                    await _userManager.AddToRoleAsync(u.Id, role.Name);
+                                }
+                            }
                         }
                         _applicationGroupService.AddUserGroup(list, user.Id);
                         _applicationGroupService.save();

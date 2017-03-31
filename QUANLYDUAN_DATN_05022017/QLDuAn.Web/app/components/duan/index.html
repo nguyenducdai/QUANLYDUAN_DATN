@@ -1,12 +1,12 @@
 ﻿<section class="content-header"></section>
 <section class="content">
     <div class="box-header with-border">
-        <h3 class="box-title"><strong>Quản Lý Dự án công ty Aso</strong></h3>
+        <h3 class="box-title"><strong>Các Dự án công ty Aso</strong></h3>
         <button class="btn btn-default pull-right" ui-sref="duan">Trở về</button>
     </div>
     <div class="box-body">
         <div class="box-group" id="accordion">
-            <div class="col-md-8">            
+            <div class="col-md-12">            
                     <div class="box">
                         <div class="box-header  with-border">
                             <h3 class="box-title">Tất cả các dự án</h3>
@@ -28,7 +28,10 @@
                                 <div class="btn-group">
                                     <button class="btn btn-default btn-sm" ng-click="showAdd($event)"><i class="fa fa-plus"></i></button>
                                     <button  class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                                    <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                                    <button class="btn btn-default btn-sm">CSV</button>
+                                    <button class="btn btn-default btn-sm">Excel</button>
+                                    <button class="btn btn-default btn-sm">Pdf</button>
+                                    <button class="btn btn-default btn-sm">Print</button>
                                     <button  class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
                                 </div>
                                 <!-- /.btn-group -->
@@ -44,19 +47,32 @@
                                 <!-- /.pull-right -->
                             </div>
 
-                            <div class="table-responsive mailbox-messages">
+                            <div class="table-responsive table-striped">
                                 <table class="table table-hover table-striped">
-                                    <tbody>
-                                        <tr ng-repeat="item in ListDuAn" ng-click="viewDetail(item.ID)">
-                                            <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
-                                            <td class="mailbox-name"><a>{{item.TenDuAn}}</a><br />
-                                                <!--<div class="progress progress-xxs progress-striped active"><div class="progress-bar progress-bar-info" style="width: 90%"></div></div>-->
-                                            
-                                            </td>
-                                            
-                                            <td class="mailbox-date pull-right"><i class="fa fa-globe"></i> {{item.Created_at | date:'MMM d'}}</td>
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th>Tên Dự án</th>
+                                            <th>Tên Hợp Đồng</th>
+                                            <th>Ngày bắt đầu</th>
+                                            <th>Trạng thái</th>
+                                            <th style="width: 40px">tác vụ</th>
                                         </tr>
-                                       
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="item in ListDuAn">
+                                            <td><input type="checkbox" id="ickeck"></td>
+                                            <td><a ng-click="viewDetail(item.ID)">{{item.TenDuAn}}</a><br /></td>
+                                            <td>{{item.HopDong.TenHopDong}}</td>
+                                            <td>{{item.HopDong.NgayBatDau | date:'dd/MM/yyyy'}}</td>
+                                            <td>{{item.TrangThai | ConverFilter : 'Hoàn thành' : 'Hoàn thành 2/9'}}</td>
+                                            <td>
+                                                <button class="btn btn-xs" ng-click="delete(item.ID)"><i class="fa fa-trash-o" aria-hidden="true"></i> </button>
+                                                <button class="btn  btn-xs" ng-click="edit(item.ID,ev)"><i class="fa fa-pencil" aria-hidden="true"></i> </button>
+                                                <button class="btn btn-xs" ui-sref="chitietduan({id:item.ID})"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <!-- /.table -->
@@ -65,45 +81,6 @@
                         <!-- /.box-body -->
                     </div>
             </div> <!--end env-->
-            <div class="col-md-4">
-                <div class="panel-default">
-                    <div class="panel-title" style="background:#FDFDFD ;min-height: 60px">
-                        <div class="col-md-7 set-padding">
-                            <div>
-                                <i class="fa fa-clock-o"></i>  {{Detail.Created_at | date : 'MMM d ,y'}}
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-md-offset-1 set-padding">
-                            <div>
-                                <input type="checkbox" /> Hoàn thành
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-body" style="background:#FAFAFA ;min-height: 510px">
-                        <h4 class="text-center">{{Detail.TenDuAn}}</h4>
-                        <p>{{  Detail.SoNgayThucHienThucTe}}</p>
-                        <p>{{  Detail.MoTa }}</p>
-                        <p>{{  Detail.LoaiCongTrinh }}</p>
-                        <p>{{  Detail.HopDong.TenHopDong }}</p>
-                        <p>{{  Detail.HopDong.NgayBatDau | date : 'MMM d ,y' +'-'+ Detail.HopDong.NgayKetThuc | date : 'MMM d ,y'}}</p>
-                        <p>{{  Detail.HopDong.NgayKy | date : 'MMM d ,y'}}</p>
-
-                    </div>
-                    <div class="panel-footer" style="background:#FDFDFD;min-height: 50px" ng-if="Detail.ID != null">
-                        <button class="btn btn-default" ng-click="delete(Detail.ID)"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</button>
-                        <button class="btn btn-default" ng-click="edit(Detail.ID,ev)"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</button>
-                        <button class="btn btn-default" ui-sref="themhangmuc({id:Detail.ID})"><i class="fa fa-angle-right" aria-hidden="true"></i> P/c công việc</button>
-                        <button class="btn btn-default" ui-sref="chitietduan({id:Detail.ID})"><i class="fa fa-angle-right" aria-hidden="true"></i> Chi tiết dự án và Hmcvc</button>
-                    </div>
-                    <div class="panel-footer" style="background:#FDFDFD;min-height: 50px" ng-if="Detail.ID == null">
-                        <button class="btn btn-default" ng-click="delete(Detail.ID)" disabled><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</button>
-                        <button class="btn btn-default" ng-click="edit(Detail.ID,ev)" disabled><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</button>
-                        <button class="btn btn-default" ui-sref="themhangmuc({id:Detail.ID})" disabled><i class="fa fa-angle-right" aria-hidden="true"></i> P/c công việc</button>
-                        <button class="btn btn-default" ui-sref="chitietduan({id:Detail.ID})" disabled><i class="fa fa-angle-right" aria-hidden="true"></i> Chi tiết dự án và Hmcv</button>
-                    </div>
-
-                </div>
-            </div>
         </div>
     </div>
 </section>

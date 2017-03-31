@@ -31,7 +31,13 @@
             url: '/suanhomnguoidung/:id',
             parent: 'baseTemplate',
             templateUrl: '/app/components/nhomnguoidung/suanhomnguoidung.html',
-            controller: 'suatnhomnguoidungController'
+            controller: 'suanhomnguoidungController'
+        })
+        .state('themnhomnguoidung', {
+            url: '/themnhomnguoidung',
+            parent: 'baseTemplate',
+            templateUrl: '/app/components/nhomnguoidung/themnhomnguoidung.html',
+            controller: 'themnhomnguoidungController'
         })
 
         .state('hopdong', {
@@ -56,7 +62,7 @@
             url: '/themhangmuc/:id',
             parent: 'baseTemplate',
             templateUrl: '/app/components/duanhangmuc/add.html',
-            controller: 'duanhangmucController'
+            controller: 'themduanhangmucController'
         })
         .state('chitietduan', {
             url: '/chitet/:id',

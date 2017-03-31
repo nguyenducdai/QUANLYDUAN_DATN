@@ -48,7 +48,7 @@ namespace QLDuAn.Data.Infrastrusture
         public virtual void DeleteMuti(Expression<Func<T, bool>> where)
         {
             IEnumerable<T> objects = dbSet.Where<T>(where).AsEnumerable();
-            foreach (var obj in objects)
+            foreach (T obj in objects)
             {
                 dbSet.Remove(obj);
             }
@@ -99,7 +99,7 @@ namespace QLDuAn.Data.Infrastrusture
 
         public bool CheckContain(Expression<Func<T, bool>> where)
         {
-            return dbContext.Set<T>().Count<T>() > 0;
+            return dbContext.Set<T>().Count<T>(where) > 0;
         }
 
         public T GetByConditon(Expression<Func<T, bool>> express, string[] includes = null)

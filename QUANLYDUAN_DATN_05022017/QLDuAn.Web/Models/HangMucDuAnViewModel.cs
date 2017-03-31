@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace QLDuAn.Web.Models
 {
@@ -12,31 +9,23 @@ namespace QLDuAn.Web.Models
 
         public int IdHangMuc { get; set; }
 
+        public string IdNguoiThucHienTheoLenhSX { get; set; }
+
         public int IdNhomCongViec { get; set; }
 
-        public int MucDoTruyenThong { get; set; }
+        public int IdMucDoTruyenThong { get; set; }
 
-        public DateTime NgayBatDau { get; set; }
+        public DateTime? NgayBatDau { get; set; }
 
-        public DateTime NgayDuKienKetThuc { get; set; }
+        public int ThoiGianDuKien { get; set; }
 
         public DateTime? NgayHoanThanh { get; set; }
 
-        public string IdNguoiThucHienTheoLenhSX { get; set; }
-
-        public decimal HeSoLapLai { get; set; }
-
-        public decimal HeSoNhanCong { get; set; }
-
-        public decimal HeSoCongViec { get; set; }
-
         public int SoNguoiThucHien { get; set; }
-
-        public decimal HeSoThoiGian { get; set; }
 
         public int DiemDanhGia { get; set; }
 
-        public int DiemHangMuc { get; set; }
+        public decimal HesoKcn { get; set; }
 
         public int LoaiHangMuc { get; set; }
 
@@ -46,14 +35,21 @@ namespace QLDuAn.Web.Models
 
         public DateTime? Updated_at { get; set; }
 
-        // public bool TrangThai { get; set; }
-        //public virtual DuAnViewModel DuAn { get; set; }
+        public IEnumerable<ThamGiaViewModel> ThamGia { get; set; }
 
-        //public virtual HangMucViewModel HangMuc { get; set; }
+        //public DuAnViewModel DuAn { get; set; }
 
-        //public virtual NhomCongViecViewModel NhomCongViec { get; set; }
+        //public HangMucViewModel HangMuc { get; set; }
 
-        //public virtual ApplicationUserViewModel User { get; set; }
+        //public NhomCongViecViewModel NhomCongViec { get; set; }
+
+        //public ApplicationUserViewModel ApplicationUser { get; set; }
+
+        //public HeSoLapViewModel HeSoLap { get; set; }
+
+        //public HeSoTgViewModel HeSoTg { get; set; }
+
+        //public HeSoNhanCongViewModel HeSoNhanCong { get; set; }
 
     }
 }

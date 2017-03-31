@@ -1,10 +1,8 @@
 ﻿<section class="content-header"></section>
-
-<!-- Main content -->
 <section class="content">
     <div class="box-header with-border">
-        <h3 class="box-title"><strong>Quản Lý khách hàng</strong></h3>
-        <button class="btn btn-default pull-right" ui-sref="duan">trở về</button>
+        <h3 class="box-title"><strong>khách hàng</strong></h3>
+        <button class="btn btn-default pull-right" ui-sref="home">trở về</button>
     </div>
     <div class="box-body">
         <div class="box-group" id="accordion">
@@ -30,11 +28,12 @@
                             <div class="btn-group">
                                 <button class="btn btn-default btn-sm" ng-click="showFrmAddKh($event)"><i class="fa fa-plus"></i></button>
                                 <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                                <button class="btn btn-default btn-sm">Csv</button>
+                                <button class="btn btn-default btn-sm">PDf</button>
+                                <button class="btn btn-default btn-sm">Excel</button>
+                                <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                             </div>
                             <!-- /.btn-group -->
-                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                             <div class="pull-right">
                                 1-50/{{KhachHang.length}}
                                 <div class="btn-group">

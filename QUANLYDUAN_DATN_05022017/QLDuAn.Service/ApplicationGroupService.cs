@@ -9,7 +9,7 @@ namespace QLDuAn.Service
 {
     public interface IApplicationGroupService
     {
-        void Add(ApplicationGroup applicationGroup);
+        ApplicationGroup Add(ApplicationGroup applicationGroup);
 
         void Delete(int id);
 
@@ -44,17 +44,11 @@ namespace QLDuAn.Service
             this._unitOfWork = unitOfWork;
         }
 
-        public void Add(ApplicationGroup applicationGroup)
+        public ApplicationGroup Add(ApplicationGroup appGroup)
         {
-            if (!_applicationGroupRepository.CheckContain(x => x.Name.Contains(applicationGroup.Name)))
-            {
-                _applicationGroupRepository.Add(applicationGroup);
-
-            }
-            else
-            {
+            if (_applicationGroupRepository.CheckContain(x => x.Name == appGroup.Name))
                 throw new NameDuplicateException("lỗi trùng tên nhóm");
-            }
+             return _applicationGroupRepository.Add(appGroup);
         }
 
   

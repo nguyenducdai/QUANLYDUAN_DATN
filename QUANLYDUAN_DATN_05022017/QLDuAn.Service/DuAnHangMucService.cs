@@ -17,9 +17,7 @@ namespace QLDuAn.Service
 
         DuAnHangMuc GetById(int id);
 
-        void Update(DuAnHangMuc duAnHangMuc);
-
-        IEnumerable<DuAnHangMuc> GetInfoByIdProject(int id , int loaihangmuc);
+        IEnumerable<DuAnHangMuc> GetInfoByIdProject(int id, int loaihangmuc);
 
         bool DeleteMediate(int IdHangMuc, int IdDuAn, int IdNhomCV, int LoaiHm);
 
@@ -29,14 +27,14 @@ namespace QLDuAn.Service
 
 
         void Save();
-}
-public class DuAnHangMucService : IDuAnHangMucService
+    }
+    public class DuAnHangMucService : IDuAnHangMucService
     {
         private IDuAnHangMucRepository _duAnHangMucRepository;
         private IThamGiaRepository _thamGiaRepository;
         private IUnitOfWork _unitOfWork;
 
-        public DuAnHangMucService(IDuAnHangMucRepository duAnHangMucRepository , IThamGiaRepository thamGiaRepository ,IUnitOfWork unitOfWork)
+        public DuAnHangMucService(IDuAnHangMucRepository duAnHangMucRepository, IThamGiaRepository thamGiaRepository, IUnitOfWork unitOfWork)
         {
             this._duAnHangMucRepository = duAnHangMucRepository;
             this._thamGiaRepository = thamGiaRepository;
@@ -45,6 +43,7 @@ public class DuAnHangMucService : IDuAnHangMucService
 
         public DuAnHangMuc Add(DuAnHangMuc duAnHangMuc)
         {
+            _duAnHangMucRepository.DeleteMuti(x => x.IdDuAn == duAnHangMuc.IdDuAn && x.IdHangMuc == duAnHangMuc.IdHangMuc && x.LoaiHangMuc == duAnHangMuc.LoaiHangMuc);
             return _duAnHangMucRepository.Add(duAnHangMuc);
         }
 
@@ -55,12 +54,7 @@ public class DuAnHangMucService : IDuAnHangMucService
 
         public DuAnHangMuc GetById(int id)
         {
-           return _duAnHangMucRepository.GetById(id);
-        }
-
-        public void Update(DuAnHangMuc duAnHangMuc)
-        {
-            _duAnHangMucRepository.Update(duAnHangMuc);
+            return _duAnHangMucRepository.GetById(id);
         }
 
         public void Save()
@@ -68,16 +62,16 @@ public class DuAnHangMucService : IDuAnHangMucService
             _unitOfWork.Commit();
         }
 
-        public IEnumerable<DuAnHangMuc> GetInfoByIdProject(int id , int loaihangmuc)
+        public IEnumerable<DuAnHangMuc> GetInfoByIdProject(int id, int loaihangmuc)
         {
-            return _duAnHangMucRepository.GetMuti(x=>x.IdDuAn.Equals(id) && x.LoaiHangMuc.Equals(loaihangmuc), new string[] {"HangMuc","ApplicationUser" ,"NhomCongViec", "HangMuc.ThamGia", "HangMuc.ThamGia.ApplicationUser" });
+            return _duAnHangMucRepository.GetMuti(x => x.IdDuAn.Equals(id) && x.LoaiHangMuc.Equals(loaihangmuc), new string[] { "HangMuc", "ApplicationUser", "NhomCongViec", "HangMuc.ThamGia", "HangMuc.ThamGia.ApplicationUser", "HeSoLap", "HeSoTg"});
         }
 
         public bool DeleteMediate(int IdHangMuc, int IdDuAn, int IdNhomCV, int LoaiHm)
         {
             if (_duAnHangMucRepository.DeleteMediate(IdHangMuc, IdDuAn, IdNhomCV, LoaiHm))
             {
-                _thamGiaRepository.DeleteHangMuc( IdDuAn, IdHangMuc, LoaiHm);
+                _thamGiaRepository.DeleteHangMuc(IdDuAn, IdHangMuc, LoaiHm);
                 return true;
             }
             else
@@ -88,7 +82,7 @@ public class DuAnHangMucService : IDuAnHangMucService
 
         public DuAnHangMuc GetSingleById(int IdHangMuc, int IdDuAn, int IdNhomCV, int LoaiHm)
         {
-            return _duAnHangMucRepository.GetByConditon(x => x.IdDuAn==IdDuAn && x.IdNhomCongViec==IdNhomCV && x.IdHangMuc==IdHangMuc && x.LoaiHangMuc == LoaiHm, new string[] { "HangMuc", "ApplicationUser", "NhomCongViec", "HangMuc.ThamGia", "HangMuc.ThamGia.ApplicationUser" });
+            return _duAnHangMucRepository.GetByConditon(x => x.IdDuAn == IdDuAn && x.IdNhomCongViec == IdNhomCV && x.IdHangMuc == IdHangMuc && x.LoaiHangMuc == LoaiHm, new string[] { "ApplicationUser", "HangMuc.ThamGia", "HangMuc.ThamGia.ApplicationUser" });
         }
 
         public DuAnHangMuc GetSingleUpdate(int IdHangMuc, int IdDuAn, int LoaiHm)

@@ -13,5 +13,7 @@ namespace QLDuAn.Web.Models
 
         public string Description { get; set; }
 
+        public IEnumerable<ApplicationRoleViewModel> Roles { get; set; }
+
     }
 }

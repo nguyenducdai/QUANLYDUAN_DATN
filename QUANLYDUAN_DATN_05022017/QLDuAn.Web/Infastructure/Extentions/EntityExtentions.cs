@@ -72,28 +72,22 @@ namespace QLDuAn.Web.Infastructure.Extentions
             duAnHangMuc.IdDuAn = hangMucDuAnVM.IdDuAn;
             duAnHangMuc.IdHangMuc = hangMucDuAnVM.IdHangMuc;
             duAnHangMuc.IdNhomCongViec = hangMucDuAnVM.IdNhomCongViec;
-            duAnHangMuc.MucDoTruyenThong = hangMucDuAnVM.MucDoTruyenThong;
+            duAnHangMuc.IdMucDoTruyenThong = hangMucDuAnVM.IdMucDoTruyenThong;
             duAnHangMuc.NgayBatDau = hangMucDuAnVM.NgayBatDau;
-            duAnHangMuc.NgayDuKienKetThuc = hangMucDuAnVM.NgayDuKienKetThuc;
+            duAnHangMuc.ThoiGianDuKien = hangMucDuAnVM.ThoiGianDuKien;
             duAnHangMuc.NgayHoanThanh = hangMucDuAnVM.NgayHoanThanh;
             duAnHangMuc.IdNguoiThucHienTheoLenhSX = hangMucDuAnVM.IdNguoiThucHienTheoLenhSX;
-            duAnHangMuc.HeSoLapLai = hangMucDuAnVM.HeSoLapLai;
-            duAnHangMuc.HeSoNhanCong = hangMucDuAnVM.HeSoNhanCong;
-            duAnHangMuc.HeSoCongViec = hangMucDuAnVM.HeSoCongViec;
             duAnHangMuc.SoNguoiThucHien = hangMucDuAnVM.SoNguoiThucHien;
-            duAnHangMuc.HeSoThoiGian = hangMucDuAnVM.HeSoThoiGian;
             duAnHangMuc.DiemDanhGia = hangMucDuAnVM.DiemDanhGia;
-            duAnHangMuc.DiemHangMuc = hangMucDuAnVM.DiemHangMuc;
+            duAnHangMuc.HesoKcn = hangMucDuAnVM.HesoKcn;
             duAnHangMuc.LoaiHangMuc = hangMucDuAnVM.LoaiHangMuc;
             duAnHangMuc.TrangThai = hangMucDuAnVM.TrangThai;
             duAnHangMuc.Created_at = hangMucDuAnVM.Created_at;
             duAnHangMuc.Updated_at = hangMucDuAnVM.Updated_at;
-            //duAnHangMuc.TrangThai = hangMucDuAnVM.TrangThai;
         }
 
         public static void UpdateThamGia(this ThamGia thamGia, ThamGiaViewModel thamGiaVM)
         {
-            thamGia.Id = thamGiaVM.Id;
             thamGia.IdDuAn = thamGiaVM.IdDuAn;
             thamGia.IdHangMuc = thamGiaVM.IdHangMuc;
             thamGia.IdNhanVien = thamGiaVM.IdNhanVien;
@@ -131,5 +125,20 @@ namespace QLDuAn.Web.Infastructure.Extentions
 
         }
 
+        public static void UpdateApplicationGroup(this ApplicationGroup applicationGroup , ApplicationGroupViewModel applicationGroupVM)
+        {
+            applicationGroup.Id = applicationGroupVM.Id;
+            applicationGroup.Name = applicationGroupVM.Name;
+            applicationGroup.Description = applicationGroupVM.Description;
+
+        }
+
+        public static void UpdateApplicationRole(this ApplicationRole applicationRole, ApplicationRoleViewModel applicationRoleVM)
+        {
+            applicationRole.Id = applicationRoleVM.Id;
+            applicationRole.Name = applicationRoleVM.Name;
+            applicationRole.Description = applicationRoleVM.Description;
+
+        }
     }
 }

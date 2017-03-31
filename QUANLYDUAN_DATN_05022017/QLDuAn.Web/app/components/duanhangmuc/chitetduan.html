@@ -83,13 +83,13 @@
                                                     <a class="text-center">...</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>QL</b> <a class="pull-right">{{ QL1= I - ThongTinDuAn.LuongThueNgoai}}</a>
+                                                    <b>QL</b> <a class="pull-right">{{ QL1= I - ThongTinDuAn.LuongThueNgoai | number}}</a>
                                                 </li>
                                                 <li class="list-group-item">
                                                     <b>QL</b> <a class="pull-right">{{ QL2 = (QL1 * ThongTinDuAn.LuongTTQtt)/100 | number}} </a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>QL</b> <a class="pull-right">{{Total =  (QL2* ThongTinDuAn.LuongDPQdp)/100 | number}}</a>
+                                                    <b>QL</b> <a class="pull-right">{{Total =  (QL1* ThongTinDuAn.LuongDPQdp)/100 | number}}</a>
                                                 </li>
 
                                             </ul>
@@ -152,10 +152,8 @@
                                                                 <th>Thời gian thực hiện dự kiến(ngày)</th>
                                                                 <th>Hệ số thời gian Ktg</th>
                                                                 <th>Điểm đánh giá</th>
-                                                                <th>Điểm hạng mục CV</th>
+                                                                <th>Điểm hạng mục công việc</th>
                                                             </tr>
-
-                                                            <!--ng-repeat="item in HangMucDuAnTT"-->
                                                             <tr ng-repeat="itemTT in HangMucDuAnTT">
                                                                 <td><input type="checkbox" class="flat-red"></td>
                                                                 <td>
@@ -169,24 +167,23 @@
                                                                 </td>
                                                                 <td>{{itemTT.HangMuc.TenHangMuc}}</td>
                                                                 <td>{{itemTT.NhomCongViec.NhomCV}}</td>
-                                                                <td>{{itemTT.MucDoTruyenThong}}</td>
+                                                                <td>{{itemTT.HeSoLap.SoNam}}</td>
                                                                 <td>{{itemTT.NgayBatDau | date:'dd/MM/yyyy'}}</td>
-                                                                <td>{{itemTT.NgayDuKienKetThuc | date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{itemTT.NgayHoanThanh | date:'dd/MM/yyyy'}}</td>
                                                                 <td>{{itemTT.ApplicationUser.FullName}}</td>
                                                                 <td><span ng-repeat="thamgia in itemTT.HangMuc.ThamGia"> {{thamgia.ApplicationUser.FullName}}<br /> </span></td>
                                                                 <td><span ng-repeat="thamgia in itemTT.HangMuc.ThamGia" class="label label-warning">{{ thamgia.HeSoThamGia }}% <br /></span></td>
-                                                                <td><span ng-repeat="thamgia in itemTT.HangMuc.ThamGia" class="label label-warning">{{ thamgia.DiemThanhVien }} <br /></span></td>
-                                                                <td><span ng-repeat="thamgia in itemTT.HangMuc.ThamGia" class="label label-success ">{{Dgd*thamgia.DiemThanhVien | number}} <br /></span></td>
-                                                                <td>{{itemTT.HeSoLapLai}}</td>
-                                                                <td>{{itemTT.HeSoCongViec}}</td>
+                                                                <td><span ng-repeat="thamgia in itemTT.HangMuc.ThamGia">{{(thamgia.HeSoThamGia * DiemHM) / 100}} <br /></span></td>
+                                                                <td><span ng-repeat="thamgia in itemTT.HangMuc.ThamGia">{{(thamgia.HeSoThamGia * DiemHM) / 100}} <br /></span></td>
+                                                                <td>{{itemTT.HeSoLap.Hesl}}</td>
+                                                                <td>{{itemTT.NhomCongViec.HeSoCV}}</td>
                                                                 <td>{{itemTT.SoNguoiThucHien}}</td>
-                                                                <td>{{itemTT.HeSoNhanCong}}</td>
-                                                                <td>{{"//"}}</td>
-                                                                <td>{{itemTT.HeSoThoiGian}}</td>
-                                                                <td>{{itemTT.DiemDanhGia}}</td>
-                                                                <td>{{itemTT.DiemHangMuc}}</td>
+                                                                <td>{{itemTT.HesoKcn}}</td>
+                                                                <td>{{itemTT.HeSoTg.ThoiGianDk}}</td>
+                                                                <td>{{itemTT.HeSoTg.HeSoTgdk}}</td>
+                                                                <td>{{itemTT.DiemDanhGia}} (điểm)</td>
+                                                                <td>{{ DiemHM = itemTT.DiemDanhGia * itemTT.NhomCongViec.HeSoCV * itemTT.HeSoTg.HeSoTgdk * itemTT.HeSoLap.Hesl * itemTT.HesoKcn | number }} (điểm)</td>
                                                             </tr>
-
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -350,35 +347,35 @@
                                                             </tr>
 
                                                             <!--ng-repeat="item in HangMucDuAnTT"-->
-                                                            <tr ng-repeat="item in HangMucDuAnGt">
+                                                            <tr ng-repeat="itemTT in HangMucDuAnGt">
                                                                 <td><input type="checkbox" class="flat-red"></td>
                                                                 <td>
-                                                                    <span class="label label-success" ng-class="{'badge bg-red':item.TrangThai==false,'badge bg-green':item.TrangThai==true}">
-                                                                        {{ item.TrangThai | ConverFilter : 'Hoàn Thành': 'Đang thực hiện' }}
+                                                                    <span class="label label-success" ng-class="{'badge bg-red':itemTT.TrangThai==false,'badge bg-green':itemTT.TrangThai==true}">
+                                                                        {{ itemTT.TrangThai | ConverFilter : 'Hoàn Thành': 'Đang thực hiện' }}
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button ng-click="Delete(item.IdHangMuc,item.IdDuAn ,item.IdNhomCongViec ,item.LoaiHangMuc)"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
-                                                                    <button ui-sref="edit_hm(item.IdHangMuc,item.IdDuAn ,item.IdNhomCongViec ,item.LoaiHangMuc)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                                                    <button ng-click="Delete(itemTT.IdHangMuc,itemTT.IdDuAn ,itemTT.IdNhomCongViec ,itemTT.LoaiHangMuc)"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+                                                                    <button ui-sref="hm_edit({IdHangMuc:itemTT.IdHangMuc,IdDuAn:itemTT.IdDuAn ,IdNhomCongViec:itemTT.IdNhomCongViec ,LoaiHangMuc:itemTT.LoaiHangMuc})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                                                 </td>
-                                                                <td>{{item.HangMuc.TenHangMuc}}</td>
-                                                                <td>{{item.NhomCongViec.NhomCV}}</td>
-                                                                <td>{{item.MucDoTruyenThong}}</td>
-                                                                <td>{{item.NgayBatDau | date:'dd/MM/yyyy'}}</td>
-                                                                <td>{{item.NgayDuKienKetThuc | date:'dd/MM/yyyy'}}</td>
-                                                                <td>{{item.ApplicationUser.FullName}}</td>
-                                                                <td><span ng-repeat="thamgia in item.HangMuc.ThamGia"> {{thamgia.ApplicationUser.FullName}}<br /> </span></td>
-                                                                <td><span ng-repeat="thamgia in item.HangMuc.ThamGia" class="label label-warning">{{ thamgia.HeSoThamGia }}% <br /></span></td>
-                                                                <td><span ng-repeat="thamgia in item.HangMuc.ThamGia" class="label label-warning">{{ thamgia.DiemThanhVien }} <br /></span></td>
-                                                                <td><span ng-repeat="thamgia in item.HangMuc.ThamGia" class="label label-success ">{{Dgd*thamgia.DiemThanhVien | number}} <br /></span></td>
-                                                                <td>{{item.HeSoLapLai}}</td>
-                                                                <td>{{item.HeSoCongViec}}</td>
-                                                                <td>{{item.SoNguoiThucHien}}</td>
-                                                                <td>{{item.HeSoNhanCong}}</td>
-                                                                <td>{{"//"}}</td>
-                                                                <td>{{item.HeSoThoiGian}}</td>
-                                                                <td>{{item.DiemDanhGia}}</td>
-                                                                <td>{{item.DiemHangMuc}}</td>
+                                                                <td>{{itemTT.HangMuc.TenHangMuc}}</td>
+                                                                <td>{{itemTT.NhomCongViec.NhomCV}}</td>
+                                                                <td>{{itemTT.HeSoLap.SoNam}}</td>
+                                                                <td>{{itemTT.NgayBatDau | date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{itemTT.NgayHoanThanh | date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{itemTT.ApplicationUser.FullName}}</td>
+                                                                <td><span ng-repeat="thamgia in itemTT.HangMuc.ThamGia"> {{thamgia.ApplicationUser.FullName}}<br /> </span></td>
+                                                                <td><span ng-repeat="thamgia in itemTT.HangMuc.ThamGia" class="label label-warning">{{ thamgia.HeSoThamGia }}% <br /></span></td>
+                                                                <td>{{".."}}</td>
+                                                                <td>{{".."}}</td>
+                                                                <td>{{itemTT.HeSoLap.Hesl}}</td>
+                                                                <td>{{itemTT.NhomCongViec.HeSoCV}}</td>
+                                                                <td>{{itemTT.SoNguoiThucHien}}</td>
+                                                                <td>{{".."}}</td>
+                                                                <td>{{itemTT.HeSoTg.ThoiGianDk}}</td>
+                                                                <td>{{itemTT.HeSoTg.HeSoTgdk}}</td>
+                                                                <td>{{itemTT.DiemDanhGia}} (điểm)</td>
+                                                                <td>{{itemTT.DiemDanhGia * itemTT.NhomCongViec.HeSoCV * itemTT.HeSoTg.HeSoTgdk * itemTT.HeSoLap.Hesl | number }} *hsnc</td>
                                                             </tr>
 
                                                         </tbody>

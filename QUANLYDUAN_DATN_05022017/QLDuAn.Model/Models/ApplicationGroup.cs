@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QLDuAn.Model.Models
@@ -15,5 +16,7 @@ namespace QLDuAn.Model.Models
 
         [StringLength(250)]
         public string Description { get; set; }
+
+        public IEnumerable<ApplicationRole> Roles { get; set; }
     }
 }

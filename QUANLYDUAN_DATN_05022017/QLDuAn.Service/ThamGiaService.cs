@@ -8,11 +8,11 @@ namespace QLDuAn.Service
 {
     public interface IThamGiaService
     {
-        void Add(ThamGia tg);
+        bool Add(IEnumerable<ThamGia> ThamGia , int IdDuAn, int idHangMuc  , int LoaiHangMuc);
+
+        bool delMuti(IEnumerable<ThamGia> ThamGia , int IdDuAn, int idHangMuc, int LoaiHangMuc);
 
         void Delete(int id);
-
-        void Update(ThamGia tg);
 
         ThamGia GetById(int id);
 
@@ -20,7 +20,7 @@ namespace QLDuAn.Service
 
         IEnumerable<ThamGia> Paginate(int page, out int total, int pageSize);
 
-        ThamGia GetByIdHm(int IdHangMuc, int IdDuAn, int LoaiHangMuc , string IdNhanVien);
+        IEnumerable<ThamGia> GetByIdHm(int IdHangMuc, int IdDuAn, int LoaiHangMuc);
 
         void Save();
     }
@@ -36,9 +36,14 @@ namespace QLDuAn.Service
             this._unitOfWork = unitOfWork;
         }
 
-        public void Add(ThamGia tg)
+        public bool Add(IEnumerable<ThamGia> thamGia, int IdDuAn, int idHangMuc, int LoaiHangMuc)
         {
-             _thamGiaRepository.Add(tg);
+            _thamGiaRepository.DeleteMuti(x => x.IdDuAn == IdDuAn && x.IdHangMuc == idHangMuc && x.LoaiHangMuc == LoaiHangMuc);
+            foreach (var item in thamGia)
+            {
+                _thamGiaRepository.Add(item);
+            }
+            return true;
         }
 
         public void Delete(int id)
@@ -62,19 +67,20 @@ namespace QLDuAn.Service
             throw new NotImplementedException();
         }
 
-        public void Update(ThamGia tg)
-        {
-            _thamGiaRepository.Update(tg);
-        }
-
         public void Save()
         {
             _unitOfWork.Commit();
         }
 
-        public ThamGia GetByIdHm(int IdHangMuc, int IdDuAn, int LoaiHangMuc , string IdNhanVien)
+        public IEnumerable<ThamGia> GetByIdHm(int IdHangMuc, int IdDuAn, int LoaiHangMuc)
         {
-            return _thamGiaRepository.GetByConditon(x=>x.IdHangMuc==IdHangMuc && x.IdDuAn==IdDuAn && x.LoaiHangMuc==LoaiHangMuc && x.IdNhanVien == IdNhanVien);
+            return _thamGiaRepository.GetMuti(x=>x.IdHangMuc==IdHangMuc && x.IdDuAn==IdDuAn && x.LoaiHangMuc==LoaiHangMuc);
+        }
+
+        public bool delMuti(IEnumerable<ThamGia> ThamGia, int IdDuAn, int idHangMuc, int LoaiHangMuc)
+        {
+            _thamGiaRepository.DeleteMuti(x => x.IdDuAn == IdDuAn && x.IdHangMuc == idHangMuc && x.LoaiHangMuc == LoaiHangMuc);
+            return true;
         }
     }
 }

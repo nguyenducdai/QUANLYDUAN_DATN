@@ -35,6 +35,13 @@ namespace QLDuAn.Data
 
         public DbSet<ApplicationUserGroup> ApplicationUserGroup { get; set; }
 
+        public DbSet<HeSoLap> HeSoLap { get; set; }
+
+        public DbSet<HeSoTg> HeSoTg { get; set; }
+
+        public DbSet<HeSoNhanCong> HeSoNhanCong { get; set; }
+
+
         public static QLDuAnDbContext Create()
         {
             return new QLDuAnDbContext();

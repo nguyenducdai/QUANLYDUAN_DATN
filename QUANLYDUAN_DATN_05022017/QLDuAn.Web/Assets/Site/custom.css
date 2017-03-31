@@ -1,0 +1,14 @@
+﻿body{
+    background:#F7F7F7 !important;
+}
+.navbar{
+    height:45px !important;
+    background:#fff !important;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    border:none !important;
+    margin-bottom:0 !important;
+}
+.login-box-body{
+    top:70px;
+    padding:40px;
+}

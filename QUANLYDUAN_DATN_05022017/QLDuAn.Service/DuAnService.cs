@@ -52,7 +52,7 @@ namespace QLDuAn.Service
 
         public IEnumerable<DuAn> GetAll()
         {
-            return _duAnRepository.GetAll();
+            return _duAnRepository.GetAll( new string[] {"HopDong"});
         }
 
         public IEnumerable<DuAn> GetAll(string keyWord)

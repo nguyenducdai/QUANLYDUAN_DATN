@@ -8,7 +8,6 @@ namespace QLDuAn.Web.Models
 {
     public class ThamGiaViewModel
     {
-        public int Id { get; set; }
         public int IdDuAn { get; set; }
 
         public int IdHangMuc { get; set; }
@@ -23,10 +22,10 @@ namespace QLDuAn.Web.Models
 
         public decimal? DiemThanhVien { get; set; }
 
-        public virtual DuAnViewModel DuAn { get; set; }
+        //public virtual DuAnViewModel DuAn { get; set; }
 
-        public virtual HangMucDuAnViewModel HangMuc { get; set; }
+        //public virtual HangMucDuAnViewModel HangMuc { get; set; }
 
-        public virtual ApplicationUserViewModel ApplicationUser { get; set; }
+        //public virtual ApplicationUserViewModel ApplicationUser { get; set; }
     }
 }

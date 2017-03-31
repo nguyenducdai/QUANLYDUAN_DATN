@@ -2,25 +2,25 @@
     <div class="box-header with-border">
         <h3 class="box-title">Sửa Nhóm người dùng</h3>
     </div>
-    <form role="form">
+    <form role="form" novalidate ng-submit="suaNhomNguoiDung()" method="post">
         <div class="box-body">
             <div class="form-group">
                 <label>Tên Nhóm Người Dùng</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="NhomNguoiDung.Name">
             </div>
             <div class="form-group">
                 <label>Mô Tả </label>
-                <textarea class="form-control"></textarea>
+                <textarea class="form-control" ng-model="NhomNguoiDung.Description"></textarea>
             </div>
             <div class="checkbox">
-                <label>
-                    <input type="checkbox">quyền
+                <label ng-repeat="role in Roles">
+                    <input type="checkbox" checklist-model="NhomNguoiDung.Roles" checklist-value="role"> {{role.Description}} </br>
                 </label>
             </div>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Lưu lại</button>
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
             <button class="btn btn-default" ui-sref="nhomnguoidung">Trở về</button>
         </div>
     </form>

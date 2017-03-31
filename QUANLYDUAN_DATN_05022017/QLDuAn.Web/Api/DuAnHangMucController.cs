@@ -1,15 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using QLDuAn.Model.Models;
+using QLDuAn.Service;
+using QLDuAn.Web.Infastructure.Core;
+using QLDuAn.Web.Infastructure.Extentions;
+using QLDuAn.Web.Models;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using QLDuAn.Service;
-using QLDuAn.Web.Infastructure.Core;
-using Newtonsoft.Json.Linq;
-using QLDuAn.Model.Models;
-using QLDuAn.Web.Infastructure.Extentions;
-using QLDuAn.Web.Models;
-using AutoMapper;
 
 namespace QLDuAn.Web.Api
 {
@@ -18,111 +16,22 @@ namespace QLDuAn.Web.Api
     {
         private IThamGiaService _thamGiaService;
         private IDuAnHangMucService _duAnHangMucService;
+        private IHeSoNhanCongService _heSoNhanCongService;
 
-        public DuAnHangMucController(ErrorService errorService, IThamGiaService thamGiaService, IDuAnHangMucService duAnHangMucService) : base(errorService)
+        public DuAnHangMucController(
+            ErrorService errorService, 
+            IThamGiaService thamGiaService, 
+            IDuAnHangMucService duAnHangMucService, 
+            IHeSoNhanCongService heSoNhanCongService) : base(errorService)
         {
             this._thamGiaService = thamGiaService;
             this._duAnHangMucService = duAnHangMucService;
+            this._heSoNhanCongService = heSoNhanCongService;
         }
 
         [Route("created")]
         [HttpPost]
-        public HttpResponseMessage Created(HttpRequestMessage request, JObject objectJson)
-        {
-            return CreateReponse(request, () =>
-            {
-                HttpResponseMessage response;
-                if (!ModelState.IsValid)
-                {
-                     response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
-                    dynamic json = objectJson;
-                    JObject jsonDaHm = json.HangMucDa;
-                    JArray jsonArrThamGia = json.ThamGia;
-                    var HangMucDa = jsonDaHm.ToObject<HangMucDuAnViewModel>();
-
-                    var newDuAnHangMuc = new DuAnHangMuc();
-                    newDuAnHangMuc.UpdateDuAnHangMuc(HangMucDa);
-                    var model = _duAnHangMucService.Add(newDuAnHangMuc);
-                    _duAnHangMucService.Save();
-
-                    List<ThamGiaViewModel> listThamgia = new List<ThamGiaViewModel>();
-                    foreach (var item in jsonArrThamGia)
-                    {
-                        JObject jo = JObject.FromObject(item);
-                        var tg = item.ToObject<ThamGiaViewModel>();
-                        tg.IdHangMuc = HangMucDa.IdHangMuc;
-                        tg.LoaiHangMuc = HangMucDa.LoaiHangMuc;
-                        tg.DiemThanhVien = Math.Round((HangMucDa.DiemHangMuc * tg.HeSoThamGia) / 100, 0);
-                        listThamgia.Add(tg);
-                    }
-
-                    var reponseData = Mapper.Map<DuAnHangMuc, HangMucDuAnViewModel>(model);
-
-                    if (reponseData != null)
-                    {
-                        foreach (var item in listThamgia)
-                        {
-                            var newThamGia = new ThamGia();
-                            newThamGia.UpdateThamGia(item);
-                            _thamGiaService.Add(newThamGia);
-                            _thamGiaService.Save();
-                        }
-                    }
-                    response = request.CreateResponse(HttpStatusCode.Created, reponseData);
-                }
-               
-                return response;
-            });
-        }
-
-        [HttpGet]
-        [Route("gethangmucduan")]
-        public HttpResponseMessage GetHangMucDuAn(HttpRequestMessage request, int id , int LoaiHangMuc)
-        {
-            return CreateReponse(request, () =>
-            {
-                HttpResponseMessage response;
-                var model = _duAnHangMucService.GetInfoByIdProject(id ,LoaiHangMuc);
-                
-                var reposeData = Mapper.Map<IEnumerable<DuAnHangMuc> , IEnumerable<HangMucDuAnViewModel>>(model);
-                response = request.CreateResponse(HttpStatusCode.OK, model);
-                return response;
-            });
-        }
-
-        [HttpDelete]
-        [Route("delete")]
-        public HttpResponseMessage Delete(HttpRequestMessage request , int IdHangMuc, int IdDuAn, int IdNhomCongViec, int LoaiHangMuc)
-        {
-            return CreateReponse(request, () =>
-            {
-                HttpResponseMessage response;
-                var b = _duAnHangMucService.DeleteMediate(IdHangMuc, IdDuAn, IdNhomCongViec, LoaiHangMuc);
-                    response = request.CreateResponse(HttpStatusCode.Created, b);
-                return response;
-            });
-
-        }
-
-        [HttpGet]
-        [Route("getSingle")]
-        public HttpResponseMessage GetSingleById(HttpRequestMessage request, int IdHangMuc, int IdDuAn, int IdNhomCongViec, int LoaiHangMuc)
-        {
-            return CreateReponse(request ,()=> {
-                HttpResponseMessage response;
-                var model = _duAnHangMucService.GetSingleById(IdHangMuc,IdDuAn, IdNhomCongViec, LoaiHangMuc);
-                response = request.CreateResponse(HttpStatusCode.OK, model);
-                return response;
-            });
-          
-        }
-
-        [HttpPut]
-        [Route("update")]
-        public HttpResponseMessage UpdateHangMuc(HttpRequestMessage request, JObject objectJson)
+        public HttpResponseMessage Created(HttpRequestMessage request, HangMucDuAnViewModel HangMucduAnVM)
         {
             return CreateReponse(request, () =>
             {
@@ -133,55 +42,120 @@ namespace QLDuAn.Web.Api
                 }
                 else
                 {
-                    dynamic json = objectJson;
-                    JObject jsonDaHm = json.HangMucDa;
-                    JArray jsonArrThamGia = json.ThamGia;
-                    var HangMucDa = jsonDaHm.ToObject<HangMucDuAnViewModel>();
-
-                    var newDuAnHangMuc = _duAnHangMucService.GetSingleUpdate(HangMucDa.IdHangMuc, HangMucDa.IdDuAn, HangMucDa.LoaiHangMuc);
-                    newDuAnHangMuc.UpdateDuAnHangMuc(HangMucDa);
-                    _duAnHangMucService.Update(newDuAnHangMuc);
+                    var hangMucDa = new DuAnHangMuc();
+                    var HeSoNC = _heSoNhanCongService.GetHeSoKcn(HangMucduAnVM.SoNguoiThucHien);
+                    hangMucDa.UpdateDuAnHangMuc(HangMucduAnVM);
+                    hangMucDa.HesoKcn = HeSoNC.HeSoNcKcn;
+                    _duAnHangMucService.Add(hangMucDa);
                     _duAnHangMucService.Save();
 
-                    List<ThamGiaViewModel> listThamgia = new List<ThamGiaViewModel>();
-                    foreach (var item in jsonArrThamGia)
+                    if (hangMucDa != null)
                     {
-                        JObject jo = JObject.FromObject(item);
-                        var tg = item.ToObject<ThamGiaViewModel>();
-                        tg.DiemThanhVien = Math.Round((HangMucDa.DiemHangMuc * tg.HeSoThamGia) / 100, 0);
-                        listThamgia.Add(tg);
-                    }
-
-                    if (newDuAnHangMuc != null)
-                    {
-                        foreach (var item in listThamgia)
+                        List<ThamGia> listTG = new List<ThamGia>();
+                        foreach (var item in HangMucduAnVM.ThamGia)
                         {
-                            var newThamGia = _thamGiaService.GetByIdHm(item.IdHangMuc, item.IdDuAn, item.LoaiHangMuc, item.IdNhanVien);
-                            if (newThamGia != null)
+                            listTG.Add(new ThamGia()
                             {
-                                newThamGia.UpdateThamGia(item);
-                                _thamGiaService.Update(newThamGia);
-                                _thamGiaService.Save();
-                            }
-                            else
-                            {
-                                var ThamGia = new ThamGia();
-                                ThamGia.UpdateThamGia(item);
-                                _thamGiaService.Add(ThamGia);
-                                _thamGiaService.Save();
-                            }
-
+                                IdDuAn = item.IdDuAn,
+                                IdHangMuc = hangMucDa.IdHangMuc,
+                                IdNhanVien = item.IdNhanVien,
+                                LoaiHangMuc = hangMucDa.LoaiHangMuc,
+                                HeSoThamGia = item.HeSoThamGia
+                            });
                         }
+                        _thamGiaService.Add(listTG, hangMucDa.IdDuAn, hangMucDa.IdHangMuc, hangMucDa.LoaiHangMuc);
+                        _thamGiaService.Save();
+                    }
+                    response = request.CreateResponse(HttpStatusCode.Created, "");
+                }
 
-                      
+                return response;
+            });
+        }
 
+        [HttpGet]
+        [Route("gethangmucduan")]
+        public HttpResponseMessage GetHangMucDuAn(HttpRequestMessage request, int id, int LoaiHangMuc)
+        {
+            return CreateReponse(request, () =>
+            {
+                HttpResponseMessage response;
+                var model = _duAnHangMucService.GetInfoByIdProject(id, LoaiHangMuc);
+                var reposeData = Mapper.Map<IEnumerable<DuAnHangMuc>, IEnumerable<HangMucDuAnViewModel>>(model);
+                response = request.CreateResponse(HttpStatusCode.OK, model);
+                return response;
+            });
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        public HttpResponseMessage Delete(HttpRequestMessage request, int IdHangMuc, int IdDuAn, int IdNhomCongViec, int LoaiHangMuc)
+        {
+            return CreateReponse(request, () =>
+            {
+                HttpResponseMessage response;
+                var b = _duAnHangMucService.DeleteMediate(IdHangMuc, IdDuAn, IdNhomCongViec, LoaiHangMuc);
+                response = request.CreateResponse(HttpStatusCode.Created, b);
+                return response;
+            });
+        }
+
+        [HttpGet]
+        [Route("getSingle")]
+        public HttpResponseMessage GetSingleById(HttpRequestMessage request, int IdHangMuc, int IdDuAn, int IdNhomCongViec, int LoaiHangMuc)
+        {
+            return CreateReponse(request, () =>
+            {
+                HttpResponseMessage response;
+                var model = _duAnHangMucService.GetSingleById(IdHangMuc, IdDuAn, IdNhomCongViec, LoaiHangMuc);
+                response = request.CreateResponse(HttpStatusCode.OK, model);
+                return response;
+            });
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public HttpResponseMessage UpdateHangMuc(HttpRequestMessage request, HangMucDuAnViewModel hangMucDuAnMD)
+        {
+            return CreateReponse(request, () =>
+            {
+                HttpResponseMessage response;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var hangMucDa = new DuAnHangMuc();
+                    hangMucDa.UpdateDuAnHangMuc(hangMucDuAnMD);
+                    _duAnHangMucService.Add(hangMucDa);
+                    _duAnHangMucService.Save();
+
+                    if (hangMucDa != null)
+                    {
+                        //var oldTG =  _thamGiaService.GetByIdHm(hangMucDa.IdDuAn, hangMucDa.IdHangMuc, hangMucDa.LoaiHangMuc);
+                        // _thamGiaService.delMuti(oldTG, hangMucDa.IdDuAn, hangMucDa.IdHangMuc, hangMucDa.LoaiHangMuc);
+                        // _thamGiaService.Save();
+
+                        List<ThamGia> listTG = new List<ThamGia>();
+                        foreach (var item in hangMucDuAnMD.ThamGia)
+                        {
+                            listTG.Add(new ThamGia()
+                            {
+                                IdDuAn = item.IdDuAn,
+                                IdHangMuc = item.IdHangMuc,
+                                IdNhanVien = item.IdNhanVien,
+                                LoaiHangMuc = item.LoaiHangMuc,
+                                HeSoThamGia = item.HeSoThamGia
+                            });
+                        }
+                        _thamGiaService.Add(listTG, hangMucDa.IdDuAn, hangMucDa.IdHangMuc, hangMucDa.LoaiHangMuc);
+                        _thamGiaService.Save();
                     }
                     response = request.CreateResponse(HttpStatusCode.Created, "Update success");
                 }
                 return response;
             });
         }
-
-        
-    } 
+    }
 }

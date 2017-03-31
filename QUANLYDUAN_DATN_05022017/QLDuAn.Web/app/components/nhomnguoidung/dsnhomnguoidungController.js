@@ -1,5 +1,5 @@
 ﻿(function (app) {
-    app.controller('dsnhomnguoidungController', ['$scope','service','notification', function ($scope,service,notification) {
+    app.controller('dsnhomnguoidungController', ['$scope','service','notification','$ngBootbox', function ($scope,service,notification,$ngBootbox) {
         
         $scope.Groups = {}
 
@@ -11,6 +11,23 @@
             })
         }
 
+        $scope.Del = function (id) {
+            $ngBootbox.confirm('Bạn có chắc chắn muốn xóa không').then(function(){
+                var config = {
+                    params: {
+                        id:id
+                    }
+                }
+                service.del('api/applicationgroup/delete', config, function (result) {
+                    loadDsNhomNguoiDung();
+                    notification.success('Xóa nhóm người dùng thành công');
+                }, function (error) {
+                    notification.error(error);
+                })
+
+            });
+            
+        }
         loadDsNhomNguoiDung();
 
     }]);

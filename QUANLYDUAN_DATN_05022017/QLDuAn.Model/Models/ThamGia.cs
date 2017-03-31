@@ -7,13 +7,15 @@ namespace QLDuAn.Model.Models
     public class ThamGia
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-       
+        [Column(Order =1)]
         public int IdDuAn { get; set; }
 
+        [Key]
+        [Column(Order = 2)]
         public int IdHangMuc { get; set; }
 
+        [Key]
+        [Column(Order = 3)]
         public string IdNhanVien { get; set; }
 
         public int LoaiHangMuc { get; set; }

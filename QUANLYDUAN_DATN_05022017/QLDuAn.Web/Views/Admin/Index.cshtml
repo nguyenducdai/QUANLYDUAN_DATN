@@ -10,6 +10,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="~/Assets/librarys/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Assets/librarys/toastr/toastr.css" rel="stylesheet" />
+    <link href="~/Assets/librarys/iCheck/skins/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link href="~/Assets/admin/css/AdminLTE.css" rel="stylesheet" />
@@ -27,6 +28,8 @@
     <script src="~/Assets/librarys/jquery.slimscroll/jquery.slimscroll.js"></script>
     <script src="~/Assets/librarys/fastclick/lib/fastclick.js"></script>
     <script src="~/Assets/admin/js/app.min.js"></script>
+    <script src="~/Assets/librarys/iCheck/icheck.js"></script>
+
 
     <!-- ./library angular -->
     <script src="~/Assets/librarys/angular/angular.js"></script>
@@ -60,14 +63,25 @@
     <script src="~/app/components/hopdong/danhSachHdController.js"></script>
     <script src="~/app/components/hopdong/ThemHdController.js"></script>
     <script src="~/app/components/duan/DuAnController.js"></script>
-    <script src="~/app/components/duanhangmuc/duanhangmucController.js"></script>
+    <script src="~/app/components/duanhangmuc/themduanhangmucController.js"></script>
     <script src="~/app/components/duanhangmuc/chitietduanController.js"></script>
     <script src="~/app/components/duanhangmuc/suaduanhmController.js"></script>
     <script src="~/app/components/thanhvien/thanhvienController.js"></script>
     <script src="~/app/components/dangnhap/loginController.js"></script>
     <script src="~/app/components/khachhang/danhsachkhachhangController.js"></script>
     <script src="~/app/components/nhomnguoidung/dsnhomnguoidungController.js"></script>
-    <script src="~/app/components/nhomnguoidung/suatnhomnguoidungController.js"></script>
+    <script src="~/app/components/nhomnguoidung/suanhomnguoidungController.js"></script>
+    <script src="~/app/components/nhomnguoidung/themnguoidungController.js"></script>
+
+    <script>
+      $(document).ready(function(){
+          $(' input #ickeck').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%'
+        });
+      });
+    </script>
 
 </body>
 </html>
