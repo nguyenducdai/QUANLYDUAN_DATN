@@ -20,11 +20,13 @@ namespace QLDuAn.Service
 
         IEnumerable<DuAn> Paginate(int page, out int total, int pageSize);
 
-        IEnumerable<DuAn> GetAll(string keyWord);
+        IEnumerable<DuAn> GetAll(string keyword);
 
         DuAn GetDetail(int id);
 
         DuAn GetAllInfoById(int id);
+
+        IEnumerable<DuAn> GetDaByIdUser(string idNhanVien);
 
         void Save();
     }
@@ -52,12 +54,15 @@ namespace QLDuAn.Service
 
         public IEnumerable<DuAn> GetAll()
         {
-            return _duAnRepository.GetAll( new string[] {"HopDong"});
+            return _duAnRepository.GetAll(new string[] { "HopDong" });
         }
 
-        public IEnumerable<DuAn> GetAll(string keyWord)
+        public IEnumerable<DuAn> GetAll(string keyword)
         {
-            return _duAnRepository.GetMuti(x => x.TenDuAn.Contains(keyWord) && x.MoTa.Contains(keyWord));
+            if (string.IsNullOrEmpty(keyword))
+                return _duAnRepository.GetAll(new string[] { "HopDong" });
+            else
+                return _duAnRepository.GetMuti(x => x.TenDuAn.Contains(keyword) && x.MoTa.Contains(keyword), new string[] { "HopDong" });
         }
 
         public DuAn GetById(int id)
@@ -90,5 +95,9 @@ namespace QLDuAn.Service
             return _duAnRepository.GetAllInfo(id);
         }
 
+        public IEnumerable<DuAn> GetDaByIdUser(string idNhanVien)
+        {
+            return _duAnRepository.GetDaByIdUser(idNhanVien);
+        }
     }
 }

@@ -7,6 +7,8 @@ using System.Net.Http;
 using AutoMapper;
 using System.Collections.Generic;
 using QLDuAn.Model.Models;
+using System.Linq;
+using System;
 
 namespace QLDuAn.Web.Api
 {
@@ -25,15 +27,22 @@ namespace QLDuAn.Web.Api
 
         [Route("getall")]
         [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        public HttpResponseMessage GetAll(HttpRequestMessage request ,int page , int pageSize ,string keyword)
         {
             return CreateReponse(request, () =>
             {
-                var model = _ikhachHangService.GetAll();
-                var responseData = Mapper.Map<IEnumerable<KhachHang>, IEnumerable<KhachHang>>(model);
-                HttpResponseMessage response = request.CreateResponse(System.Net.HttpStatusCode.OK, responseData);
-                return response;
+                var model = _ikhachHangService.GetAll(keyword);
+                var query = model.Skip(page * pageSize).Take(pageSize);
+                var responseData = Mapper.Map<IEnumerable<KhachHang>, IEnumerable<KhachHangViewModel>>(query);
 
+                Paginnation<KhachHangViewModel> pagination = new Paginnation<KhachHangViewModel>
+                {
+                    items = responseData,
+                    Page = page,
+                    TotalPage = Convert.ToInt32(Math.Ceiling((double)model.Count() / pageSize)),
+                    TotalCount = model.Count()
+                };
+                return request.CreateResponse(System.Net.HttpStatusCode.OK, pagination); ;
             });
         }
 

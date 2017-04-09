@@ -2,12 +2,11 @@
     ViewBag.Title = "Trang Chủ";
     Layout = "~/Views/Shared/_RootLayout.cshtml";
 }
-<body class="skin-blue skin-blue sidebar-menu">
-    <div class="wrapper">
-
-        @{Html.RenderAction("Sidebar", "Home");}
+<!-- Page Content -->
+<div class="container" id="acctount_home">
+    <div class="row">
+        @{ Html.RenderAction("Sidebar", "Home");}
         @RenderBody()
-        @{Html.RenderAction("Footer", "Home");}
-   </div>
- </body>
-
+        @{ Html.RenderAction("Footer", "Home");}
+    </div>
+</div>

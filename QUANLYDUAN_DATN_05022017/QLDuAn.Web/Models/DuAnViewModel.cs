@@ -40,6 +40,14 @@ namespace QLDuAn.Web.Models
 
         public decimal? LuongGTV22 { get; set; }
 
+        public decimal? TongDiemTT { get; set; }
+
+        public decimal? TongDiemGT { get; set; }
+
+        public decimal? DonGiaDiemTT { get; set; }
+
+        public decimal? DonGiaDiemGT { get; set; }
+
         public int TrangThai { get; set; }
 
         public DateTime? Created_at { get; set; }
@@ -50,6 +58,6 @@ namespace QLDuAn.Web.Models
 
         public virtual IEnumerable<ThamGiaViewModel> ThamGia { get; set; }
 
-        public virtual IEnumerable<HangMucDuAnViewModel> DuAnHangMuc { get; set; }
+        public virtual IEnumerable<HangMucViewModel> HangMucViewModel { get; set; }
     }
 }

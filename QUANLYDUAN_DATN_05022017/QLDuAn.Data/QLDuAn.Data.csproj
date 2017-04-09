@@ -67,53 +67,41 @@
     <Compile Include="Infrastrusture\IUnitOfWork.cs" />
     <Compile Include="Infrastrusture\RepositoryBase.cs" />
     <Compile Include="Infrastrusture\UnitOfWork.cs" />
-    <Compile Include="Migrations\201703241639075_initALDB.cs" />
-    <Compile Include="Migrations\201703241639075_initALDB.Designer.cs">
-      <DependentUpon>201703241639075_initALDB.cs</DependentUpon>
+    <Compile Include="Migrations\201704070719109_InitAlBD.cs" />
+    <Compile Include="Migrations\201704070719109_InitAlBD.Designer.cs">
+      <DependentUpon>201704070719109_InitAlBD.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703241640548_renameIdentityTable.cs" />
-    <Compile Include="Migrations\201703241640548_renameIdentityTable.Designer.cs">
-      <DependentUpon>201703241640548_renameIdentityTable.cs</DependentUpon>
+    <Compile Include="Migrations\201704070915484_changeLoaiHM.cs" />
+    <Compile Include="Migrations\201704070915484_changeLoaiHM.Designer.cs">
+      <DependentUpon>201704070915484_changeLoaiHM.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703261605261_addAttributeAplicationUserTB.cs" />
-    <Compile Include="Migrations\201703261605261_addAttributeAplicationUserTB.Designer.cs">
-      <DependentUpon>201703261605261_addAttributeAplicationUserTB.cs</DependentUpon>
+    <Compile Include="Migrations\201704071603516_addNhanVienDuAnTb.cs" />
+    <Compile Include="Migrations\201704071603516_addNhanVienDuAnTb.Designer.cs">
+      <DependentUpon>201704071603516_addNhanVienDuAnTb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703271443357_addColunmCreatedAtAppUserTB.cs" />
-    <Compile Include="Migrations\201703271443357_addColunmCreatedAtAppUserTB.Designer.cs">
-      <DependentUpon>201703271443357_addColunmCreatedAtAppUserTB.cs</DependentUpon>
+    <Compile Include="Migrations\201704080707571_addFgK.cs" />
+    <Compile Include="Migrations\201704080707571_addFgK.Designer.cs">
+      <DependentUpon>201704080707571_addFgK.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703291550305_removeColunmIdThamGiaTB.cs" />
-    <Compile Include="Migrations\201703291550305_removeColunmIdThamGiaTB.Designer.cs">
-      <DependentUpon>201703291550305_removeColunmIdThamGiaTB.cs</DependentUpon>
+    <Compile Include="Migrations\201704080724477_deleteTbNvDa.cs" />
+    <Compile Include="Migrations\201704080724477_deleteTbNvDa.Designer.cs">
+      <DependentUpon>201704080724477_deleteTbNvDa.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703300705315_removeFginkeyTGTB.cs" />
-    <Compile Include="Migrations\201703300705315_removeFginkeyTGTB.Designer.cs">
-      <DependentUpon>201703300705315_removeFginkeyTGTB.cs</DependentUpon>
+    <Compile Include="Migrations\201704080743512_addColumnDtv.cs" />
+    <Compile Include="Migrations\201704080743512_addColumnDtv.Designer.cs">
+      <DependentUpon>201704080743512_addColumnDtv.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703300722077_addFginkeyTGTB.cs" />
-    <Compile Include="Migrations\201703300722077_addFginkeyTGTB.Designer.cs">
-      <DependentUpon>201703300722077_addFginkeyTGTB.cs</DependentUpon>
+    <Compile Include="Migrations\201704081703316_addColumnDuAnTb.cs" />
+    <Compile Include="Migrations\201704081703316_addColumnDuAnTb.Designer.cs">
+      <DependentUpon>201704081703316_addColumnDuAnTb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703300817427_addTable.cs" />
-    <Compile Include="Migrations\201703300817427_addTable.Designer.cs">
-      <DependentUpon>201703300817427_addTable.cs</DependentUpon>
+    <Compile Include="Migrations\201704081819348_changeGiaTriHd.cs" />
+    <Compile Include="Migrations\201704081819348_changeGiaTriHd.Designer.cs">
+      <DependentUpon>201704081819348_changeGiaTriHd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703301518567_changeDaHmTB.cs" />
-    <Compile Include="Migrations\201703301518567_changeDaHmTB.Designer.cs">
-      <DependentUpon>201703301518567_changeDaHmTB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703301550435_changeDaHmTBv2.cs" />
-    <Compile Include="Migrations\201703301550435_changeDaHmTBv2.Designer.cs">
-      <DependentUpon>201703301550435_changeDaHmTBv2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703301553297_changeDaHmTBv3.cs" />
-    <Compile Include="Migrations\201703301553297_changeDaHmTBv3.Designer.cs">
-      <DependentUpon>201703301553297_changeDaHmTBv3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703311756096_addColunmKcn.cs" />
-    <Compile Include="Migrations\201703311756096_addColunmKcn.Designer.cs">
-      <DependentUpon>201703311756096_addColunmKcn.cs</DependentUpon>
+    <Compile Include="Migrations\201704081947408_addColumnThuNhapTGTb.cs" />
+    <Compile Include="Migrations\201704081947408_addColumnThuNhapTGTb.Designer.cs">
+      <DependentUpon>201704081947408_addColumnThuNhapTGTb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,7 +110,7 @@
     <Compile Include="Repositories\ApplicationRoleGroupRepository.cs" />
     <Compile Include="Repositories\ApplicationRoleRepository.cs" />
     <Compile Include="Repositories\ApplicationUserGroupRepository.cs" />
-    <Compile Include="Repositories\DuAnHangMucRepository.cs" />
+    <Compile Include="Repositories\ApplicationUserRepository.cs" />
     <Compile Include="Repositories\DuAnRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\HangMucRepository.cs" />
@@ -133,47 +121,39 @@
     <Compile Include="Repositories\KhachHangRepository.cs" />
     <Compile Include="Repositories\NhomCongViecRepository.cs" />
     <Compile Include="Repositories\ThamGiaRepository.cs" />
+    <Compile Include="Repositories\ThongBaoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703241639075_initALDB.resx">
-      <DependentUpon>201703241639075_initALDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704070719109_InitAlBD.resx">
+      <DependentUpon>201704070719109_InitAlBD.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703241640548_renameIdentityTable.resx">
-      <DependentUpon>201703241640548_renameIdentityTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704070915484_changeLoaiHM.resx">
+      <DependentUpon>201704070915484_changeLoaiHM.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703261605261_addAttributeAplicationUserTB.resx">
-      <DependentUpon>201703261605261_addAttributeAplicationUserTB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704071603516_addNhanVienDuAnTb.resx">
+      <DependentUpon>201704071603516_addNhanVienDuAnTb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703271443357_addColunmCreatedAtAppUserTB.resx">
-      <DependentUpon>201703271443357_addColunmCreatedAtAppUserTB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704080707571_addFgK.resx">
+      <DependentUpon>201704080707571_addFgK.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703291550305_removeColunmIdThamGiaTB.resx">
-      <DependentUpon>201703291550305_removeColunmIdThamGiaTB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704080724477_deleteTbNvDa.resx">
+      <DependentUpon>201704080724477_deleteTbNvDa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703300705315_removeFginkeyTGTB.resx">
-      <DependentUpon>201703300705315_removeFginkeyTGTB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704080743512_addColumnDtv.resx">
+      <DependentUpon>201704080743512_addColumnDtv.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703300722077_addFginkeyTGTB.resx">
-      <DependentUpon>201703300722077_addFginkeyTGTB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704081703316_addColumnDuAnTb.resx">
+      <DependentUpon>201704081703316_addColumnDuAnTb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703300817427_addTable.resx">
-      <DependentUpon>201703300817427_addTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704081819348_changeGiaTriHd.resx">
+      <DependentUpon>201704081819348_changeGiaTriHd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703301518567_changeDaHmTB.resx">
-      <DependentUpon>201703301518567_changeDaHmTB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703301550435_changeDaHmTBv2.resx">
-      <DependentUpon>201703301550435_changeDaHmTBv2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703301553297_changeDaHmTBv3.resx">
-      <DependentUpon>201703301553297_changeDaHmTBv3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703311756096_addColunmKcn.resx">
-      <DependentUpon>201703311756096_addColunmKcn.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704081947408_addColumnThuNhapTGTb.resx">
+      <DependentUpon>201704081947408_addColumnThuNhapTGTb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

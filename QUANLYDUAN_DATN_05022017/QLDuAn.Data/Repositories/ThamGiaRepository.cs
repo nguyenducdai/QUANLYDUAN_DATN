@@ -9,6 +9,9 @@ namespace QLDuAn.Data.Repositories
     public interface IThamGiaRepository : IRepository<ThamGia>
     {
         void DeleteHangMuc(int IdDuAn, int IdHangMuc, int LoaiHangMuc);
+
+        decimal TotalPoint(int IdDuAn,int LoaiHangMuc);
+
     }
 
     public class ThamGiaRepository : RepositoryBase<ThamGia>, IThamGiaRepository
@@ -21,7 +24,7 @@ namespace QLDuAn.Data.Repositories
         {
             List<ThamGia> thamgias =
                (from thamgia in DBContext.ThamGia
-                where thamgia.IdDuAn == IdDuAn && thamgia.IdHangMuc == IdHangMuc && thamgia.LoaiHangMuc == LoaiHangMuc
+                where thamgia.IdHangMuc == IdHangMuc && thamgia.LoaiHangMuc == LoaiHangMuc
                 select thamgia).ToList();
 
             if (thamgias.Count > 0)
@@ -34,6 +37,12 @@ namespace QLDuAn.Data.Repositories
             }
         }
 
-
+        public decimal TotalPoint(int IdDuAn, int LoaiHangMuc)
+        {
+            var query = from tg in DBContext.ThamGia
+                        where tg.IdDuAn == IdDuAn && tg.LoaiHangMuc == LoaiHangMuc
+                        select tg;
+            return query.Sum(x=>x.DiemThanhVien);
+        }
     }
 }

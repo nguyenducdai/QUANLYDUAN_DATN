@@ -18,9 +18,14 @@ namespace QLDuAn.Service
 
         IEnumerable<HangMuc> getAll();
 
-        IEnumerable<HangMuc> getPadding(int page, out int total, int pageSize);
+        IEnumerable<HangMuc> GetHangMucDuAn(int idDuAn, int LoaiHm, string keyword );
 
         IEnumerable<HangMuc> getAll(string keyword);
+
+        HangMuc GetHangMucById(int idHangMuc);
+
+        IEnumerable<HangMuc> GetHangMucByIdDuAn(int idDuAn);
+        IEnumerable<HangMuc> GetHangMucByIdDuAnSuccess(int idDuAn);
 
         void save();
     }
@@ -53,7 +58,11 @@ namespace QLDuAn.Service
 
         public IEnumerable<HangMuc> getAll(string keyword)
         {
-            return _hangMucRepository.GetAll();
+            if(string.IsNullOrEmpty(keyword))
+                 return _hangMucRepository.GetAll();
+            else
+                return _hangMucRepository.GetMuti(x=>x.TenHangMuc.Contains(keyword) || x.MoTaHangMuc.Contains(keyword));
+
         }
 
         public HangMuc getByID(int id)
@@ -61,11 +70,28 @@ namespace QLDuAn.Service
            return _hangMucRepository.GetById(id);
         }
 
-        public IEnumerable<HangMuc> getPadding(int page, out int total, int pageSize)
+        public HangMuc GetHangMucById(int idHangMuc)
         {
-            return _hangMucRepository.GetMutiPaging(x => x.TrangThai, out total, page, pageSize);
+            return _hangMucRepository.GetByConditon(x => x.ID.Equals(idHangMuc), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
         }
 
+        public IEnumerable<HangMuc> GetHangMucByIdDuAnSuccess(int idDuAn)
+        {
+            return _hangMucRepository.GetMuti(x => x.IdDuAn.Equals(idDuAn) && x.TrangThai==true);
+        }
+
+        public IEnumerable<HangMuc> GetHangMucDuAn(int idDuAn, int LoaiHm, string keyword)
+        {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return _hangMucRepository.GetMuti(x=>x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm) , new string[] {"ApplicationUser","ThamGia","NhomCongViec","HeSoTg","HeSoLap", "ThamGia.ApplicationUser" });
+            }else
+            {
+                return _hangMucRepository.GetMuti(x => x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm) && x.TenHangMuc.Contains(keyword) || x.MoTaHangMuc.Contains(keyword), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
+            }
+        }
+
+        
         public void save()
         {
             _iUnitOfWork.Commit();
@@ -74,6 +100,11 @@ namespace QLDuAn.Service
         public void Update(HangMuc hangMuc)
         {
             _hangMucRepository.Update(hangMuc);
+        }
+
+        IEnumerable<HangMuc> IHangMucService.GetHangMucByIdDuAn(int idDuAn)
+        {
+            return _hangMucRepository.GetMuti(x => x.IdDuAn.Equals(idDuAn));
         }
     }
 }

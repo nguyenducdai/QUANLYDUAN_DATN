@@ -1,0 +1,74 @@
+﻿<section class="content-header"></section>
+<section class="content">
+    <div class="box-header with-border">
+        <h3 class="box-title"><strong>Thống Báo</strong></h3>
+       <p class="pull-right" style="font-size:25px"> <i class="fa fa-clock-o" aria-hidden="true"></i> {{Time }}</p>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="box-group" id="accordion">
+            <!-- /.box-header -->
+            <div class="row">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <div class="info-box">
+                        <div class="box-header">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" ui-sref="themthongbao" ><i class="fa fa-plus"></i> tạo thông báo</button>
+                                <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-default btn-sm" ui-sref="home"><i class="fa fa-long-arrow-left"></i></button>
+                            </div>
+                            <div class="box-tools pull-right">
+                                <div class="has-feedback">
+                                    <input type="text" class="form-control input-sm ng-pristine ng-untouched ng-valid ng-empty" placeholder="tim kiem" ng-model="keyword" ng-change="loadThongBao(page)" aria-invalid="false">
+                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body no-padding">
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Thông báo</th>
+                                        <th>file đính kèm</th>
+                                        <th>ngày tạo</th>
+                                        <th>người tạo</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr ng-repeat="item in ThongBao">
+                                        <td>{{1}}</td>
+                                        <td><a ng-click="viewDetail(item.Id)">{{item.TieuDe}}</a></td>
+                                        <td><span ng-repeat="file in item.MoreFile"><a href="{{file.path}}">{{file.name}}</a></br></span></td>
+                                        <td><span>{{item.Created_at | date :'dd/MM/yyyy'}}</span></td>
+                                        <td><span class="badge bg-red">{{item.NguoiTao}}</span></td>
+                                        <td>
+                                            <button class="btn btn-default btn-sm" ng-click="remove(item.Id)"><i class="fa fa-trash-o"> xóa</i></button>
+                                            <button class="btn btn-default btn-sm" ui-sref="suathongbao({id:item.Id})"><i class="fa fa-pencil"> sửa</i></button>
+                                        </td>
+                                    </tr>
+                              
+                                </tbody>
+                            </table>
+                            <div class="col-md-12">
+                                <div class="col-md-6"><p><span>Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
+                                <div class="col-md-6">
+                                    <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="loadThongBao(page)"></pager-directive>
+                                </div>
+                            </div>
+                        </div>
+                     
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4 col-sm-12 col-xs-12" style="background:#FAFAFA ; min-height:530px">
+                      <h4 class="text-center text-gray">{{alert}}</h4>
+                     <div ng-include="templateUrl"></div>
+                    <!-- /.info-box -->
+                </div>
+            
+                <!-- /.col -->
+            </div>
+          </div>
+    </div>
+</section>

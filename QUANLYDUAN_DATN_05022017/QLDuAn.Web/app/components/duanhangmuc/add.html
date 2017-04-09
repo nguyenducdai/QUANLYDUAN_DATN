@@ -2,9 +2,9 @@
 <section class="content">
         <div class="box box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title"><strong>Thêm Hạng mục công viêc cho dự án dfd</strong></h3>
+                <h3 class="box-title"><strong>Thêm Hạng mục công viêc cho dự án </strong></h3>
                 <div>
-                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <small>chú ý : Thêm thành viên tham gia dự án trước khi khi chọn hạng mục công việc</small>
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <small>chú ý : Tđsadáhêm thành viên tham gia dự án trước khi khi chọn hạng mục công việc</small>
                     <button class="btn btn-default pull-right"  ui-sref ="duan">Đóng</button>
                 </div>
             </div>
@@ -14,27 +14,19 @@
                     <div class="col-md-7">
                         <form novalidate name="frmHmDa" ng-submit="AddHangMucDuAn()">
                             <input type="hidden" name="select" ng-model="HmDa.IdDuAn"/>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="Input1">Loại Hạng mục *</label>
-                                            <select name="select" class="form-control" ng-model="HmDa.LoaiHangMuc" ng-change="changeSelect()">
-                                                <option value="">--chọn loại hạng mục--</option>
-                                                <option value="0">Trực tiếp</option>
-                                                <option value="1">gián tiếp</option>
-                                            </select>
-                                            <input type="hidden" name="select" ng-model="HmDa.LoaiHangMuc" />
-                                        </div>
-                                        <div class="col-md-9">
-                                            <label for="Input2">hạng mục công việc</label>
-                                            <span class="pull-right text-light-blue" ng-if="loading"><i class="fa fa-refresh fa-spin"></i>loading...</span>
-                                            <select name="IdHangMuc" class="form-control" ng-model="HmDa.IdHangMuc" ng-options="option.ID as option.TenHangMuc for option in loadHangMuc">
-                                                <option value="">---chọn công việc---</option>
-                                            </select>
-                                            <input type="hidden" name="select" ng-model="HmDa.IdHangMuc" />
-                                        </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="Input2">Tên hạng mục công việc</label>
+                                        <input type="text" class="form-control" ng-model="HmDa.TenHangMuc">
                                     </div>
+                                    <div class="col-md-12">
+                                        <label for="Input2">Mô tả</label>
+                                        <textarea type="text" class="form-control" ng-model="HmDa.MoTaHangMuc"> </textarea>
+                                     </div>
+
                                 </div>
+                            </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -124,7 +116,7 @@
                             <tbody>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    <th>Thành viên</th>
+                                    <th>Thành viên dsa</th>
                                     <th>Tỷ lệ tham gia</th>
                                     <th>hành động</th>
                                 </tr>

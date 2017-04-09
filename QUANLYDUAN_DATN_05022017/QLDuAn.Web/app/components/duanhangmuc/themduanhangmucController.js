@@ -7,43 +7,27 @@
     function themduanhangmucController($scope, $rootScope, service, notification, $state, $mdDialog, $ngBootbox, $stateParams) {
 
         //function
-        $scope.changeSelect = changeSelect;
         $scope.loadThanhVien = loadThanhVien;
         $scope.AddHangMucDuAn = AddHangMucDuAn;
+        $scope.removeUser = removeUser;
 
 
         $scope.select = '';
         $scope.loadHangMuc = {}
         $scope.ThanhVien = {}
         $scope.NhomCvs = {}
-        $scope.HeSoThoiGian={}
+        $scope.HeSoThoiGian = {}
         $scope.HmDa = {
-            IdDuAn: $stateParams.id,
-            NgayHoanThanh: null,
-            TrangThai: false,
-            Created_at: new Date(),
+            IdDuAn: $stateParams.idDuAn,
             ThamGia: [],
-            SoNguoiThucHien:0
+            SoNguoiThucHien: 0, 
+            TrangThai: false,
+            LoaiHangMuc:$stateParams.LoaiHM,
+            Created_at: new Date()
         };
+
         $scope.User = {};
         $scope.loading = false;
-
-
-      
-        function changeSelect() {
-            $scope.loading = true;
-            var config = {
-                params: {
-                    option: $scope.HmDa.LoaiHangMuc
-                }
-            }
-            service.get('api/hm/getbylhm', config, function (result) {
-                $scope.loadHangMuc = result.data;
-                $scope.loading = false;
-            }, function () {
-
-            });
-        }
 
         function loadThanhVien() {
             service.get('api/appuser/getall', null, function (result) {
@@ -81,11 +65,13 @@
                 FullName: $scope.User.FullName,
                 IdDuAn: $stateParams.id,
                 IdNhanVien: $scope.User.Id,
-                HeSoThamGia: $scope.User.Tile
+                HeSoThamGia: $scope.User.Tile,
+                LoaiHangMuc: $stateParams.LoaiHM
             }
             for (var i = 0; i < $scope.HmDa.ThamGia.length; i++) {
                 if ($scope.HmDa.ThamGia[i].IdNhanVien == $scope.User.Id) {
-                     status = false;
+                    status = false;
+                    break;
                 } else {
                      status = true;
                 }
@@ -99,16 +85,16 @@
             $scope.HmDa.SoNguoiThucHien = $scope.HmDa.ThamGia.length;
         }
 
-        $scope.removeUser = function (id) {
+        function removeUser(id) {
             for (var i = 0; i < $scope.HmDa.ThamGia.length; i++) {
-                if ($scope.HmDa.ThamGia[i] == id) {
+                if ($scope.HmDa.ThamGia[i].IdNhanVien == id) {
                     $scope.HmDa.ThamGia.splice(i, 1);
                 }
             }
         }
 
         function AddHangMucDuAn() {
-            service.post('api/duanhangmuc/created', $scope.HmDa, function (result) {
+            service.post('api/hm/created', $scope.HmDa, function (result) {
                 notification.success('Thêm mục công việc thành công');
             }, function (errors) {
                 notification.error('có lỗi sảy ra !');

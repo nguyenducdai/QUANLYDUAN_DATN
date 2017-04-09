@@ -18,25 +18,16 @@
 
         protected override void Seed(QLDuAn.Data.QLDuAnDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
 
-            // AddNhomCongViec(context);
-            AddHesl(context);
-            AddHsoKcn(context);
-            HeSoTg(context);
+            // AddAdnin(context);
+            AddUser(context);
+            //AddApplicationGroup(context);
+            //AddNhomCongViec(context);
+            //AddHesl(context);
+            //AddHsoKcn(context);
+            //HeSoTg(context);
         }
-
         private void AddAdnin(QLDuAnDbContext context)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new QLDuAnDbContext()));
@@ -46,11 +37,19 @@
                 UserName = "aso2017",
                 Email = "aso.codien.2017@gmail.com",
                 EmailConfirmed = true,
-                FullName = "Aso Company"
+                FullName = "Aso Company",
+                Birthday = DateTime.Now,
+                Updatted_at = DateTime.Now,
+                Created_at = DateTime.Now,
+                Startdate = DateTime.Now,
+                PhoneNumberConfirmed = true,
+                TwoFactorEnabled = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 19,
 
             };
 
-            userManager.Create(user, "123456");
+            userManager.Create(user, "123456$");
 
             if (!userRole.Roles.Any())
             {
@@ -58,7 +57,7 @@
                 userRole.Create(new ApplicationRole { Name = "User" });
             }
 
-            var adminUser = userManager.FindByEmail(user.Email);
+            var adminUser = userManager.FindByEmail("aso.codien.2017@gmail.com");
 
             userManager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
         }

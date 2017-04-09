@@ -68,7 +68,7 @@
   <ItemGroup>
     <Compile Include="ApplicationGroupService.cs" />
     <Compile Include="ApplicationRoleService.cs" />
-    <Compile Include="DuAnHangMucService.cs" />
+    <Compile Include="ApplicationUserService.cs" />
     <Compile Include="DuAnService.cs" />
     <Compile Include="HeSoLapService.cs" />
     <Compile Include="HeSoNhanCongService.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="ErrorService.cs" />
     <Compile Include="HangMucService.cs" />
     <Compile Include="ThamGiaService.cs" />
+    <Compile Include="ThongBaoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

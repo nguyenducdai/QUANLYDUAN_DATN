@@ -114,17 +114,17 @@ namespace QLDuAn.Data.Infrastrusture
             return dbContext.Set<T>().FirstOrDefault(express);
         }
 
-        public IEnumerable<T> GetMutiPaging(Expression<Func<T, bool>> where, out int total, int index = 0, int size = 20, string[] include = null)
+        public IEnumerable<T> GetMutiPaging(Expression<Func<T, bool>> where ,out int total, int index = 0, int size = 20, string[] includes = null)
         {
             int skipCount = index * size;
             IQueryable<T> _resetSet;
 
             //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
-            if (include != null && include.Count() > 0)
+            if (includes != null && includes.Count() > 0)
             {
-                var query = dbContext.Set<T>().Include(include.First());
-                foreach (var inc in include.Skip(1))
-                    query = query.Include(inc);
+                var query = dbContext.Set<T>().Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
                 _resetSet = where != null ? query.Where<T>(where).AsQueryable() : query.AsQueryable();
             }
             else

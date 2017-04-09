@@ -15,7 +15,8 @@
     "iCheck": "*",
     "angular-local-storage": "*",
     "angular-loading-bar": "*",
-    "checklist-model": "*"
+    "checklist-model": "*",
+    "angular-chart.js": "*"
   }
 }
 

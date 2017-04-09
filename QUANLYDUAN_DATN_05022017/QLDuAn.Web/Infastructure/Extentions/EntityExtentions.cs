@@ -12,6 +12,18 @@ namespace QLDuAn.Web.Infastructure.Extentions
             hangMuc.MoTaHangMuc = hangMucVM.MoTaHangMuc;
             hangMuc.LoaiHangMuc = hangMucVM.LoaiHangMuc;
             hangMuc.TrangThai = hangMucVM.TrangThai;
+            hangMuc.IdDuAn = hangMucVM.IdDuAn;
+            hangMuc.IdNhomCongViec = hangMucVM.IdNhomCongViec;
+            hangMuc.IdMucDoTruyenThong = hangMucVM.IdMucDoTruyenThong;
+            hangMuc.NgayBatDau = hangMucVM.NgayBatDau;
+            hangMuc.ThoiGianDuKien = hangMucVM.ThoiGianDuKien;
+            hangMuc.NgayHoanThanh = hangMucVM.NgayHoanThanh;
+            hangMuc.IdNguoiThucHienTheoLenhSX = hangMucVM.IdNguoiThucHienTheoLenhSX;
+            hangMuc.SoNguoiThucHien = hangMucVM.SoNguoiThucHien;
+            hangMuc.DiemDanhGia = hangMucVM.DiemDanhGia;
+            hangMuc.HesoKcn = hangMucVM.HesoKcn;
+            hangMuc.LoaiHangMuc = hangMucVM.LoaiHangMuc;
+            hangMuc.TrangThai = hangMucVM.TrangThai;
             hangMuc.Created_at = hangMucVM.Created_at;
             hangMuc.Updated_at = hangMucVM.Updated_at;
         }
@@ -62,39 +74,22 @@ namespace QLDuAn.Web.Infastructure.Extentions
             duAn.LuongGTQgt = duAnVM.LuongGTQgt;
             duAn.LuongGTV21 = duAnVM.LuongGTV21;
             duAn.LuongGTV22 = duAnVM.LuongGTV22;
+            duAn.DonGiaDiemGT = duAnVM.DonGiaDiemGT;
+            duAn.DonGiaDiemTT = duAnVM.DonGiaDiemTT;
+            duAn.TongDiemGT = duAnVM.TongDiemGT;
+            duAn.TongDiemTT = duAnVM.TongDiemTT;
+            duAn.DonGiaDiemTT = duAnVM.DonGiaDiemTT;
             duAn.TrangThai = duAnVM.TrangThai;
             duAn.Created_at = duAnVM.Created_at;
             duAn.Updated_at = duAnVM.Updated_at;
         }
 
-        public static void UpdateDuAnHangMuc(this DuAnHangMuc duAnHangMuc, HangMucDuAnViewModel hangMucDuAnVM)
-        {
-            duAnHangMuc.IdDuAn = hangMucDuAnVM.IdDuAn;
-            duAnHangMuc.IdHangMuc = hangMucDuAnVM.IdHangMuc;
-            duAnHangMuc.IdNhomCongViec = hangMucDuAnVM.IdNhomCongViec;
-            duAnHangMuc.IdMucDoTruyenThong = hangMucDuAnVM.IdMucDoTruyenThong;
-            duAnHangMuc.NgayBatDau = hangMucDuAnVM.NgayBatDau;
-            duAnHangMuc.ThoiGianDuKien = hangMucDuAnVM.ThoiGianDuKien;
-            duAnHangMuc.NgayHoanThanh = hangMucDuAnVM.NgayHoanThanh;
-            duAnHangMuc.IdNguoiThucHienTheoLenhSX = hangMucDuAnVM.IdNguoiThucHienTheoLenhSX;
-            duAnHangMuc.SoNguoiThucHien = hangMucDuAnVM.SoNguoiThucHien;
-            duAnHangMuc.DiemDanhGia = hangMucDuAnVM.DiemDanhGia;
-            duAnHangMuc.HesoKcn = hangMucDuAnVM.HesoKcn;
-            duAnHangMuc.LoaiHangMuc = hangMucDuAnVM.LoaiHangMuc;
-            duAnHangMuc.TrangThai = hangMucDuAnVM.TrangThai;
-            duAnHangMuc.Created_at = hangMucDuAnVM.Created_at;
-            duAnHangMuc.Updated_at = hangMucDuAnVM.Updated_at;
-        }
-
         public static void UpdateThamGia(this ThamGia thamGia, ThamGiaViewModel thamGiaVM)
         {
-            thamGia.IdDuAn = thamGiaVM.IdDuAn;
             thamGia.IdHangMuc = thamGiaVM.IdHangMuc;
             thamGia.IdNhanVien = thamGiaVM.IdNhanVien;
             thamGia.LoaiHangMuc = thamGiaVM.LoaiHangMuc;
             thamGia.HeSoThamGia = thamGiaVM.HeSoThamGia;
-            thamGia.ThuNhap = thamGiaVM.ThuNhap;
-            thamGia.DiemThanhVien = thamGiaVM.DiemThanhVien;
         }
 
 
@@ -125,7 +120,7 @@ namespace QLDuAn.Web.Infastructure.Extentions
 
         }
 
-        public static void UpdateApplicationGroup(this ApplicationGroup applicationGroup , ApplicationGroupViewModel applicationGroupVM)
+        public static void UpdateApplicationGroup(this ApplicationGroup applicationGroup, ApplicationGroupViewModel applicationGroupVM)
         {
             applicationGroup.Id = applicationGroupVM.Id;
             applicationGroup.Name = applicationGroupVM.Name;
@@ -139,6 +134,17 @@ namespace QLDuAn.Web.Infastructure.Extentions
             applicationRole.Name = applicationRoleVM.Name;
             applicationRole.Description = applicationRoleVM.Description;
 
+        }
+
+        public static void UpdateThongBao(this ThongBao thongbao, ThongBaoViewModel thongbaoVM)
+        {
+            thongbao.Id = thongbaoVM.Id;
+            thongbao.TieuDe = thongbaoVM.TieuDe;
+            thongbao.NoiDung = thongbaoVM.NoiDung;
+            thongbao.NguoiTao = thongbaoVM.NguoiTao;
+            thongbao.MoreFile = thongbaoVM.MoreFile;
+            thongbao.Created_at = thongbaoVM.Created_at;
+            thongbao.Updated_at = thongbaoVM.Updated_at;
         }
     }
 }

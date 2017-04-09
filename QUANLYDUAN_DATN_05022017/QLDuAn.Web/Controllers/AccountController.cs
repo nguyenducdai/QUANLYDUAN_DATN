@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using QLDuAn.Model.Models;
+using AutoMapper;
 
 namespace QLDuAn.Web.Controllers
 {
@@ -97,6 +98,26 @@ namespace QLDuAn.Web.Controllers
             authentication.SignOut();
             return RedirectToAction("Login","Account");
         }
+
+        [HttpGet]
+        public ActionResult ThongTinCanhan()
+        {
+            var model = _applicationUserManager.FindById(User.Identity.GetUserId());
+            var resondata = Mapper.Map<ApplicationUser , ApplicationUserViewModel>(model);
+            return View(resondata);
+        }
+
+
+        [HttpGet]
+        public ActionResult CapNhatThongTin()
+        {
+            var model = _applicationUserManager.FindById(User.Identity.GetUserId());
+            var resondata = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(model);
+            return View(resondata);
+        }
+
+
+
 
 
     }

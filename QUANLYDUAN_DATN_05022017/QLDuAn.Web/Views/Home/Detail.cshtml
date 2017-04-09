@@ -1,0 +1,40 @@
+﻿@model QLDuAn.Web.Models.ThongBaoViewModel
+
+@{
+    ViewBag.Title = Model.TieuDe;
+    Layout = "~/Views/Shared/_RootLayout.cshtml";
+}
+
+<div class="container" id="home-page-no-sidebar">
+    <div class="row">
+        <div class="col-md-12" id="content_alert">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@Model.TieuDe</h3>
+                    <span class="label label-primary pull-right"><i class="fa fa-clock-o" aria-hidden="true"></i> @Model.Created_at </span>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <p>@Model.NoiDung</p>
+                <div class="box-footer">
+                    <p> file đính kèm </p>
+                    @{
+                        if (ViewBag.MoreFile != null)
+                        {
+                            <ul>
+                                @foreach (var file in ViewBag.MoreFile)
+                                {
+                                    <li><a href="@file.path"><i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i> @file.name</a></li>
+                                }
+                            </ul>
+                        }else
+                        {
+                            <p>không có file đính kèm</p>
+                        }
+
+                    }
+                </div>
+            </div>
+            <p><a href="/"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Trở vê trang chủ </a> </p>
+        </div>
+    </div>
+</div>

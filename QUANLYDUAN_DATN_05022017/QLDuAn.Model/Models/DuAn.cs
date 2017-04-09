@@ -47,15 +47,21 @@ namespace QLDuAn.Model.Models
 
         public decimal? LuongGTV22 { get; set; }
 
-        //0-> chưa thực hiện , 1-> đang thực hiện / 2->hoàn thành /2hoàn thành muộn
+        public decimal? TongDiemTT { get; set; }
+
+        public decimal? TongDiemGT { get; set; }
+
+        public decimal? DonGiaDiemTT { get; set; }
+
+        public decimal? DonGiaDiemGT { get; set; }
+
         public int TrangThai { get; set; }
 
         [ForeignKey("IdHopDong")]
         public virtual HopDong HopDong { get; set; }
 
+        public virtual IEnumerable<HangMuc> HangMuc { get; set; }
+
         public virtual IEnumerable<ThamGia> ThamGia { get; set; }
-
-        public virtual IEnumerable<DuAnHangMuc> DuAnHangMuc { get; set; }
-
     }
 }

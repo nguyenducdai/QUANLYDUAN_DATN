@@ -39,10 +39,11 @@ namespace QLDuAn.Model.Models
             // Add custom user claims here
             return userIdentity;
         }
-        public virtual IEnumerable<DuAnHangMuc> DuAnHangMuc { get; set; }
+        public virtual IEnumerable<HangMuc> HangMuc { get; set; }
 
         public IEnumerable<ApplicationGroup> Groups { get; set; }
 
+        public IEnumerable<ThamGia> ThamGia { get; set; }
 
     }
 }

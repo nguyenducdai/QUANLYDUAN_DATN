@@ -2,6 +2,8 @@
 using QLDuAn.Model.Models;
 using System.Linq;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace QLDuAn.Data.Repositories
 {
@@ -10,6 +12,9 @@ namespace QLDuAn.Data.Repositories
         DuAn GetDetail(int id);
 
         DuAn GetAllInfo(int id);
+
+        IEnumerable<DuAn> GetDaByIdUser(string idNhanVien); 
+
     }
 
     public class DuAnRepository : RepositoryBase<DuAn>, IDuAnRepository
@@ -25,6 +30,15 @@ namespace QLDuAn.Data.Repositories
             return query.SingleOrDefault(x => x.ID.Equals(id));
         }
 
+        public IEnumerable<DuAn> GetDaByIdUser(string idNhanVien)
+        {
+            var query = from da in DBContext.DuAn
+                        join tg in DBContext.ThamGia
+                        on da.ID equals tg.IdDuAn
+                        where tg.IdNhanVien == idNhanVien
+                        select da;
+            return query.ToList();
+        }
 
         public DuAn GetDetail(int id)
         {
@@ -32,22 +46,5 @@ namespace QLDuAn.Data.Repositories
                         select dt;
             return query.SingleOrDefault(x => x.ID == id);
         }
-
-        //public DuAn GetDetail1(int id)
-        //{
-        //    var query = (from sp in DBContext.DuAn
-        //                 join dm in DBContext.HopDong
-        //                 on sp.ID equals dm.ID
-        //                 where sp.ID == id
-        //                 select new DuAn()
-        //                 {
-        //                     sp.HopDong = dm.DuAn 
-
-                          
-
-        //                 });
-        //    return query;
-
-        //}
     }
 }

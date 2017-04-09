@@ -12,7 +12,7 @@
                         <h3 class="box-title">Tất cả các khách hàng</h3>
                         <div class="box-tools pull-right">
                             <div class="has-feedback">
-                                <input type="text" class="form-control input-sm" placeholder="tim kiem">
+                                <input type="text" class="form-control input-sm" placeholder="tim kiem" ng-model="keyword" ng-change="LoadKhachHang(page)">
                                 <span class="glyphicon glyphicon-search form-control-feedback"></span>
                             </div>
                         </div>
@@ -60,18 +60,24 @@
                                         <tr ng-repeat="kh in KhachHang">
                                             <td><input type="checkbox"/> </td>
                                             <td>{{kh.TenKhach}}</td>
-                                            <td>{{kh.SoDienThoai}} <br> số Fax : {{kh.SoFax}}</td>
-                                            <td><span class="badge bg-light-blue">{{kh.Email}}</span></td>
+                                            <td>{{kh.SoDienThoai}} - số Fax : {{kh.SoFax}}</td>
+                                            <td><span>{{kh.Email}}</span></td>
                                             <td>{{kh.DiaChi}}</td>
                                             <td>{{kh.GioiTinh |ConverFilter :'Nam':'Nữ'}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-info btn-xs" ng-click="showFromEdit($event , kh.ID)">Sửa</button>
-                                                <button type="button" class="btn btn-danger btn-xs" ng-click="xoaKhachHang(kh.ID)">xóa</button>
+                                                <button type="button" class="btn btn-info btn-xs" ng-click="showFromEdit($event , kh.ID)"> <i class="fa fa-pencil" ></i> Sửa</button>
+                                                <button type="button" class="btn btn-danger btn-xs" ng-click="xoaKhachHang(kh.ID)"><i class="fa fa-trash-o"></i> xóa</button>
                                             </td>
                                         </tr>
                                       
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6"><p><span>Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
+                                <div class="col-md-6">
+                                    <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="LoadKhachHang(page)"></pager-directive>
+                                </div>
                             </div>
                             <!-- /.table -->
                         </div>

@@ -27,14 +27,22 @@ namespace QLDuAn.Web.Api
 
         [HttpGet]
         [Route("getall")]
-        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        public HttpResponseMessage GetAll(HttpRequestMessage request , int page , int pageSize , string keyword)
         {
             return CreateReponse(request, () =>
             {
                 HttpResponseMessage response;
-                var model = _daService.GetAll();
-                var responseData = Mapper.Map<IEnumerable<DuAn>, IEnumerable<DuAnViewModel>>(model);
-                response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                var model = _daService.GetAll(keyword);
+                var query = model.OrderByDescending(x => x.Created_at).Skip(page * pageSize).Take(pageSize);
+                var responseData = Mapper.Map<IEnumerable<DuAn>, IEnumerable<DuAnViewModel>>(query);
+                Paginnation<DuAnViewModel> pagination = new Paginnation<DuAnViewModel>
+                {
+                    items = responseData,
+                    Page = page,
+                    TotalPage = Convert.ToInt32(Math.Ceiling((double)model.Count()/pageSize)),
+                    TotalCount = model.Count()
+                };
+                response = request.CreateResponse(HttpStatusCode.OK, pagination);
                 return response;
             });
 

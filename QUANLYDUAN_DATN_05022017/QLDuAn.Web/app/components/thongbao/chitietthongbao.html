@@ -1,0 +1,16 @@
+﻿<div class="post">
+        <div class="user-block">
+              <h4><a href="javascript:void(0)">{{ThongBaoChiTiet.TieuDe}}</a></h4>  
+             <p><span> Ngày tạo : {{ThongBaoChiTiet.Created_at | date :'dd-MM-yyyy'}} - {{ThongBaoChiTiet.NguoiTao}}</span></p>
+        </div>
+        <div>
+            Nội dung
+            <p>
+                {{ThongBaoChiTiet.NoiDung}}
+            </p>
+            
+        </div>
+        <ul class="list-inline">
+            <li ng-repeat="fileItem in ThongBaoChiTiet.MoreFile"><a href="{{fileItem.path}}"><i class="fa fa-tags"></i> {{fileItem.name}}</a></li>
+        </ul>
+    </div>

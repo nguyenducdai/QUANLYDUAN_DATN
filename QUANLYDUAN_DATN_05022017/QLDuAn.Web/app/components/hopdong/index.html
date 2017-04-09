@@ -14,7 +14,7 @@
                         <h3 class="box-title">Tất cả các  hợp đồng</h3>
                         <div class="box-tools pull-right">
                             <div class="has-feedback">
-                                <input type="text" class="form-control input-sm" placeholder="tim kiem">
+                                <input type="text" class="form-control input-sm" placeholder="tim kiem" ng-model="keyword" ng-change="DanhSachHd(page)">
                                 <span class="glyphicon glyphicon-search form-control-feedback"></span>
                             </div>
                         </div>
@@ -46,18 +46,33 @@
                             <!-- /.pull-right -->
                         </div>
                         <div class="table-responsive mailbox-messages">
-                            <table class="table table-hover table-striped">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10px">#</th>
+                                        <th>số hợp đồng</th>
+                                        <th>tên hợp đồng</th>
+                                        <th>ngày tạo</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                    <tr ng-repeat="item in HopDong" ng-click="viewDetail(item.ID)">
-                                        <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
-                                        <td class="mailbox-name"><a>{{item.SoHopDong}}/{{item.TenHopDong}}</a> </td>
-
-                                        <td class="mailbox-date pull-right"><i class="fa fa-globe"></i> {{item.Created_at | date:'MMM d'}}</td>
+                                    <tr ng-repeat="item in HopDong">
+                                        <td><input  type="checkbox"/></td>
+                                        <td><a ng-click="viewDetail(item.ID)">{{item.SoHopDong}}</a> </td>
+                                        <td><a ng-click="viewDetail(item.ID)">{{item.TenHopDong}}</a> </td>
+                                        <!--<i class="fa fa-globe"></i>-->
+                                        <td> {{item.Created_at | date:'dd/MM/yyyy'}}</td>
                                     </tr>
 
                                 </tbody>
                             </table>
                             <!-- /.table -->
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6"><p><span>Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
+                            <div class="col-md-6">
+                                <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="DanhSachHd(page)"></pager-directive>
+                            </div>
                         </div>
                        
                     </div>
@@ -67,18 +82,7 @@
             </div>
             <div class="col-sm-12 col-md-4 col-lg-4" style="background:#FAFAFA ; min-height:600px">
                 <h3>{{alert}}</h3>
-                <div>
-                    <h4>
-                        {{ChiTietHopDong.TenHopDong}}
-                    </h4>
-                    <p>Mô tả : {{ChiTietHopDong.NoiDung}} </p>
-                    <p>{{ChiTietHopDong.GiaTriHopDong}} (vnd)</p>
-                    <p>Thời gian : {{ChiTietHopDong.NgayBatDau}} -> {{ChiTietHopDong.NgayKetThuc}}</p>
-                    <p> Ngày ký: {{ChiTietHopDong.NgayKy}}</p>
-                    <p>số hợp đồng :  {{ChiTietHopDong.SoHopDong}}</p>
-                    <p>số hợp đồng :  {{ChiTietHopDong. IdKhachHang}}</p>
-                </div>
-
+                <div ng-include="templateUrl"></div>
             </div>
         </div>
     </div>

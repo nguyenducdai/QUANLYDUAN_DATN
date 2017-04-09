@@ -69,7 +69,6 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserGroup.cs" />
     <Compile Include="Models\DuAn.cs" />
-    <Compile Include="Models\DuAnHangMuc.cs" />
     <Compile Include="Models\Errors.cs" />
     <Compile Include="Models\HangMuc.cs" />
     <Compile Include="Models\HeSoNhanCong.cs" />
@@ -79,6 +78,7 @@
     <Compile Include="Models\HeSoLap.cs" />
     <Compile Include="Models\NhomCongViec.cs" />
     <Compile Include="Models\ThamGia.cs" />
+    <Compile Include="Models\ThongBao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

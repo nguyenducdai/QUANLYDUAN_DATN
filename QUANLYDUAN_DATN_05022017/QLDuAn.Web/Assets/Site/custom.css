@@ -1,14 +1,169 @@
-﻿body{
-    background:#F7F7F7 !important;
+﻿body {
+    background: #F7F7F7 !important;
+    font-size:17px;
 }
-.navbar{
-    height:45px !important;
-    background:#fff !important;
+
+.navbar {
+    height: 45px !important;
+    background: #fff !important;
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
-    border:none !important;
-    margin-bottom:0 !important;
+    border: none !important;
+    margin-bottom: 0 !important;
 }
-.login-box-body{
-    top:70px;
-    padding:40px;
+
+.login-box-body {
+    top: 70px;
+    padding: 40px;
+}
+
+#home-page-no-sidebar {
+    width: 60% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    position: relative;
+    top: 10px;
+}
+#content_alert {
+    background: #fff;
+    border-left:4px solid #eee;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    -webkit-transition: border .3s linear;
+    transition: border .3s linear;
+    padding-bottom:30px;
+     
+}
+#acctount_home {
+    position: relative;
+    top: 10px;
+}
+.well{
+    background:#fff !important;
+    padding:5px;
+    border-radius:0 !important;
+    margin-bottom:10px;
+    border:0 !important;
+}
+.well h4{
+    background: #08f !important;
+    color: #fff;
+    padding: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+.well button{
+     background: #08f;
+}
+.well button .glyphicon{
+   color:#fff;
+}
+.list-unstyled li{
+    padding:6px !important;
+}
+.datepicker-inline {
+    margin:0 auto;
+}
+/**Custom Tabs*/
+.nav-tabs {
+    border-bottom: 1px solid #DDD;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover , .nav-tabs > li.active > a:focus {
+    border-width: 0;
+    background : none !important;
+
+}
+
+.nav-tabs > li > a {
+    border: none;
+    color: #666;
+    font-size:15px;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li > a:hover {
+    border: none;
+    color: #08f !important;
+    background: transparent;
+    font-weight:600;
+}
+
+.nav-tabs > li > a::after {
+    content: "";
+    background: #4285F4;
+    height: 2px;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    bottom: -1px;
+    transition: all 250ms ease 0s;
+    transform: scale(0);
+}
+
+.nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after {
+        transform: scale(1);
+}
+
+.tab-nav > li > a::after {
+    background: #21527d none repeat scroll 0% 0%;
+    color: #fff;
+}
+
+.tab-pane {
+    padding: 15px 0;
+}
+
+.tab-content {
+    padding: 20px;
+}
+
+.card {
+    margin-bottom: 30px;
+}
+
+
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
 }

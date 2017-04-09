@@ -51,7 +51,7 @@ namespace QLDuAn.Web.Models
 
         public DateTime Updatted_at { get; set; }
 
-        public virtual IEnumerable<HangMucDuAnViewModel> DuAnHangMuc { get; set; }
+        public virtual IEnumerable<HangMucViewModel> HangMucViewModel { get; set; }
 
         public IEnumerable<ApplicationGroupViewModel> Groups { get; set; }
 

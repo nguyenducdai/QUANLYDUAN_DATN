@@ -14,7 +14,14 @@
         $scope.xoaKhachHang = xoaKhachHang;
         $scope.showFromEdit = showFromEdit;
         $scope.suaKhachHang = suaKhachHang;
+        $scope.LoadKhachHang = LoadKhachHang;
         $rootScope.cancel = cancel;
+
+        //pagination
+        $scope.page = 0;
+        $scope.pagesCount = 0;
+        $scope.keyword = '';
+
 
         function showFrmAddKh(ev) {
             $mdDialog.show({
@@ -39,7 +46,7 @@
                 }
             }
             service.del('api/kh/delete', config, function (result) {
-                LoadKhachHang();
+                $scope.LoadKhachHang();
                 notification.success('xóa khách hàng thành công');
             }, function (error) {
                 notification.error('load dữ liệu thất bại');
@@ -82,7 +89,7 @@
 
         function suaKhachHang() {
             service.put('api/kh/update', $scope.KhachHangEdit, function (result) {
-                LoadKhachHang();
+                $scope.LoadKhachHang();
                 notification.success('cập nhật khách hàng thành công');
                 cancel();
             }, function (error) {
@@ -90,9 +97,20 @@
             })
         }
  
-        function LoadKhachHang() {
-            service.get('api/kh/getall', null, function (result) {
-                $scope.KhachHang = result.data;
+        function LoadKhachHang(page) {
+            page = page || 0;
+            var config = {
+                params: {
+                    page: page,
+                    pageSize: 8,
+                    keyword:$scope.keyword
+                }
+            }
+            service.get('api/kh/getall', config, function (result) {
+                $scope.KhachHang = result.data.items;
+                $scope.page = result.data.Page;
+                $scope.pagesCount = result.data.TotalPage;
+                $scope.totalCount = result.data.TotalCount;
             }, function (error) {
                 notification.error('load dữ liệu thất bại');
             });
@@ -108,7 +126,7 @@
 
             function themKhachHang() {
                 service.post('api/kh/create', $scope.KhachHang, function (result) {
-                    LoadKhachHang();
+                    $scope.LoadKhachHang();
                     notification.success('thêm khách hàng thành công');
                     cancel();
                 }, function (error) {
@@ -118,7 +136,7 @@
 
         }    
 
-        LoadKhachHang();
+        $scope.LoadKhachHang();
     }
     
  

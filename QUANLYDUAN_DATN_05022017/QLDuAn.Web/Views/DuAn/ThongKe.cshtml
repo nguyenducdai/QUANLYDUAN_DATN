@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Thông kê";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model QLDuAn.Web.Models.DuAnViewModel
+<div class="col-md-9">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"> <i class="fa fa-rss"></i> Hạng mục công việc</a></li>
+                    @{
+                        if (Request.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { @id = "frmLogout" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <li role="presentation" class="pull-right" id="btnLogout"><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Thoát</a></li>
+                            }
+
+                            <li role="presentation" class="pull-right "><a href="Thong-tin.html" class="text-blue"><i class="fa fa-user" aria-hidden="true"></i> xin chào : @User.Identity.Name</a></li>
+
+                        }
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="content_alert">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <h2 class="page-header"><i class="fa fa-bell-o" aria-hidden="true"></i> Thống kê doanh thu <small>hôm nay : 23/12/2017</small></h2>
+                    <div class="col-md-12">
+
+                            <div class="box">
+                                <div class="box-header">
+                                    <div class="form-group">
+                                        <label for="input" class="col-sm-2 control-label">Chọn Dự án</label>
+                                        <div class="col-sm-10" id="tk">
+                                            @Html.DropDownListFor(model=>model.ID, null, new { @class = "form-control thongke" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title"> Tất cả các công việc </h3>
+                                    <p class="pull-right"> Tông điểm  | đơn giá điểm  </p>
+
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body no-padding" id="table-thongKe">
+                                  
+                                </div>
+                                <div class="alert-info">
+                                    <p>Tổng tiền : {vnd}</p>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+
+

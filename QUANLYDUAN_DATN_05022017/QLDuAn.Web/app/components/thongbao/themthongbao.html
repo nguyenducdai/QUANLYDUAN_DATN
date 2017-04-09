@@ -1,0 +1,70 @@
+﻿<section class="content-header"></section>
+<section class="content">
+    <div class="box-header with-border">
+        <h3 class="box-title"><strong>Thêm Thống Báo</strong></h3>
+        <button class="btn btn-default pull-right" ui-sref="home"><i class="fa fa-long-arrow-left"></i></button>
+
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="box-group" id="accordion">
+            <!-- /.box-header -->
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="info-box">
+                        <div class="box-header">
+                            <form role="form" novalidate method="post" name="frmThongbao" ng-submit="themThongBao()">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label>Tiêu đề thông báo</label>
+                                        <input type="text" class="form-control" ng-model="ThongBao.TieuDe">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Nội dung</label>
+                                        <textarea class="form-control"  ng-model="ThongBao.NoiDung"></textarea>
+                                    </div>
+                               
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" placeholder="tên file" ng-model="file_name" >
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="path" disabled>
+                                                <div class="input-group-addon">
+                                                    <button type="button" ng-click="chooseMF()">choose</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button ng-click="upFile()" type="button">Tải lên</button>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <ul>
+                                            <li ng-repeat="item in MoreFile"><a>{{item.name}} <span ng-click="remove(item.path)"> x </span></a> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary" ng-disabled="frmThongbao.$invalid" disabled="disabled"> <i class="fa fa-save"></i> Thêm Mới</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="box-body no-padding">
+                        
+                        </div>
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+               
+
+                <!-- /.col -->
+            </div>
+        </div>
+    </div>
+</section>

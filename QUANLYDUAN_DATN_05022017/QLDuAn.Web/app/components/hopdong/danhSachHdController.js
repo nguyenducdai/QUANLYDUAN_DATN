@@ -1,4 +1,5 @@
-﻿/// <reference path="add.html" />
+﻿/// <reference path="chitethd.html" />
+/// <reference path="add.html" />
 (function (app) {
     app.controller('danhsachHdController', danhsachHdController);
     app.controller('ThemHdController', ThemHdController);
@@ -16,6 +17,14 @@
         $scope.showFrmAdd = showFrmAdd;
         $scope.viewDetail = viewDetail;
         $scope.refresh = refresh;
+        $scope.templateUrl = '';
+        $scope.DanhSachHd = DanhSachHd;
+
+        //pagination
+        $scope.page = 0;
+        $scope.pagesCount = 0;
+        $scope.keyword = '';
+
 
         function showFrmAdd(ev) {
             $mdDialog.show({
@@ -43,6 +52,8 @@
             }
             service.get('api/hd/getbyid', config, function (result) {
                 $scope.ChiTietHopDong = result.data;
+                console.log(result.data);
+                $scope.templateUrl = '/app/components/hopdong/chitiethd.html';
             }, function (error) {
             });
 
@@ -52,9 +63,20 @@
                DanhSachHd();
         }
 
-        function DanhSachHd() {
-            service.get('api/hd/getall', null, function (result) {
-                $scope.HopDong = result.data;
+        function DanhSachHd(page) {
+            page = page || 0;
+            var config = {
+                params: {
+                    page: page,
+                    pageSize: 8,
+                    keyword: $scope.keyword
+                }
+            }
+            service.get('api/hd/getall', config, function (result) {
+                $scope.HopDong = result.data.items;
+                $scope.page = result.data.Page;
+                $scope.pagesCount = result.data.TotalPage;
+                $scope.totalCount = result.data.TotalCount;
             }, function (error) {
                 notification.error('có lỗi dảy ra');
             });

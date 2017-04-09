@@ -13,8 +13,6 @@ namespace QLDuAn.Data
 
         public DbSet<DuAn> DuAn { get; set; }
 
-        public DbSet<DuAnHangMuc> DuAnHangMuc { get; set; }
-
         public DbSet<HangMuc> HangMuc { get; set; }
 
         public DbSet<KhachHang> KhachHang { get; set; }
@@ -41,6 +39,7 @@ namespace QLDuAn.Data
 
         public DbSet<HeSoNhanCong> HeSoNhanCong { get; set; }
 
+        public DbSet<ThongBao> ThongBao { get; set; }
 
         public static QLDuAnDbContext Create()
         {

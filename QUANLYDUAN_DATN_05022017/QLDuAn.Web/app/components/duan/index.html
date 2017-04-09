@@ -8,18 +8,15 @@
         <div class="box-group" id="accordion">
             <div class="col-md-12">            
                     <div class="box">
-                        <div class="box-header  with-border">
+                        <div class="box-header">
                             <h3 class="box-title">Tất cả các dự án</h3>
                             <div class="box-tools pull-right">
-                                <div class="has-feedback">
-                                    <input type="text" class="form-control input-sm" placeholder="tim kiem">
-                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                                </div>
+                             
                             </div>
                                 <!-- /.box-tools -->
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body table-responsive no-padding">
+                        <div class="box-body table-responsive">
                             <div class="mailbox-controls">
                                 <!-- Check all button -->
                                 <button type="button" class="btn btn-default btn-sm checkbox-toggle">
@@ -37,18 +34,17 @@
                                 <!-- /.btn-group -->
                                 <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                                 <div class="pull-right">
-                                    1-50/{{ListDuAn.length}}
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                                    <div class="has-feedback">
+                                        <input type="text" class="form-control input-sm" placeholder="tìm kiếm" ng-model="keyword" ng-change="LoadData(page)">
+                                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
                                     </div>
                                     <!-- /.btn-group -->
                                 </div>
                                 <!-- /.pull-right -->
                             </div>
 
-                            <div class="table-responsive table-striped">
-                                <table class="table table-hover table-striped">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
@@ -76,6 +72,12 @@
                                     </tbody>
                                 </table>
                                 <!-- /.table -->
+                                <div class="col-md-12">
+                                    <div class="col-md-6"><p><span>Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
+                                    <div class="col-md-6">
+                                        <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="LoadData(page)"></pager-directive>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- /.box-body -->

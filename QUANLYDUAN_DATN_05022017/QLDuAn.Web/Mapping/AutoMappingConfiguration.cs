@@ -14,7 +14,6 @@ namespace QLDuAn.Web.Mapping
                 cfg.CreateMap<KhachHang, KhachHangViewModel>();
                 cfg.CreateMap<DuAn, DuAnViewModel>();
                 cfg.CreateMap<ThamGia, ThamGiaViewModel>();
-                cfg.CreateMap<DuAnHangMuc, HangMucDuAnViewModel>();
                 cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
                 cfg.CreateMap<NhomCongViec, NhomCongViecViewModel>();
                 cfg.CreateMap<ApplicationGroup, ApplicationGroupViewModel>();
@@ -22,6 +21,7 @@ namespace QLDuAn.Web.Mapping
                 cfg.CreateMap<HeSoLap, HeSoLapViewModel>();
                 cfg.CreateMap<HeSoNhanCong, HeSoNhanCongViewModel>();
                 cfg.CreateMap<HeSoTg, HeSoTgViewModel>();
+                cfg.CreateMap<ThongBao, ThongBaoViewModel>();
             });
         }
     }

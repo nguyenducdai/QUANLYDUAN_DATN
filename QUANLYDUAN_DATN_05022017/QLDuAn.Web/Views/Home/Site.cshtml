@@ -1,8 +1,121 @@
-﻿
+﻿@using QLDuAn.Web.Models;
+@model QLDuAn.Web.Infastructure.Core.Paginnation<ThongBaoViewModel>
 @{
-    ViewBag.Title = "Site";
-    Layout = "~/Views/Shared/_RootLayout.cshtml";
+    ViewBag.Title = "Hệ thống quản lý dự án";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="content-wrapper" style="min-height:600px">
-    <p>đây site</p>
+<div class="col-md-9">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"> <i class="fa fa-rss"></i> Thông Báo</a></li>
+                <li role="presentation"><a href="#new" aria-controls="new" role="tab" data-toggle="tab"><i class="fa fa-file-text-o"></i> Tin Tức</a></li>
+                @{
+                    if (Request.IsAuthenticated)
+                    {
+                            using (Html.BeginForm("Logout", "Account", FormMethod.Post ,new {@id ="frmLogout"}))
+                            {
+                                @Html.AntiForgeryToken()
+                                <li role="presentation" class="pull-right" id="btnLogout"><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Thoát</a></li>
+                            }
+
+                        <li role="presentation" class="pull-right "><a href="Thong-tin.html" class="text-blue"><i class="fa fa-user" aria-hidden="true"></i> xin chào : @User.Identity.Name</a></li>
+
+                    }
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12" id="content_alert">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <h2 class="page-header"><i class="fa fa-bell-o" aria-hidden="true"></i> Thông báo <small>hôm nay : 23/12/2017</small></h2>
+
+                @{
+                    if (Model.items.Count() > 0)
+                    {
+
+                        <ul>
+                            @foreach (var item in Model.items)
+                            {
+                                var url = "/thong-bao/chi-tiet-" + @item.Id + ".html";
+                                <li><a href="@url">@item.TieuDe</a></li>
+                            }
+                        </ul>
+                        if (Model.TotalPage > 1)
+                        {
+                            var startPage = Math.Max(1, Model.Page - Model.MaxPage / 2);
+                            var endPage = Math.Min(Model.TotalPage, Model.Page + Model.MaxPage / 2);
+                            <nav aria-label="..." class="pull-right">
+                                <ul>
+                                    @if (Model.Page > 1)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1">Trang đầu </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=@(Model.Page-1)"> < </a>
+                                        </li>
+
+                                    }
+
+                                    @for (int i = startPage; i < endPage; i++)
+                                    {
+                                        if (Model.Page == i)
+                                        {
+                                            <li class="page-item active">
+                                                <a class="page-link" href="?page=@i">@i</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item"><a class="page-link" href="?page=@i">@i</a></li>
+
+                                        }
+                                    }
+                                    @if (Model.Page < Model.TotalPage)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=@(Model.Page + 1)" aria-label="Next"> > </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=@Model.TotalPage" aria-label="Next"> Trang cuối </a>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </nav>
+                        }
+
+                    }
+                    else
+                    {
+                        <p> Không có dữ liệu</p>
+                    }
+
+                }
+            </div>
+            <div role="tabpanel" class="tab-pane" id="new">
+                <h3 class="page-header">
+                    Tin tức
+                    <small>hôm nay : 23/12/2017</small>
+                </h3>
+
+                <p>
+                    1Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been t
+                    he industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type an
+                    d scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                    into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with th
+                    e release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishi
+                    ng software like Aldus PageMaker including versions of Lorem Ipsum.  1Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been t
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
 </div>

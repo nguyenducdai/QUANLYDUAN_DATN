@@ -55,7 +55,10 @@ namespace QLDuAn.Service
 
         public IEnumerable<HopDong> GetAll(string keyword)
         {
-            return _iHopDongRepository.GetMuti(x=>x.TenHopDong.Contains(keyword) || x.SoHopDong.Contains(keyword) || x.NoiDung.Contains(keyword));
+            if(string.IsNullOrEmpty(keyword))
+                return _iHopDongRepository.GetAll();
+            else
+                return _iHopDongRepository.GetMuti(x => x.TenHopDong.Contains(keyword) || x.SoHopDong.Contains(keyword) || x.NoiDung.Contains(keyword));
         }
 
         public HopDong GetById(int id)

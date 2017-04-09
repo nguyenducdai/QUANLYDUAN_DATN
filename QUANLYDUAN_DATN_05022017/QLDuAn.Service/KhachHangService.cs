@@ -55,7 +55,10 @@ namespace QLDuAn.Service
 
         public IEnumerable<KhachHang> GetAll(string keyword)
         {
-            return _iKhacHangRepository.GetMuti(x => x.TenKhach.Contains(keyword));
+            if(string.IsNullOrEmpty(keyword))
+                 return _iKhacHangRepository.GetAll();
+            else
+                return _iKhacHangRepository.GetMuti(x => x.TenKhach.Contains(keyword) || x.Email.Contains(keyword));
         }
 
         public KhachHang GetById(int id)

@@ -15,7 +15,7 @@ namespace QLDuAn.Web.Models
 
         public string GhiChu { get; set; }
 
-        public virtual IEnumerable<HangMucDuAnViewModel> DuAnHangMuc { get; set; }
+        public virtual IEnumerable<HangMucViewModel> HangMucViewModel { get; set; }
 
     }
 }

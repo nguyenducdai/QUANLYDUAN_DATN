@@ -20,7 +20,7 @@ namespace QLDuAn.Model.Models
 
         public string TenHopDong { get; set; }
 
-        public string GiaTriHopDong { get; set; }
+        public decimal? GiaTriHopDong { get; set; }
 
         public string SoNgayThucHien { get; set; }
 

@@ -8,14 +8,7 @@
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
     function config($stateProvider, $urlRouterProvider) {
-        $stateProvider
-        .state("hangmuc", {
-            url: '/hangmuc',
-            parent: 'baseTemplate',
-            templateUrl: '/app/components/hangmuc/index.html',
-            controller: 'hangmuccontroller'
-        })
-        .state('thanhvien', {
+        $stateProvider.state('thanhvien', {
             url: '/thanhvien',
             parent: 'baseTemplate',
             templateUrl: '/app/components/thanhvien/index.html',
@@ -59,19 +52,19 @@
             controller: 'DuAnController'
          })
         .state('themhangmuc', {
-            url: '/themhangmuc/:id',
+            url: '/themhangmuc/:idDuAn-:LoaiHM',
             parent: 'baseTemplate',
             templateUrl: '/app/components/duanhangmuc/add.html',
             controller: 'themduanhangmucController'
         })
         .state('chitietduan', {
             url: '/chitet/:id',
-            parent: 'baseTemplate',
+           // parent: 'baseTemplate',
              templateUrl: '/app/components/duanhangmuc/chitetduan.html',
              controller: 'chitietduanController'
         })
          .state('hm_edit', {
-             url: '/sua-hang-muc/:IdHangMuc-:IdDuAn-:IdNhomCongViec-:LoaiHangMuc',
+             url: '/sua-hang-muc/:IdHangMuc',
              parent: 'baseTemplate',
             templateUrl: '/app/components/duanhangmuc/edithm.html',
             controller: 'suaduanhmController'
@@ -81,6 +74,24 @@
              parent: 'baseTemplate',
              templateUrl: '/app/components/khachhang/danhsachkhachhang.html',
              controller: 'danhsachkhachhangController'
+         })
+        .state('thongbao', {
+            url: '/thong-bao',
+            parent: 'baseTemplate',
+            templateUrl: '/app/components/thongbao/thongbao.html',
+            controller: 'thongbaoController'
+        })
+         .state('themthongbao', {
+             url: '/them-thong-bao',
+             parent: 'baseTemplate',
+             templateUrl: '/app/components/thongbao/themthongbao.html',
+             controller: 'themthongbaoController'
+         })
+         .state('suathongbao', {
+             url: '/cap-nhat-thong-bao/:id',
+             parent: 'baseTemplate',
+             templateUrl: '/app/components/thongbao/suathongbao.html',
+             controller: 'suathongbaoController'
          });
     }
 })();

@@ -7,6 +7,7 @@
         $scope.showAdd = showAdd;
         $scope.addDuan = addDuan;
         $scope.cancel = cancel;
+        $scope.LoadData = LoadData;
         $scope.viewDetail = viewDetail;
         $scope.ObjDuAn = {
             TongDiem : null,
@@ -32,6 +33,11 @@
         $scope.LuongTTQtt = {};
         $scope.LuongDPQdp = {};
 
+        //pagination
+        $scope.page = 0;
+        $scope.pagesCount = 0;
+        $scope.keyword = '';
+
         var max = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         var arrTiLe = [];
         for (var i = 1; i <= 100; i++) {
@@ -52,9 +58,17 @@
             return objTemp.data;
         }
 
-        function LoadCbxHopDong() {
-            service.get('api/hd/getall', null, function (result) {
-                $scope.HopDong = result.data;
+        function LoadCbxHopDong(page) {
+            page = page || 0;
+            var config = {
+                params: {
+                    page: page,
+                    pageSize: 5,
+                    keyword: $scope.keyword
+                }
+            }
+            service.get('api/hd/getall', config, function (result) {
+                $scope.HopDong = result.data.items;
             }, function (error) {
             });
           
@@ -177,9 +191,21 @@
             }, function (error) {
             });
         }
-        function LoadData() {
-            service.get('api/duan/getall', null, function (result) {
-                $scope.ListDuAn = result.data;
+
+        function LoadData(page) {
+            page = page || 0;
+            var config = {
+                params: {
+                    page: page,
+                    pageSize: 5,
+                    keyword:$scope.keyword
+                }
+            }
+            service.get('api/duan/getall', config, function (result) {
+                $scope.ListDuAn = result.data.items;
+                $scope.page = result.data.Page;
+                $scope.pagesCount = result.data.TotalPage;
+                $scope.totalCount = result.data.TotalCount;
             }, function (error) {
             });
         }

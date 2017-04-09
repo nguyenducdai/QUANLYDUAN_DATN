@@ -33,14 +33,21 @@ namespace QLDuAn.Web.Api
 
         [HttpGet]
         [Route("getall")]
-        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        public HttpResponseMessage GetAll(HttpRequestMessage request , int page , int pageSize , string keyword)
         {
             return CreateReponse(request, () =>
             {
-                var model = _iHopDongService.GetAll();
-                var responseData = Mapper.Map<IEnumerable<HopDong>, IEnumerable<HopDongViewModel>>(model);
-                HttpResponseMessage response = request.CreateResponse(System.Net.HttpStatusCode.OK, responseData);
-                return response;
+                var model = _iHopDongService.GetAll(keyword);
+                var query = model.OrderByDescending(x => x.Created_at).Skip(page * pageSize).Take(pageSize);
+                var responseData = Mapper.Map<IEnumerable<HopDong>, IEnumerable<HopDongViewModel>>(query);
+                Paginnation<HopDongViewModel> pagination = new Paginnation<HopDongViewModel>
+                {
+                    Page = page,
+                    items = responseData,
+                    TotalCount = model.Count(),
+                    TotalPage = Convert.ToInt32(Math.Ceiling((decimal) model.Count()/pageSize))
+                };
+                return request.CreateResponse(System.Net.HttpStatusCode.OK, pagination);
             });
         }
 
