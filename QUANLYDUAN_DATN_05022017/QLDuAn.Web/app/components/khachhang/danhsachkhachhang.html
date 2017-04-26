@@ -1,94 +1,85 @@
-﻿<section class="content-header"></section>
-<section class="content">
-    <div class="box-header with-border">
-        <h3 class="box-title"><strong>khách hàng</strong></h3>
-        <button class="btn btn-default pull-right" ui-sref="home">trở về</button>
-    </div>
-    <div class="box-body">
-        <div class="box-group" id="accordion">
-            <div class="col-md-12">
-                <div class="box">
-                    <div class="box-header  with-border">
-                        <h3 class="box-title">Tất cả các khách hàng</h3>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm" placeholder="tim kiem" ng-model="keyword" ng-change="LoadKhachHang(page)">
-                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
+﻿<section class="content">
+    <div class="box box-solid">
+        <div class="box-header with-border">
+            <div class="col-md-8">
+                <div class="col-md-6">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control  ng-pristine ng-untouched ng-valid ng-empty" placeholder="Search" ng-model="keyword" ng-change="LoadKhachHang(page)" aria-invalid="false">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                         </div>
-                        <!-- /.box-tools -->
                     </div>
-                    <!-- /.box-header -->
-                    <div class="box-body table-responsive no-padding">
-                        <div class="mailbox-controls">
-                            <!-- Check all button -->
-                            <button type="button" class="btn btn-default btn-sm checkbox-toggle">
-                                <i class="fa fa-square-o"></i>
-                            </button>
-                            <div class="btn-group">
-                                <button class="btn btn-default btn-sm" ng-click="showFrmAddKh($event)"><i class="fa fa-plus"></i></button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                                <button class="btn btn-default btn-sm">Csv</button>
-                                <button class="btn btn-default btn-sm">PDf</button>
-                                <button class="btn btn-default btn-sm">Excel</button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
-                            <div class="pull-right">
-                                1-50/{{KhachHang.length}}
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                                </div>
-                                <!-- /.btn-group -->
-                            </div>
-                            <!-- /.pull-right -->
-                        </div>
-                        <div class="table-responsive mailbox-messages">
-                            <div class="box-body">
-                                <table class="table table-striped">
-                                    <tbody>
-                                        <tr>
-                                            <th style="width: 10px"><input type="checkbox"></th>
-                                            <th>Tên khách hàng</th>
-                                            <th>số điện thoại - Fax</th>
-                                            <th>địa chỉ mail</th>
-                                            <th>địa chỉ</th>
-                                            <th>giới tính</th>
-                                            <th style="width: 40px">hành động</th>
-                                        </tr>
-                                        <tr ng-repeat="kh in KhachHang">
-                                            <td><input type="checkbox"/> </td>
-                                            <td>{{kh.TenKhach}}</td>
-                                            <td>{{kh.SoDienThoai}} - số Fax : {{kh.SoFax}}</td>
-                                            <td><span>{{kh.Email}}</span></td>
-                                            <td>{{kh.DiaChi}}</td>
-                                            <td>{{kh.GioiTinh |ConverFilter :'Nam':'Nữ'}}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-info btn-xs" ng-click="showFromEdit($event , kh.ID)"> <i class="fa fa-pencil" ></i> Sửa</button>
-                                                <button type="button" class="btn btn-danger btn-xs" ng-click="xoaKhachHang(kh.ID)"><i class="fa fa-trash-o"></i> xóa</button>
-                                            </td>
-                                        </tr>
-                                      
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-6"><p><span>Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
-                                <div class="col-md-6">
-                                    <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="LoadKhachHang(page)"></pager-directive>
-                                </div>
-                            </div>
-                            <!-- /.table -->
-                        </div>
-
-                    </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
-            </div>
 
+                <div class="col-md-6">
+                    <button class="btn btn-success btn-sm btn-flat" ng-click="showFrmAddKh($event)"><i class="fa fa-pencil"></i> Thêm mới</button>
+                    <button class="btn btn-danger btn-sm btn-flat" disabled><i class="fa fa-trash"></i> Xóa Tất cả</button>
+                    <button class="btn btn-info btn-sm btn-flat" ng-click="refresh()"> <i class="fa fa-refresh"></i> làm mới</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="pull-right">
+                    <button class="btn btn-default btn-sm btn-flat">Csv</button>
+                    <button class="btn btn-default btn-sm btn-flat">Excel</button>
+                    <button class="btn btn-default btn-sm btn-flat">Pdf</button>
+                    <button class="btn btn-default btn-sm btn-flat">Print</button>
+                </div>
+            </div>
         </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th style="width: 10px"><input type="checkbox"></th>
+                        <th>Tên khách hàng</th>
+                        <th>Địa chỉ mail</th>
+                        <th>Số điện thoại</th>
+                        <th>Số Fax</th>
+                        <th>Địa chỉ</th>
+                        <th>Giới tính</th>
+                        <th style="width: 40px">Hành động</th>
+                    </tr>
+                    <tr ng-repeat="kh in KhachHang">
+                        <td><input type="checkbox" /> </td>
+                        <td>{{kh.TenKhach}}</td>
+                        <td>{{kh.Email}}</td>
+                        <td>0{{kh.SoDienThoai}}</td>
+                        <td>{{kh.SoFax}}</td>
+                        <td>{{kh.DiaChi}}</td>
+                        <td>{{kh.GioiTinh |ConverFilter :'Nam':'Nữ'}}</td>
+                        <td>
+                            <button type="button" class="btn btn-info btn-xs btn-flat" ng-click="showFromEdit($event , kh.ID)"> <i class="fa fa-pencil"></i> Sửa</button>
+                            <button type="button" class="btn btn-danger btn-xs btn-flat" ng-click="xoaKhachHang(kh.ID)"><i class="fa fa-trash-o"></i> xóa</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="col-md-12">
+                <div class="col-md-6"><p><span>Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
+                <div class="col-md-6">
+                    <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="LoadKhachHang(page)"></pager-directive>
+                </div>
+            </div>
+            <!-- /.table -->
+        </div>
+    </div>
+    <div class="sk-fading-circle" ng-if="loadding">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
     </div>
 </section>
 <!-- /.content -->

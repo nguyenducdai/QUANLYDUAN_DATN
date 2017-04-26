@@ -22,9 +22,11 @@
             SoNguoiThucHien: 0
         };
         $scope.User = {};
+        $scope.LimitPersent = 100;
+        $scope.Total = 0;
 
         function loadThanhVien() {
-            service.get('api/appuser/getall', null, function (result) {
+            service.get('api/appuser/getalluser', null, function (result) {
                 $scope.ThanhVien = result.data;
             }, function (error) {
 
@@ -75,7 +77,13 @@
                 }
             }
             if (status) {
-                $scope.HmDa.ThamGia.push(item);
+                var tmp = $scope.Total + $scope.User.Tile;
+                if (tmp <= $scope.LimitPersent) {
+                    $scope.HmDa.ThamGia.push(item);
+                    $scope.Total = $scope.Total + $scope.User.Tile;
+                } else {
+                    notification.error('phần trăm tham gia vượt quá 100 %');
+                }
             } else {
                 notification.error('nhân viên đã tồn tại');
             }
@@ -86,6 +94,7 @@
         function removeUser(id) {
             for (var i = 0; i < $scope.HmDa.ThamGia.length; i++) {
                 if ($scope.HmDa.ThamGia[i].IdNhanVien == id) {
+                    $scope.Total -= $scope.HmDa.ThamGia[i].HeSoThamGia;
                     $scope.HmDa.ThamGia.splice(i, 1);
                 }
             }
@@ -97,13 +106,15 @@
                     IdHangMuc: $stateParams.IdHangMuc
                 }
             }
-
             service.get('api/hm/getHangMucById', config, function (result) {
                 $scope.HmDa = result.data;
                 $scope.HmDa.NgayBatDau = new Date(result.data.NgayBatDau);
                 $scope.HmDa.NgayHoanThanh = new Date(result.data.NgayHoanThanh);
                 $scope.HmDa.LoaiHangMuc = result.data.LoaiHangMuc;
                 $scope.HmDa.ThamGia = result.data.ThamGia;
+                for (var i = 0; i < $scope.HmDa.ThamGia.length; i++) {
+                    $scope.Total = $scope.Total + $scope.HmDa.ThamGia[i].HeSoThamGia;
+                }
             },
             function (error) {
 

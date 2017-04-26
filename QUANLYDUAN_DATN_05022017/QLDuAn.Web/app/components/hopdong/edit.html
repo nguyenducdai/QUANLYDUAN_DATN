@@ -1,0 +1,70 @@
+﻿<md-dialog>
+    <form role="form" name="frmAddContract" novalidate ng-submit="CapNhatHopDong()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Cập nhật Hợp đồng
+                <br/><small class="text-danger"> {{items.TenHopDong}}</small>
+                </h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="MoTaHangMucCv">Số HD</label>
+                        <input class="form-control ng-pristine ng-valid md-input ng-empty ng-touched" id="" type="text" name="" ng-model="items.SoHopDong">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="TenHangMucCv"> Tên Hợp Đồng</label>
+                        <input class="form-control" id="TenHopDong" type="text" name="TenHopDong" ng-model="items.TenHopDong">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="TenHangMucCv"> Nội dung</label>
+                        <textarea class="form-control" id="NoiDung" name="NoiDung" ng-model="items.NoiDung"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MoTaHangMucCv">giá trị hợp đồng</label>
+                        <input class="form-control" id="GiaTriHopDong" type="number" name="GiaTriHopDong" ng-model="items.GiaTriHopDong">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="KhachHang">Khách Hàng</label>
+                        <select name="IdKhachHang" class="form-control" ng-model="items.IdKhachHang"
+                                ng-options="option.ID as option.TenKhach for option in ListKhachHang">
+                            <option value=""> ............ </option>
+                        </select>
+                        <input type="hidden" ng-model="items.IdKhachHang" name="IdKhachHang" />
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian thưc hiện từ ngày</label>
+                        <input type="date" ng-model="items.NgayBatDau" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Đến ngày</label>
+                        <input type="date" ng-model="items.NgayKetThuc" class="form-control" />
+                        ({{items.SoNgayThucHien =(items.NgayKetThuc- items.NgayBatDau)/1000/60/60/24}} ngày)
+                    </div>
+                    <div class="form-group">
+                        <label for="NgayKy">Ngày Ký</label>
+                        <input type="date" ng-model="items.NgayKy" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <button type="submit" class="btn btn-info btn-flat">Lưu hợp đồng</button>
+            <span flex></span>
+            <button type="reset" class="btn btn-default btn-flat">xóa sạch</button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

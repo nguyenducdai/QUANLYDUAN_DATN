@@ -1,126 +1,169 @@
-﻿<div class="panel">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="panel-heading">
-            <h3>Thêm Thông tin dự án</h3>
-            <button class="md-icon-button pull-right" ng-click="cancel()"><i class="fa fa-times" aria-hidden="true"></i>Đóng </button>
-        </div>
-        <!-- /.box-header -->
-        <div class="panel-body">
-            <form role="form" name="frmDuAn" novalidate ng-submit="addDuan()">
-                <div class="box-body">
-                    <div class="col-md-7 set-padding">
-                        <div class="form-group">
-                            <label for="InputProject">Số H/D </label>
-                            <select class="form-control" name="IdHopDong" ng-model="ObjDuAn.IdHopDong" ng-options="option.ID as option.TenHopDong for option in HopDong">
-                                <option value="">_số hợp đồng_</option>
-                            </select>
-                            <input type="hidden" ng-model="ObjDuAn.IdHopDong" />
-                        </div>
-                        <div class="form-group">
-                            <label for="InputProject">Tên Dự án </label>
-                            <input type="text" class="form-control" id="InputProject" name="TenDuAn" ng-model="ObjDuAn.TenDuAn" />
-                        </div>
-                        <div class="form-group">
-                            <label for="InputDateAction">Số ngày thực hiện thực tế</label>
-                            <input type="number" class="form-control" id="InputDateAction" name="SoNgayThucHienThucTe" ng-model="ObjDuAn.SoNgayThucHienThucTe">
-                        </div>
-                        <div class="form-group">
-                            <label for="InputDescation">Mô tả</label>
-                            <textarea type="text" id="InputDescation" name="MoTa" class="form-control" ng-model="ObjDuAn.MoTa"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputNamQuyetToan">Năm Quyết Toán</label>
-                            <md-datepicker ng-model="ObjDuAn.NamQuyetToan"></md-datepicker>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputLoaiCongTrinh">Loại Công Trình</label>
-                            <select name="LoaiCongTrinh" class="form-control" ng-model="ObjDuAn.LoaiCongTrinh" ng-options="option.value as option.name for option in LoaiCongTrinh">
-                                <option value="">_chọn loại công trình_</option>
-                            </select>
-                            <input type="hidden" ng-model="ObjDuAn.LoaiCongTrinh"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputTiLeTheoDt">Tỉ Lệ Theo Doanh thu (%)</label>
-                            <select name="TyLeTheoDT" class="form-control" ng-model="ObjDuAn.TyLeTheoDT" ng-options="option.value as option.name for option in TyLeTheoDT">
-                                <option value="">_chọn tỷ lệ_</option>
-                            </select>
-                            <input type="hidden" ng-model="ObjDuAn.TyLeTheoDT"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputLuongThueNgoai">Lương Thuê Ngoài</label>
-                            <input type="text" class="form-control" id="InputLuongThueNgoai" name="LuongThueNgoai" ng-model="ObjDuAn.LuongThueNgoai"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputTongChiQL">Tổng Chi QL (%) </label>
-                            <select name="InputTongChiQL" class="form-control" ng-model="ObjDuAn.TongChiQL" ng-options="option.value as option.name for option in TongChiQL">
-                                <option value="">_chọn tỷ lệ_</option>
-                            </select>
-                            <input type="hidden" ng-model="ObjDuAn.TongChiQL" />
-                        </div>
+﻿<md-dialog>
+    <form role="form" name="frmDuAn" ng-submit="addDuan()" novalidate >
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Tạo Dự Án</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="MoTaHangMucCv">Số Hơp Đồng</label>
+                        <input class="form-control" id="" type="text" name="soHD" ng-model="ObjDuAn.SoHopDong" required>
+                        <span ng-show="frmDuAn.soHD.$invalid" class="has-error">Số hợp đồng Không được để trống</span>
                     </div>
-                    <div class="col-md-5 set-padding">
-                        <fieldset class="set-boder">
-                            <legend>Trực tiếp</legend>
-                            <div class="form-group">
-                                <label for="InputLuongTrucLuongTTQtt">Lương Trực tiếp Qtt (%) </label>
-                                <select name="LuongTTQtt" class="form-control" ng-model="ObjDuAn.LuongTTQtt" ng-options="option.value as option.name for option in LuongTTQtt">
-                                    <option value="">_chon số %_</option>
-                                </select>
-                                <input type="hidden" ng-model="ObjDuAn.LuongTTQtt" />
-                             </div>
 
-                            <div class="form-group">
-                                <label for="InputLuongDPQdp">Luơng DPQdpt</label>
-                                <select name="LuongDPQdp" class="form-control" ng-model="ObjDuAn.LuongDPQdp" ng-options="option.value as option.name for option in LuongDPQdp">
-                                    <option value="">_chon số %_</option>
-                                </select>
-                                <input type="hidden" ng-model="ObjDuAn.LuongDPQdp" />
-                            </div>
-                        </fieldset>
+                    <div class="form-group">
+                        <label for="InputProject">Tên Dự án </label>
+                        <input type="text" class="form-control" id="InputProject" name="tenDuAn" ng-model="ObjDuAn.TenDuAn" required/>
+                        <span ng-show="frmDuAn.tenDuAn.$invalid" class="has-error">Tên dự án không được để trống </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="MoTaHangMucCv">giá trị Dự án</label>
+                        <input class="form-control" id="Giatriduan" type="number" name="GiaTriHopDong" ng-model="ObjDuAn.GiaTriHopDong" required>
+                        <span class="has-error">{{ObjDuAn.GiaTriHopDong | number}}</span>
+                        <span ng-show="frmDuAn.GiaTriHopDong.$invalid" class="has-error">Nhập giá trị của hợp đồng </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="KhachHang">Khách Hàng</label>
+                        <select name="khachHang" class="form-control" ng-model="ObjDuAn.IdKhachHang"
+                                ng-options="option.ID as option.TenKhach for option in ListKhachHang" required>
+                            <option value=""> ............ </option>
+                        </select>
+                        <span ng-show="frmDuAn.khachHang.$error.required" class="has-error">chọn khách hàng </span>
+                        <input type="hidden" ng-model="ObjDuAn.IdKhachHang" name="IdKhachHang" />
+                    </div>
 
-                        <fieldset class="set-boder">
-                            <legend>Gian tiếp tiếp</legend>
-                            <div class="form-group">
-                                <label for="InputLuongGTQgt">Lương gián tiếp Qgt (%)</label>
-                                <select name="LuongGTQgt" class="form-control" ng-model="ObjDuAn.LuongGTQgt" ng-options="option.value as option.name for option in LuongGTQgt">
-                                    <option value="">_chon số %_</option>
-                                </select>
-                                <input type="hidden" ng-model="ObjDuAn.LuongGTQgt" />
-                             </div>
+                    <div class="form-group">
+                        <label for="InputDescation">Mô tả</label>
+                        <textarea type="text" id="InputDescation" name="MoTa" class="form-control" ng-model="ObjDuAn.MoTa" required></textarea>
+                        <span ng-show="frmDuAn.MoTa.$invalid" class="has-error">Mô tả không được để trống </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputTiLeTheoDt">Tỉ Lệ Theo Doanh thu (%)</label>
+                        <select name="TyLeTheoDT" class="form-control" ng-model="ObjDuAn.TyLeTheoDT" ng-options="option.value as option.name for option in TyLeTheoDT" required>
+                            <option value="">-----</option>
+                        </select>
+                        <span ng-show="frmDuAn.TyLeTheoDT.$error.required" class="has-error">chọn tỉ lệ theo doanh thu </span>
+                        <input type="hidden" ng-model="ObjDuAn.TyLeTheoDT" />
+                    </div>
 
-                            <div class="form-group">
-                                <label for="InputLuongGTV21">Luong gián tiếp V21</label>
-                                <select name="LuongGTV21" class="form-control" ng-model="ObjDuAn.LuongGTV21" ng-options="option.value as option.name for option in LuongGTV21">
-                                    <option value="">_chon số %_</option>
-                                </select>
-                                <input type="hidden" ng-model="ObjDuAn.LuongGTV21" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="InputLuongGTV22">Luong gián tiếp V22</label>
-                                <select name="LuongGTV22" class="form-control" ng-model="ObjDuAn.LuongGTV22" ng-options="option.value as option.name for option in LuongGTV22">
-                                    <option value="">_chon số %_</option>
-                                </select>
-                                <input type="hidden" ng-model="ObjDuAn.LuongGTV22" />
-                            </div>
-                        </fieldset>
-                        <div class="form-group">
-                            <label for="InputCheckBox">Tình trạng dự án</label>
-                            <div>
-                                <input type="radio" id="InputCheckBox1" name="TrangThai" value="0" checked="checked" ng-model="ObjDuAn.TrangThai"/> chưa hoàn thành
-                                <input type="radio" id="InputCheckBox2" name="TrangThai" value="1" ng-model="ObjDuAn.TrangThai"/>  Đã Hoàn Thành
-                            </div>
-                        </div>
-
+                    <div class="form-group">
+                        <label for="InputLuongThueNgoai">Lương Thuê Ngoài</label>
+                        <input type="number" class="form-control" id="InputLuongThueNgoai" name="LuongThueNgoai" ng-model="ObjDuAn.LuongThueNgoai" required/>
+                        <span ng-show="frmDuAn.LuongThueNgoai.$invalid" class="has-error">Nhập lương thuê ngoài </span>
                     </div>
                 </div>
-                <!-- /.box-body -->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="InputTongChiQL">Tổng Chi QL (%) </label>
+                        <select name="TongChiQL" class="form-control" ng-model="ObjDuAn.TongChiQL" ng-options="option.value as option.name for option in TongChiQL" required>
+                            <option value="">-----</option>
+                        </select>
+                        <span ng-show="frmDuAn.TongChiQL.$error.required" class="has-error">chọn phần trăm tông chi lương quản lý</span>
+                        <input type="hidden" ng-model="ObjDuAn.TongChiQL" />
+                    </div>
+                    <div class="form-group">
+                        <label for="InputLoaiCongTrinh">Loại Công Trình</label>
+                        <select name="LoaiCongTrinh" class="form-control" ng-model="ObjDuAn.LoaiCongTrinh" ng-options="option.value as option.name for option in LoaiCongTrinh" required>
+                            <option value="">..............</option>
+                        </select>
+                        <span ng-show="frmDuAn.LoaiCongTrinh.$error.required" class="has-error">chọn loại công trình</span>
+                        <input type="hidden" ng-model="ObjDuAn.LoaiCongTrinh" />
+                    </div>
+                    <div class="form-group">
+                        <label for="InputLuongTrucLuongTTQtt">Lương Trực tiếp Qtt (%) </label>
+                        <select name="LuongTTQtt" class="form-control" ng-model="ObjDuAn.LuongTTQtt" ng-options="option.value as option.name for option in LuongTTQtt" required>
+                            <option value="">-----</option>
+                        </select>
+                        <span ng-show="frmDuAn.LuongTTQtt.$error.required" class="has-error">chọn Lương Trực tiếp</span>
+                        <input type="hidden" ng-model="ObjDuAn.LuongTTQtt" />
+                    </div>
 
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Thêm dự án</button>
-                    <button type="reset" class="btn btn-default">xóa sạch</button>
+                    <div class="form-group">
+                            <label for="InputLuongDPQdp">Luơng DPQdpt</label>
+                            <select name="LuongDPQdp" class="form-control" ng-model="ObjDuAn.LuongDPQdp" ng-options="option.value as option.name for option in LuongDPQdp">
+                                <option value="">-----</option>
+                            </select>
+                            <input type="hidden" ng-model="ObjDuAn.LuongDPQdp" />
+                        </div>
+
+                    <div class="form-group">
+                        <label for="InputLuongGTQgt">Lương gián tiếp Qgt (%)</label>
+                        <select name="LuongGTQgt" class="form-control" ng-model="ObjDuAn.LuongGTQgt" ng-options="option.value as option.name for option in LuongGTQgt" required>
+                            <option value="">-----</option>
+                        </select>
+                        <span ng-show="frmDuAn.LuongGTQgt.$error.required" class="has-error">chọn Lương gián tiếp Qgt</span>
+                        <input type="hidden" ng-model="ObjDuAn.LuongGTQgt" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InputLuongGTV21">Luong gián tiếp V21</label>
+                        <select name="LuongGTV21" class="form-control" ng-model="ObjDuAn.LuongGTV21" ng-options="option.value as option.name for option in LuongGTV21" required>
+                            <option value="">-----</option>
+                        </select>
+                        <span ng-show="frmDuAn.LuongGTV21.$error.required" class="has-error">chọn Lương gián tiếp V21</span>
+
+                        <input type="hidden" ng-model="ObjDuAn.LuongGTV21" />
+                    </div>
+
+                    <div class="form-group">
+                            <label for="InputLuongGTV22">Luong gián tiếp V22</label>
+                            <select name="LuongGTV22" class="form-control" ng-model="ObjDuAn.LuongGTV22" ng-options="option.value as option.name for option in LuongGTV22" required>
+                                <option value="">-----</option>
+                            </select>
+                            <span ng-show="frmDuAn.LuongGTV22.$error.required" class="has-error">chọn Lương gián tiếp V22</span>
+                            <input type="hidden" ng-model="ObjDuAn.LuongGTV22" />
+                        </div>
                 </div>
-            </form>
-        </div>
-    </div>
-</div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Thời gian thưc hiện từ ngày</label>
+                        <input type="date" ng-model="ObjDuAn.NgayBatDau" name="NgayBatDau" class="form-control" required/>
+                        <span ng-show="frmDuAn.NgayBatDau.$invalid" class="has-error">Nhập lương Ngày bắt đầu </span>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Đến ngày</label>
+                        <input type="date" ng-model="ObjDuAn.NgayKetThuc" name="NgayKetThuc" class="form-control" required/>
+                        ({{ObjDuAn.SoNgayThucHien =(ObjDuAn.NgayKetThuc- ObjDuAn.NgayBatDau)/1000/60/60/24}} ngày)
+                        <span ng-show="frmDuAn.NgayKetThuc.$invalid" class="has-error">Nhập lương Ngày kết thúc </span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="NgayKy">Ngày Ký</label>
+                        <input type="date" ng-model="ObjDuAn.NgayKy" name="NgayKy" class="form-control" required />
+                        <span ng-show="frmDuAn.NgayKy.$invalid" class="has-error">Nhập lương Ngày ký </span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="InputNamQuyetToan">Năm Quyết Toán</label>
+                        <input type="date" ng-model="ObjDuAn.NamQuyetToan" name="NamQuyetToan" class="form-control" required/>
+                        <span ng-show="frmDuAn.NamQuyetToan.$invalid" class="has-error">Nhập lương năm quyết toán </span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InputCheckBox">Tình trạng dự án</label>
+                        <div>
+                            <input type="radio" id="InputCheckBox1" name="TrangThai" value="0" ng-checked="true" ng-model="ObjDuAn.TrangThai" /> chưa hoàn thành
+                            <input type="radio" id="InputCheckBox2" name="TrangThai" value="1" ng-model="ObjDuAn.TrangThai" />  Đã Hoàn Thành
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <button type="submit" class="btn btn-info btn-flat" ng-disabled="frmDuAn.$invalid" >Tạo dự án</button>
+            <span flex></span>
+            <button type="reset" class="btn btn-default btn-flat">xóa sạch</button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

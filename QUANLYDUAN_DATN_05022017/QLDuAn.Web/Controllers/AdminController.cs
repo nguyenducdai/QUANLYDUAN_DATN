@@ -6,6 +6,8 @@ using System.Web.Mvc;
 
 namespace QLDuAn.Web.Controllers
 {
+    
+    [RoutePrefix("as/")]
     public class AdminController : Controller
     {
         // GET: Admin

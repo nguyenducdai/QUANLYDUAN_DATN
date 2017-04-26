@@ -43,23 +43,17 @@
   }
 }
 .skin-blue .main-header .logo {
-  background-color: #367fa9;
   color: #ffffff;
   border-bottom: 0 solid transparent;
 }
-.skin-blue .main-header .logo:hover {
-  background-color: #357ca5;
-}
-.skin-blue .main-header li.user-header {
-  background-color: #3c8dbc;
-}
+
 .skin-blue .content-header {
   background: transparent;
 }
 .skin-blue .wrapper,
 .skin-blue .main-sidebar,
 .skin-blue .left-side {
-  background-color: #5069C4;
+  background-color: #222d32;
 }
 .skin-blue .user-panel > .info,
 .skin-blue .user-panel > .info > a {
@@ -67,7 +61,7 @@
 }
 .skin-blue .sidebar-menu > li.header {
   color: #fff;
-  background: #3C4F92;
+  background: #1a2226;
 }
 .skin-blue .sidebar-menu > li > a {
   border-left: 3px solid transparent;

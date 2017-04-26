@@ -14,13 +14,19 @@
         $scope.suaThanhVien = suaThanhVien;
         $scope.groups = {}
         $scope.ListNhanVien = {}
-        $scope.Detail = {}
-        $scope.templateUrl = '';
+        $scope.loadding = false;
+        $scope.loadApplicationUser = loadApplicationUser;
         $scope.UpdateThanhVien = {
             Created_at: new Date,
             Updatted_at: new Date,
             Groups: []
         }
+
+
+        //pagination
+        $scope.page = 0;
+        $scope.pagesCount = 0;
+        $scope.keyword = '';
 
         function themThanhVien(ev) {
             $mdDialog.show({
@@ -120,9 +126,22 @@
             })
         }
 
-        function loadApplicationUser() {
-            service.get('api/appuser/getall', null, function (result) {
-                $scope.ListNhanVien = result.data;
+        function loadApplicationUser(page) {
+            $scope.loadding = true;
+            page = page || 0;
+            var config = {
+                params: {
+                    page: page,
+                    pageSize: 7,
+                    keyword: $scope.keyword
+                }
+            }
+            service.get('api/appuser/getall', config, function (result) {
+                $scope.loadding = false;
+                $scope.ListNhanVien = result.data.items;
+                $scope.page = result.data.Page;
+                $scope.pagesCount = result.data.TotalPage;
+                $scope.totalCount = result.data.TotalCount;
             }, function (error) {
                 notification.error('không load được nhân viên');
             })
@@ -135,20 +154,6 @@
                 $scope.cancel();
             }, function (error) {
                 notification.error('Có lỗi sảy ra');
-            })
-        }
-
-        $scope.viewDetail = function (id) {
-            var config = {
-                params: {
-                    id:id
-                }
-            }
-            service.get('api/appuser/detail', config, function (result) {
-                $scope.Detail = result.data;
-                $scope.templateUrl = '/app/components/thanhvien/chitietthanhvien.html';
-            }, function (error) {
-                notification.error(error);
             })
         }
         loadApplicationUser();

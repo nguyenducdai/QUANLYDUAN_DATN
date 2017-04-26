@@ -1,4 +1,6 @@
-﻿namespace QLDuAn.Web.Models
+﻿using System.Collections.Generic;
+
+namespace QLDuAn.Web.Models
 {
     public class KhachHangViewModel
     {
@@ -15,5 +17,8 @@
         public string DiaChi { get; set; }
 
         public bool GioiTinh { get; set; }
+
+        public IEnumerable<DuAnViewModel> DuAn { get; set; }
+
     }
 }

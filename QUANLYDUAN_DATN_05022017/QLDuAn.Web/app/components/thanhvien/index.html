@@ -1,57 +1,73 @@
-﻿<section class="content-header"></section>
-<section class="content">
-    <div class="box-header with-border">
-        <h3 class="box-title"><strong>Hồ Sơ Nhân Viên</strong></h3>
-        <button class="btn btn-default pull-right" ui-sref="home">Trở về</button>
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-        <div class="box-group" id="accordion">
-            <div class="col-md-3" id="list-user" style="border-right:solid 1px; color: #dddfe2;">
-                <div class="box">
-                    <div class="box-header post">
-                        <div class="input-group input-group-sm">
-                            <input type="text" name="table_search" class="form-control" placeholder="Search">
-
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-body post" style="height:400px;overflow-y: scroll;">
-                        <div class="user-block" ng-repeat="item in ListNhanVien">
-                            <img class="img-circle img-bordered-sm" src="{{ item.Image }}">
-                            <span class="username">
-                                <a href="javascript:void(0)" ng-click="viewDetail(item.Id)">{{ item.FullName }}</a>
-                            </span>
-                            <span class="description">Chức vụ - {{item.Function}}</span>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default btn-sm" ng-click="themThanhVien($event)"><i class="fa fa-plus"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                        <button class="btn btn-default btn-sm" ui-sref="nhomnguoidung"><i class="fa fa-users"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-key"></i></button>
-                        <button class="btn btn-default btn-sm">CSV</button>
-                        <button class="btn btn-default btn-sm">PDf</button>
-                        <button class="btn btn-default btn-sm">Excel</button>
+﻿<section class="content">
+    <div class="box box-solid">
+        <div class="box-header">
+            <div class="col-sm-6">
+                <div class="input-group input-group-sm">
+                    <input type="text" name="table_search" class="form-control" ng-change="loadApplicationUser(page)" ng-model="keyword">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
-                <div class="box">
-                    <div class="box-header post">
-                        <div class="note-block">
-                            <div class="col-md-12">
-                                <strong><i class="fa fa-file-text-o margin-r-5"></i> Chọn thành viên để xem hồ sơ của thành viên đó</strong>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-body" id="main-body-user">
-                        <div ng-include="templateUrl"></div>
-                    </div>
+            <div class="col-sm-6">
+                <button class="btn btn-success btn-sm btn-flat" ng-click="themThanhVien($event)"><i class="fa fa-plus"></i> Tạo mới nhân viên</button>
+                <button class="btn btn-danger  btn-sm btn-flat" disabled><i class="fa fa-trash-o"></i> xóa tất cả</button>
+                <button class="btn btn-default btn-sm btn-flat" ui-sref="nhomnguoidung"><i class="fa fa-users"></i></button>
+                <button class="btn btn-default btn-sm btn-flat"><i class="fa fa-key"></i></button>
+                <button class="btn btn-default btn-sm btn-flat">CSV</button>
+                <button class="btn btn-default btn-sm btn-flat">PDf</button>
+                <button class="btn btn-default btn-sm btn-flat">Excel</button>
+            </div>
+         </div>
+        <div class="box-body no-padding">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Hình ảnh</th>
+                        <th>Tên nhân viên</th>
+                        <th>địa chỉ mail</th>
+                        <th>chức vụ</th>
+                        <th>giới tính</th>
+                        <th>địa chỉ</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="item in ListNhanVien">
+                        <td>{{$index +1}}</td>
+                        <td class="user-block"><img class="img-circle img-bordered-xs" ng-src="{{ item.Image }}"></td>
+                        <td>{{ item.FullName }}</td>
+                        <td>{{ item.Email }}</td>
+                        <td>{{ item.Function }}</td>
+                        <td>{{ item.Sex  | ConverFilter : 'Nam' : 'Nữ'}}</td>
+                        <td>{{ item.Adress }}</td>
+                        <td>
+                            <button class="btn btn-danger btn-xs btn-flat" ng-click="delete(item.Id)"> <i class="fa fa-trash-o"></i> xóa</button>
+                            <button class="btn btn-info btn-xs btn-flat"  ng-click="suaThanhVien($ev , item.Id)"> <i class="fa fa-pencil"></i>sửa</button>
+                        </td>
+                    </tr>
+                            
+                </tbody>
+            </table>
+            <div class="col-md-12">
+                <div class="col-md-6"><p><span>Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
+                <div class="col-md-6">
+                    <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="loadApplicationUser(page)"></pager-directive>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="sk-fading-circle" ng-if="loadding">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
     </div>
 </section>

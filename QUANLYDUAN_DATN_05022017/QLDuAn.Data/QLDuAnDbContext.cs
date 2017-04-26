@@ -21,8 +21,6 @@ namespace QLDuAn.Data
 
         public DbSet<ThamGia> ThamGia { get; set; }
 
-        public DbSet<HopDong> HopDong { get; set; }
-
         public DbSet<Errors> Errors { get; set; }
 
         public DbSet<ApplicationRole> ApplicationRole { get; set; }

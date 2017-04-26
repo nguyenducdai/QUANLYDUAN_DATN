@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace QLDuAn.Web.Models
 {
@@ -27,5 +28,7 @@ namespace QLDuAn.Web.Models
         public DateTime? Created_at { get; set; }
 
         public DateTime? Updated_at { get; set; }
+
+        public KhachHangViewModel KhachHang { get; set; }
     }
 }

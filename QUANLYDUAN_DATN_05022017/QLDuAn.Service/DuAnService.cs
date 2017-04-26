@@ -54,15 +54,15 @@ namespace QLDuAn.Service
 
         public IEnumerable<DuAn> GetAll()
         {
-            return _duAnRepository.GetAll(new string[] { "HopDong" });
+            return _duAnRepository.GetAll();
         }
 
         public IEnumerable<DuAn> GetAll(string keyword)
         {
             if (string.IsNullOrEmpty(keyword))
-                return _duAnRepository.GetAll(new string[] { "HopDong" });
+                return _duAnRepository.GetAll(new string[] { "KhachHang" });
             else
-                return _duAnRepository.GetMuti(x => x.TenDuAn.Contains(keyword) && x.MoTa.Contains(keyword), new string[] { "HopDong" });
+                return _duAnRepository.GetMuti(x => x.TenDuAn.Contains(keyword) && x.MoTa.Contains(keyword) , new string[] { "KhachHang" });
         }
 
         public DuAn GetById(int id)
@@ -87,7 +87,7 @@ namespace QLDuAn.Service
 
         public DuAn GetDetail(int id)
         {
-            return _duAnRepository.GetDetail(id);
+            return _duAnRepository.GetByConditon(x => x.ID== id, new string[] { "KhachHang" });
         }
 
         public DuAn GetAllInfoById(int id)

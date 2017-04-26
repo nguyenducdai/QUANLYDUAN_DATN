@@ -10,7 +10,6 @@ namespace QLDuAn.Web.Mapping
         {
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<HangMuc, HangMucViewModel>();
-                cfg.CreateMap<HopDong, HopDongViewModel>();
                 cfg.CreateMap<KhachHang, KhachHangViewModel>();
                 cfg.CreateMap<DuAn, DuAnViewModel>();
                 cfg.CreateMap<ThamGia, ThamGiaViewModel>();

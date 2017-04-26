@@ -36,17 +36,45 @@ namespace QLDuAn.Web.Api
 
         [HttpGet]
         [Route("getall")]
-        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        public HttpResponseMessage GetAll(HttpRequestMessage request , string keyword , int page , int pageSize)
         {
             return CreateReponse(request, ()=>{
-                HttpResponseMessage response;
-                var model = _userManager.Users.OrderByDescending(x => x.Created_at);
-                var responseData = Mapper.Map<IEnumerable<ApplicationUser> , IEnumerable<ApplicationUserViewModel>>(model);
-                response = request.CreateResponse(HttpStatusCode.OK, model);
-                return response;
+                IEnumerable<ApplicationUser> model;
+                if (string.IsNullOrEmpty(keyword))
+                {
+                     model = _userManager.Users.OrderByDescending(x => x.Created_at);
+                }
+                else
+                {
+                    model = _userManager.Users.OrderByDescending(x => x.Created_at).Where(x=>x.FullName.Contains(keyword) || x.Email.Contains(keyword) || x.Function.Contains(keyword));
+                }
+
+                var query = model.Skip(page * pageSize).Take(pageSize);
+                var responseData = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<ApplicationUserViewModel>>(query);
+
+                Paginnation<ApplicationUserViewModel> pagination = new Paginnation<ApplicationUserViewModel>()
+                {
+                    items = responseData,
+                    Page = page,
+                    TotalPage = (int)Math.Ceiling((decimal)model.Count()/pageSize),
+                    TotalCount = model.Count()
+                };
+                return request.CreateResponse(HttpStatusCode.OK, pagination); ;
             });
         }
 
+        [HttpGet]
+        [Route("getalluser")]
+        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        {
+            return CreateReponse(request, () => {        
+                var model = _userManager.Users.OrderByDescending(x => x.Created_at);
+
+                var responseData = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<ApplicationUserViewModel>>(model);
+
+                return request.CreateResponse(HttpStatusCode.OK, responseData); ;
+            });
+        }
 
         [HttpPost]
         [Route("created")]

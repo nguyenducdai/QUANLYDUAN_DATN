@@ -6,33 +6,35 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Aso-Company</title>
+    <title>PHẦN MỀM QUẢN LÝ DỰ ÁN</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link href="~/Assets/librarys/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Assets/librarys/toastr/toastr.css" rel="stylesheet" />
     <link href="~/Assets/librarys/iCheck/skins/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link href="~/Assets/librarys/angular-ui-select/dist/select.min.css" rel="stylesheet" />
     <link href="~/Assets/admin/css/AdminLTE.css" rel="stylesheet" />
     <link href="~/Assets/admin/css/skins/_all-skins.css" rel="stylesheet" />
     <link href="~/Assets/librarys/angular-material/angular-material.css" rel="stylesheet" />
-    <link href="~/Assets/librarys/angular-loading-bar/src/loading-bar.css" rel="stylesheet" />
 </head>
-<body class="skin-blue skin-blue sidebar-menu" ng-app="QLdaConfig" ng-controller="InfoUserController">
+<body class="skin-blue sidebar-menu sidebar-collapse" ng-app="QLdaConfig" ng-controller="InfoUserController">
     <div ui-view ></div>
-
-        <!-- Site wrapper -->
     <!-- ./wrapper -->
     <script src="~/Assets/librarys/jquery/dist/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
     <script src="~/Assets/librarys/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/Assets/librarys/jquery.slimscroll/jquery.slimscroll.js"></script>
-    <script src="~/Assets/librarys/fastclick/lib/fastclick.js"></script>
     <script src="~/Assets/admin/js/app.min.js"></script>
-    <script src="~/Assets/librarys/iCheck/icheck.js"></script>
+    <script src="~/Assets/admin/js/site.js"></script>
    
     <!-- ./library angular -->
     <script src="~/Assets/librarys/angular/angular.js"></script>
     <script src="~/Assets/librarys/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="~/Assets/librarys/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="~/Assets/librarys/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="~/Assets/librarys/toastr/toastr.js"></script>
     <script src="~/Assets/librarys/bootbox/bootbox.js"></script>
     <script src="~/Assets/librarys/ngBootbox/dist/ngBootbox.js"></script>
@@ -46,6 +48,7 @@
     <script src="~/Assets/librarys/checklist-model/checklist-model.js"></script>
     <script src="~/Assets/librarys/chart.js/dist/Chart.min.js"></script>
     <script src="~/Assets/librarys/angular-chart.js/angular-chart.js"></script>
+    <script src="~/Assets/librarys/angular-ui-select/dist/select.min.js"></script>
 
     <script src="~/app/share/module/QLdaCommon.js"></script>
     <script src="~/app/share/service/service.js"></script>
@@ -60,8 +63,6 @@
     <script src="~/app/app.js"></script>
     <script src="~/app/components/home/InfoUserController.js"></script>
     <script src="~/app/components/home/HomeAdminController.js"></script>
-    <script src="~/app/components/hopdong/danhSachHdController.js"></script>
-    <script src="~/app/components/hopdong/ThemHdController.js"></script>
     <script src="~/app/components/duan/DuAnController.js"></script>
     <script src="~/app/components/duanhangmuc/themduanhangmucController.js"></script>
     <script src="~/app/components/duanhangmuc/chitietduanController.js"></script>
@@ -76,15 +77,12 @@
     <script src="~/app/components/thongbao/thongbaoController.js"></script>
     <script src="~/app/components/thongbao/suathongbaoController.js"></script>
     <script src="~/app/components/thongbao/themthongbaoController.js"></script>
+    <script src="~/app/components/heso/HeSoController.js"></script>
     <script>
-      $(document).ready(function(){
-          $(' input #ickeck').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          increaseArea: '20%'
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
         });
-      });
-    </script>
 
+    </script>
 </body>
 </html>

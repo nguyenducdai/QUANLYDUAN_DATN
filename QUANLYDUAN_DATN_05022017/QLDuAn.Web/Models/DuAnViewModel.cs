@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QLDuAn.Web.Models
@@ -8,23 +9,30 @@ namespace QLDuAn.Web.Models
     {
         public int ID { get; set; }
 
+        [Required]
+        public string SoHopDong { get; set; }
+
+        public decimal GiaTriHopDong { get; set; }
+
+        public DateTime NgayBatDau { get; set; }
+
+        public DateTime NgayKetThuc { get; set; }
+
+        public DateTime? NgayHoanThanh { get; set; }
+
+        public DateTime NgayKy { get; set; }
+
+        public int IdKhachHang { get; set; }
+
         public string TenDuAn { get; set; }
 
-        public int IdHopDong { get; set; }
-
         public string MoTa { get; set; }
-
-        public int SoNgayThucHienThucTe { get; set; }
 
         public DateTime NamQuyetToan { get; set; }
 
         public int LoaiCongTrinh { get; set; }
 
         public decimal TyLeTheoDT { get; set; }
-
-        public decimal? TongDiem { get; set; }
-
-        public decimal? DonGiaDiemDiem { get; set; }
 
         public int? LuongThueNgoai { get; set; }
 
@@ -54,10 +62,10 @@ namespace QLDuAn.Web.Models
 
         public DateTime? Updated_at { get; set; }
 
-        public virtual HopDongViewModel HopDong { get; set; }
+        public IEnumerable<ThamGiaViewModel> ThamGia { get; set; }
 
-        public virtual IEnumerable<ThamGiaViewModel> ThamGia { get; set; }
+        public IEnumerable<HangMucViewModel> HangMucViewModel { get; set; }
 
-        public virtual IEnumerable<HangMucViewModel> HangMucViewModel { get; set; }
+        public KhachHangViewModel KhachHang { get; set; }
     }
 }

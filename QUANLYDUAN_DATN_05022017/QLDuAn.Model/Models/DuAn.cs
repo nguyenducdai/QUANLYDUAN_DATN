@@ -13,25 +13,29 @@ namespace QLDuAn.Model.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Required]
-        [MaxLength(200)]
+        public string SoHopDong { get; set; }
+
+        public decimal GiaTriHopDong { get; set; }
+
+        public DateTime NgayBatDau { get; set; }
+
+        public DateTime NgayKetThuc { get; set; }
+
+        public DateTime NgayKy { get; set; }
+
+        public DateTime? NgayHoanThanh { get; set; }
+
+        public int IdKhachHang { get; set; }
+
         public string TenDuAn { get; set; }
 
-        public int IdHopDong { get; set; }
-
         public string MoTa { get; set; }
-
-        public int SoNgayThucHienThucTe { get; set; }
 
         public DateTime NamQuyetToan { get; set; }
 
         public int LoaiCongTrinh { get; set; }
 
         public decimal TyLeTheoDT { get; set; }
-
-        public decimal? TongDiem { get; set; }
-
-        public decimal? DonGiaDiemDiem { get; set; }
 
         public int? LuongThueNgoai { get; set; }
 
@@ -57,11 +61,11 @@ namespace QLDuAn.Model.Models
 
         public int TrangThai { get; set; }
 
-        [ForeignKey("IdHopDong")]
-        public virtual HopDong HopDong { get; set; }
-
         public virtual IEnumerable<HangMuc> HangMuc { get; set; }
 
         public virtual IEnumerable<ThamGia> ThamGia { get; set; }
+
+        [ForeignKey("IdKhachHang")]
+        public virtual KhachHang KhachHang { get; set; }
     }
 }

@@ -9,7 +9,6 @@ namespace QLDuAn.Data.Repositories
 {
     public interface IDuAnRepository : IRepository<DuAn>
     {
-        DuAn GetDetail(int id);
 
         DuAn GetAllInfo(int id);
 
@@ -25,7 +24,7 @@ namespace QLDuAn.Data.Repositories
 
         public DuAn GetAllInfo(int id)
         {
-            var query = from duan in DBContext.DuAn.Include("HopDong").Include("HopDong.KhachHang")
+            var query = from duan in DBContext.DuAn.Include("KhachHang")
                         select duan;
             return query.SingleOrDefault(x => x.ID.Equals(id));
         }
@@ -40,11 +39,5 @@ namespace QLDuAn.Data.Repositories
             return query.ToList();
         }
 
-        public DuAn GetDetail(int id)
-        {
-            var query = from dt in DBContext.DuAn.Include("HopDong")
-                        select dt;
-            return query.SingleOrDefault(x => x.ID == id);
-        }
     }
 }

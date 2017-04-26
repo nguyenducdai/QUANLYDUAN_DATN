@@ -28,22 +28,6 @@ namespace QLDuAn.Web.Infastructure.Extentions
             hangMuc.Updated_at = hangMucVM.Updated_at;
         }
 
-        public static void UpdateHopDong(this HopDong hopDong, HopDongViewModel hopDongVM)
-        {
-            hopDong.ID = hopDongVM.ID;
-            hopDong.SoHopDong = hopDongVM.SoHopDong;
-            hopDong.TenHopDong = hopDongVM.TenHopDong;
-            hopDong.GiaTriHopDong = hopDongVM.GiaTriHopDong;
-            hopDong.SoNgayThucHien = hopDongVM.SoNgayThucHien;
-            hopDong.NoiDung = hopDongVM.NoiDung;
-            hopDong.NgayBatDau = hopDongVM.NgayBatDau;
-            hopDong.NgayKetThuc = hopDongVM.NgayKetThuc;
-            hopDong.NgayKy = hopDongVM.NgayKy;
-            hopDong.IdKhachHang = hopDongVM.IdKhachHang;
-            hopDong.Created_at = hopDongVM.Created_at;
-            hopDong.Updated_at = hopDongVM.Updated_at;
-        }
-
         public static void UpdateKhachHang(this KhachHang khachHang, KhachHangViewModel khachHangVM)
         {
             khachHang.ID = khachHangVM.ID;
@@ -58,15 +42,18 @@ namespace QLDuAn.Web.Infastructure.Extentions
         public static void UpdateDuAn(this DuAn duAn, DuAnViewModel duAnVM)
         {
             duAn.ID = duAnVM.ID;
+            duAn.SoHopDong = duAnVM.SoHopDong;
+            duAn.GiaTriHopDong = duAnVM.GiaTriHopDong;
+            duAn.IdKhachHang = duAnVM.IdKhachHang;
+            duAn.NgayBatDau = duAnVM.NgayBatDau;
+            duAn.NgayKetThuc = duAnVM.NgayKetThuc;
+            duAn.NgayHoanThanh = duAnVM.NgayHoanThanh;
+            duAn.NgayKy = duAnVM.NgayKy;
             duAn.TenDuAn = duAnVM.TenDuAn;
-            duAn.IdHopDong = duAnVM.IdHopDong;
             duAn.MoTa = duAnVM.MoTa;
-            duAn.SoNgayThucHienThucTe = duAnVM.SoNgayThucHienThucTe;
             duAn.NamQuyetToan = duAnVM.NamQuyetToan;
             duAn.LoaiCongTrinh = duAnVM.LoaiCongTrinh;
             duAn.TyLeTheoDT = duAnVM.TyLeTheoDT;
-            duAn.TongDiem = duAnVM.TongDiem;
-            duAn.DonGiaDiemDiem = duAnVM.DonGiaDiemDiem;
             duAn.LuongThueNgoai = duAnVM.LuongThueNgoai;
             duAn.TongChiQL = duAnVM.TongChiQL;
             duAn.LuongTTQtt = duAnVM.LuongTTQtt;
@@ -78,7 +65,6 @@ namespace QLDuAn.Web.Infastructure.Extentions
             duAn.DonGiaDiemTT = duAnVM.DonGiaDiemTT;
             duAn.TongDiemGT = duAnVM.TongDiemGT;
             duAn.TongDiemTT = duAnVM.TongDiemTT;
-            duAn.DonGiaDiemTT = duAnVM.DonGiaDiemTT;
             duAn.TrangThai = duAnVM.TrangThai;
             duAn.Created_at = duAnVM.Created_at;
             duAn.Updated_at = duAnVM.Updated_at;
@@ -91,7 +77,6 @@ namespace QLDuAn.Web.Infastructure.Extentions
             thamGia.LoaiHangMuc = thamGiaVM.LoaiHangMuc;
             thamGia.HeSoThamGia = thamGiaVM.HeSoThamGia;
         }
-
 
         public static void UpdateApplicationUser(this ApplicationUser applicationUser, ApplicationUserViewModel applicationUserVM)
         {
@@ -145,6 +130,38 @@ namespace QLDuAn.Web.Infastructure.Extentions
             thongbao.MoreFile = thongbaoVM.MoreFile;
             thongbao.Created_at = thongbaoVM.Created_at;
             thongbao.Updated_at = thongbaoVM.Updated_at;
+        }
+
+        public static void UpdateNhomCongViec(this NhomCongViec ncv , NhomCongViecViewModel ncvvm)
+        {
+            ncv.ID = ncvvm.ID;
+            ncv.NhomCV = ncvvm.NhomCV;
+            ncv.HeSoCV = ncvvm.HeSoCV;
+            ncv.GhiChu = ncvvm.GhiChu;
+        }
+
+        public static void UpdateHeSoLap(this HeSoLap hsl, HeSoLapViewModel hslVm)
+        {
+            hsl.Id = hslVm.Id;
+            hsl.Hesl = hslVm.Hesl;
+            hsl.SoNam = hslVm.SoNam;
+            
+        }
+
+        public static void UpdateHeSoTg(this HeSoTg hstg, HeSoTgViewModel hstgVm)
+        {
+           hstg.Id = hstgVm.Id;
+           hstg.ThoiGianDk = hstgVm.ThoiGianDk;
+           hstg.HeSoTgdk = hstgVm.HeSoTgdk;
+
+        }
+
+        public static void UpdateNhanCong(this HeSoNhanCong hsnc, HeSoNhanCongViewModel hsncVm)
+        {
+           hsnc.Id = hsncVm.Id;
+           hsnc.HeSoNcKcn = hsncVm.HeSoNcKcn;
+           hsnc.SoNguoiThucHien = hsncVm.SoNguoiThucHien;
+
         }
     }
 }

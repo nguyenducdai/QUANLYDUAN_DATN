@@ -12,7 +12,7 @@
                         notification.error('đăng nhập thất bại');
                     } else {
                         var location = $injector.get('$state');
-                        location.go('home');
+                        location.go('duan.hangmuc');
                     }
                 });
               

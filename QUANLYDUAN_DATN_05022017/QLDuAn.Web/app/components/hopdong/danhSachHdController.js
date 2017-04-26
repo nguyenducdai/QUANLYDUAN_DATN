@@ -2,23 +2,24 @@
 /// <reference path="add.html" />
 (function (app) {
     app.controller('danhsachHdController', danhsachHdController);
-    app.controller('ThemHdController', ThemHdController);
 
-    danhsachHdController.$inject = ['$scope', 'service', '$state', 'notification', '$mdDialog','$rootScope'];
-    ThemHdController.$inject = ['$scope', 'service', '$state', 'notification', '$mdDialog'];
-    
+    danhsachHdController.$inject = ['$scope', 'service', '$state', 'notification', '$mdDialog', '$rootScope', '$ngBootbox'];
 
-    function danhsachHdController($scope, service, $state, notification, $mdDialog) {
+    function danhsachHdController($scope, service, $state, notification, $mdDialog, $rootScope ,$ngBootbox) {
 
         $scope.HopDong = {}
-        $scope.ChiTietHopDong = {}
-        $scope.alert = 'click vào dự án để xem chi tiết';
+        $scope.items = {}
 
         $scope.showFrmAdd = showFrmAdd;
-        $scope.viewDetail = viewDetail;
         $scope.refresh = refresh;
         $scope.templateUrl = '';
         $scope.DanhSachHd = DanhSachHd;
+        $scope.loadding = false;
+        $scope.ThemHopDong = ThemHopDong;
+        $scope.showFrmEdit = showFrmEdit;
+        $scope.CapNhatHopDong = CapNhatHopDong;
+        $scope.deleteHd = deleteHd;
+
 
         //pagination
         $scope.page = 0;
@@ -26,96 +27,139 @@
         $scope.keyword = '';
 
 
-        function showFrmAdd(ev) {
-            $mdDialog.show({
-                controller: ThemHdController,
-                templateUrl: '/app/components/hopdong/add.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: false,
-                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-            })
-            .then(function (answer) {
-                $scope.status = 'You said the information was "' + answer + '".';
-            }, function () {
-                $scope.status = 'You cancelled the dialog.';
-            });
+    function showFrmAdd(ev) {
+        $mdDialog.show({
+            controller: danhsachHdController,
+            templateUrl: '/app/components/hopdong/add.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false,
+            fullscreen: $scope.customFullscreen, // Only for -xs, -sm breakpoints.
+            scope: $scope,
+            preserveScope: true
+        })
+        .then(function (answer) {
+            $scope.status = 'You said the information was "' + answer + '".';
+        }, function () {
+            $scope.status = 'You cancelled the dialog.';
+        });
 
+    }
+
+    function showFrmEdit(ev, id) {
+        $mdDialog.show({
+            locals: {
+                items: $scope.items
+            },
+            controller: 'danhsachHdController',
+            templateUrl: '/app/components/hopdong/edit.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false,
+            fullscreen: $scope.customFullscreen, // Only for -xs, -sm breakpoints.
+            scope: $scope,
+            preserveScope: true
+        })
+        .then(function (answer) {
+            $scope.status = 'You said the information was "' + answer + '".';
+        }, function () {
+            $scope.status = 'You cancelled the dialog.';
+        });
+        var config = {
+            params: {
+                id: id
+            }
         }
+        service.get('api/hd/getbyid', config, function (result) {
+            $scope.items = result.data;
+            console.log($scope.items);
+            $scope.items.NgayBatDau = new Date(result.data.NgayBatDau);
+            $scope.items.NgayKetThuc = new Date(result.data.NgayKetThuc);
+            $scope.items.NgayKy = new Date(result.data.NgayKy);
+        }, function (error) {
+        });
+    }
 
-        function viewDetail(id) {
-            $scope.alert = '';
+    function deleteHd(id) {
+        $ngBootbox.confirm('Bạn có chắc chán muốn xóa hợp đồng này không ? ').then(function (result) {
             var config = {
                 params: {
-                    id:id
+                    id: id
                 }
             }
-            service.get('api/hd/getbyid', config, function (result) {
-                $scope.ChiTietHopDong = result.data;
-                console.log(result.data);
-                $scope.templateUrl = '/app/components/hopdong/chitiethd.html';
-            }, function (error) {
-            });
+            $scope.loadding = true;
 
-        }
-
-        function refresh() {
-               DanhSachHd();
-        }
-
-        function DanhSachHd(page) {
-            page = page || 0;
-            var config = {
-                params: {
-                    page: page,
-                    pageSize: 8,
-                    keyword: $scope.keyword
-                }
-            }
-            service.get('api/hd/getall', config, function (result) {
-                $scope.HopDong = result.data.items;
-                $scope.page = result.data.Page;
-                $scope.pagesCount = result.data.TotalPage;
-                $scope.totalCount = result.data.TotalCount;
+            service.del('api/hd/deleted', config, function (result) {
+                $mdDialog.cancel();
+                $scope.DanhSachHd();
+                notification.success('xóa hợp đồng thành công');
             }, function (error) {
                 notification.error('có lỗi dảy ra');
             });
-        }
+        });
+    }
+
+    function refresh() {
         DanhSachHd();
     }
 
-
-    function ThemHdController($scope, service, $state, notification, $mdDialog) {
-        $scope.HopDong = {
-            NgayBatDau: new Date(),
-            NgayKetThuc: new Date(),
-            NgayKy: new Date(),
-            Created_at: new Date(),
-            Updated_at: new Date()
+    function DanhSachHd(page) {
+        $scope.loadding = true;
+        page = page || 0;
+        var config = {
+            params: {
+                page: page,
+                pageSize: 8,
+                keyword: $scope.keyword
+            }
         }
-
-        $scope.ThemHopDong = ThemHopDong;
-        function ThemHopDong() {
-            service.post('api/hd/create', $scope.HopDong, function (result) {
-                $mdDialog.cancel();
-                notification.success('Thêm hợp đồng thành công');
-            }, function (error) {
-                notification.error('có lỗi dảy ra');
-            });
-        }
-
-        function KhachHang() {
-            service.get('api/hd/getcustomer', null, function (result) {
-                $scope.ListKhachHang = result.data;
-            }, function (error) {
-                notification.error('có lỗi dảy ra');
-            });
-        }
-
-        $scope.cancel = function () {
+        service.get('api/hd/getall', config, function (result) {
+            $scope.loadding = false;
+            $scope.HopDong = result.data.items;
+            $scope.page = result.data.Page;
+            $scope.pagesCount = result.data.TotalPage;
+            $scope.totalCount = result.data.TotalCount;
+        }, function (error) {
+            notification.error('có lỗi dảy ra');
+        });
+    }
+ 
+  
+    function ThemHopDong() {
+        service.post('api/hd/created', $scope.HopDong, function (result) {
             $mdDialog.cancel();
-        }
-        KhachHang();
+            $scope.DanhSachHd();
+            notification.success('Thêm hợp đồng thành công');
+        }, function (error) {
+            notification.error('có lỗi dảy ra');
+        });
     }
 
+    function CapNhatHopDong() {
+        $scope.loadding = true;
+        service.put('api/hd/update', $scope.items, function (result) {
+            $mdDialog.cancel();
+            $scope.DanhSachHd();
+            notification.success('cập nhật hợp đồng thành công');
+        }, function (error) {
+            notification.error('có lỗi dảy ra');
+        });
+    }
+
+    function KhachHang() {
+        service.get('api/hd/getcustomer', null, function (result) {
+            $scope.ListKhachHang = result.data;
+        }, function (error) {
+            notification.error('có lỗi dảy ra');
+        });
+    }
+
+    $scope.cancel = function () {
+        $mdDialog.cancel();
+    }
+
+    KhachHang();
+    DanhSachHd();
+
+}
 })(angular.module('componentmodule'));

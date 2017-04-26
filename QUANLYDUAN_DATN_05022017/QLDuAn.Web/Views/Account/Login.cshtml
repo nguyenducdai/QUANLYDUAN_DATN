@@ -3,55 +3,36 @@
     ViewBag.Title = "Đăng Nhập";
     Layout = "~/Views/Shared/_RootLayout.cshtml";
 }
-<div class="container">
-    <div class="login-box-body col-md-6 col-md-offset-3">
-        <div class="login-title">
-            <i class="fa fa-user-circle"></i> Đăng Nhập
+
+<div class="col-lg-6 col-lg-offset-3" style="background:#fff ; margin-top:60px;box-shadow:0 1px 1px rgba(0,0,0,.1) ; border-radius:5px;padding:40px 50px;" id="login_admin">
+    <h4 id="login-title"><i class="fa fa-user" aria-hidden="true"></i>  Đăng Nhập</h4>
+   @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUrl }, FormMethod.Post))
+   {
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Tên tài khoản</label>
+                @Html.TextBoxFor(model => model.userName, new { @class = "form-control", id = "login_input" })
+            </div>
+            <div class="form-group">
+                <label>Mật Khẩu</label>
+                @Html.PasswordFor(model => model.password, new { @class = "form-control", id = "login_input" })
+            </div>
+            <div class="form-group">
+                <label>
+                    @Html.CheckBoxFor(model => model.remember) Ghi nhớ
+                </label>
+                <button type="submit" class="btn btn-info btn-flat pull-right btn-sm" id="btn_submit">Đăng nhập</button>
+            </div>
+            <div class="form-group">
+                <p> Bạn <a> quên mật khẩu ? </a></p>
+            </div>
+
         </div>
-        @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUrl }, FormMethod.Post))
-        {
-            <div class="col-md-7">
-                @Html.ValidationSummary(true)
-                <div class="form-group has-feedback">
-                    @Html.TextBoxFor(model => model.userName, new { @class = "form-control" })
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    <p class="text-danger">@Html.ValidationMessageFor(model => model.userName)</p>
-                </div>
-                <div class="form-group has-feedback">
-                    @Html.PasswordFor(model => model.password, new { @class = "form-control" })
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    <p class="text-danger">@Html.ValidationMessageFor(model => model.password)</p>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-6">
-                        <label>
-                            @Html.CheckBoxFor(model => model.remember) nhớ mật khẩu ?
-                           
-                        </label>
-                        
-                    </div>
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-default btn-flat pull-right">Đăng nhập</button>
-                    </div>
-                </div>
-                <!-- /.col -->
-                <div class="form-group">
-                    Bạn <a href="#">quên mật khẩu</a><br>
-                </div>
-
+        <div class="col-md-6">
+            <p class="text-center text-black-white">Nếu bạn chưa có tải khoản hãy click <a href="/register">liên hệ</a> <br>hoặc </p><div>
+                <button class="btn btn-block btn-default btn-sm" type="button" id="btn_phone"><i class="fa fa-mobile" aria-hidden="true"></i> Phone cho chúng tôi</button>
             </div>
-            <div class="col-md-5">
-                <div>
-                    Bạn chưa có tài khoản , click <a href="register.html" class="text-center">Đăng ký thành viên</a> hoặc
-                </div>
-                <div>
-                    <button class="btn btn-facebook">Đăng nhập với facebook</button>
-                </div>
-
-            </div>
-
-        }
-
-    </div>
-
+        </div>
+   }
 </div>
+

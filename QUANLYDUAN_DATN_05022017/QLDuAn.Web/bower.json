@@ -16,7 +16,10 @@
     "angular-local-storage": "*",
     "angular-loading-bar": "*",
     "checklist-model": "*",
-    "angular-chart.js": "*"
+    "angular-chart.js": "*",
+    "angular-ui-select": "*",
+    "angular-sanitize": "*",
+    "angular-bootstrap": "*"
   }
 }
 

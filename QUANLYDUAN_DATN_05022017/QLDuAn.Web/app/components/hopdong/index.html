@@ -1,91 +1,81 @@
-﻿<section class="content-header"></section>
-
-<!-- Main content -->
-<section class="content">
-    <div class="box-header with-border">
-        <h3 class="box-title"><strong>Quản Lý Hợp đồng</strong></h3>
-        <button class="btn btn-default pull-right" ui-sref="duan">Đóng</button>
-    </div>
-    <div class="box-body">
-        <div class="box-group" id="accordion">
+﻿<section class="content">
+    <div class="box box-solid">
+        <div class="box-header with-border">
             <div class="col-md-8">
-                <div class="box">
-                    <div class="box-header  with-border">
-                        <h3 class="box-title">Tất cả các  hợp đồng</h3>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm" placeholder="tim kiem" ng-model="keyword" ng-change="DanhSachHd(page)">
-                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
+                <div class="col-md-6">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control  ng-pristine ng-untouched ng-valid ng-empty" placeholder="Search" ng-model="keyword" ng-change="DanhSachHd(page)" aria-invalid="false">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                         </div>
-                        <!-- /.box-tools -->
                     </div>
-                    <!-- /.box-header -->
-                    <div class="box-body table-responsive no-padding">
-                        <div class="mailbox-controls">
-                            <!-- Check all button -->
-                            <button type="button" class="btn btn-default btn-sm checkbox-toggle">
-                                <i class="fa fa-square-o"></i>
-                            </button>
-                            <div class="btn-group">
-                                <button class="btn btn-default btn-sm" ng-click="showFrmAdd($event)" ><i class="fa fa-plus"></i></button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
-                            <button class="btn btn-default btn-sm" ng-click="refresh()"><i class="fa fa-refresh"></i></button>
-                            <div class="pull-right">
-                                1-50/200
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                                </div>
-                                <!-- /.btn-group -->
-                            </div>
-                            <!-- /.pull-right -->
-                        </div>
-                        <div class="table-responsive mailbox-messages">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width:10px">#</th>
-                                        <th>số hợp đồng</th>
-                                        <th>tên hợp đồng</th>
-                                        <th>ngày tạo</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in HopDong">
-                                        <td><input  type="checkbox"/></td>
-                                        <td><a ng-click="viewDetail(item.ID)">{{item.SoHopDong}}</a> </td>
-                                        <td><a ng-click="viewDetail(item.ID)">{{item.TenHopDong}}</a> </td>
-                                        <!--<i class="fa fa-globe"></i>-->
-                                        <td> {{item.Created_at | date:'dd/MM/yyyy'}}</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <!-- /.table -->
-                        </div>
-                        <div class="col-md-12">
-                            <div class="col-md-6"><p><span>Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
-                            <div class="col-md-6">
-                                <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="DanhSachHd(page)"></pager-directive>
-                            </div>
-                        </div>
-                       
-                    </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
+
+                <div class="col-md-6">
+                    <button class="btn btn-success btn-sm btn-flat"  ng-click="showFrmAdd($event)" ><i class="fa fa-pencil"></i> Thêm Hợp đồng</button>
+                    <button class="btn btn-danger btn-sm  btn-flat" disabled><i class="fa fa-trash"></i> Xóa Tất cả</button>
+                    <button class="btn btn-info btn-sm  btn-flat" ng-click="refresh()"> <i class="fa fa-refresh"></i> làm mới</button>
+                </div>
             </div>
-            <div class="col-sm-12 col-md-4 col-lg-4" style="background:#FAFAFA ; min-height:600px">
-                <h3>{{alert}}</h3>
-                <div ng-include="templateUrl"></div>
+            <div class="col-md-4">
+                <div class="pull-right">
+                 
+                </div>
             </div>
         </div>
+          <div class="box-body table-responsive no-padding">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:10px">#</th>
+                            <th>Số HD</th>
+                            <th>Tên hợp đồng</th>
+                            <th>Gía Trị (vnd)</th>
+                            <th>Khách hàng</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Ngày ký</th>
+                            <th style="width:15px"></th>
+                        </tr>
+                      </thead>
+                        <tbody>
+                            <tr ng-repeat="item in HopDong">
+                                <td><input type="checkbox" /></td>
+                                <td>{{item.SoHopDong}}</td>
+                                <td>{{item.TenHopDong}}</td>
+                                <td>{{item.GiaTriHopDong | number}}</td>
+                                <td  data-toggle="tooltip" title="{{item.KhachHang.Email}}"><a href="javascript:void(0)">{{item.KhachHang.TenKhach}}</a></td>
+                                <td>{{item.NgayBatDau | date:'dd/MM/yyyy'}}</td>
+                                <td>{{item.NgayKetThuc | date:'dd/MM/yyyy'}}</td>
+                                <td>{{item.NgayKy | date:'dd/MM/yyyy'}}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-xs btn-flat" ng-click="deleteHd(item.ID)"><i class="fa fa-trash-o"></i>  xóa</button>
+                                    <button class="btn btn-info btn-xs btn-flat" ng-click="showFrmEdit($event ,item.ID)"><i class="fa fa-pencil"> sửa</i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                <div class="col-md-12">
+                    <div class="col-md-6"><p><span>Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
+                    <div class="col-md-6">
+                        <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="DanhSachHd(page)"></pager-directive>
+                    </div>
+                </div>
+           </div>
+    </div>
+    <div class="sk-fading-circle" ng-if="loadding">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
     </div>
 </section>
-<!-- /.content -->
 

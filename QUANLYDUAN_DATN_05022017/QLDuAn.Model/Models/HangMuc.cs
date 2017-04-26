@@ -21,21 +21,21 @@ namespace QLDuAn.Model.Models
 
         public string MoTaHangMuc { get; set; }
 
-        public int IdNhomCongViec { get; set; }
+        public int? IdNhomCongViec { get; set; }
 
-        public int IdMucDoTruyenThong { get; set; }
+        public int? IdMucDoTruyenThong { get; set; }
 
         public DateTime? NgayBatDau { get; set; }
 
-        public int ThoiGianDuKien { get; set; }
+        public int? ThoiGianDuKien { get; set; }
 
         public DateTime? NgayHoanThanh { get; set; }
 
-        public int SoNguoiThucHien { get; set; }
+        public int? SoNguoiThucHien { get; set; }
 
-        public int DiemDanhGia { get; set; }
+        public int? DiemDanhGia { get; set; }
 
-        public decimal HesoKcn { get; set; }
+        public decimal? HesoKcn { get; set; }
 
         public int LoaiHangMuc { get; set; }
 

@@ -12,6 +12,8 @@ namespace QLDuAn.Data.Repositories
 
         decimal TotalPoint(int IdDuAn,int LoaiHangMuc);
 
+        IEnumerable<ThamGia> GetIncomeById(int idDuan, int LoaiHm);
+
     }
 
     public class ThamGiaRepository : RepositoryBase<ThamGia>, IThamGiaRepository
@@ -39,10 +41,48 @@ namespace QLDuAn.Data.Repositories
 
         public decimal TotalPoint(int IdDuAn, int LoaiHangMuc)
         {
+            decimal d = 0;
             var query = from tg in DBContext.ThamGia
                         where tg.IdDuAn == IdDuAn && tg.LoaiHangMuc == LoaiHangMuc
                         select tg;
-            return query.Sum(x=>x.DiemThanhVien);
+            if(query.Count() > 0)
+            {
+                return query.Sum(x => x.DiemThanhVien);
+            }
+            return d;
         }
+
+        public IEnumerable<ThamGia> GetIncomeById(int idDuan, int loaiHm)
+        {
+            var query = (from tg in DBContext.ThamGia.Include("ApplicationUser")
+                         join u in DBContext.Users
+                         on tg.IdNhanVien equals u.Id
+                         where tg.LoaiHangMuc == loaiHm && tg.IdDuAn == idDuan
+                         group tg by
+                         new
+                         {
+                             tg.IdNhanVien,
+                             tg.ApplicationUser
+
+                         }
+                         into t
+                         select new 
+                         {
+                             DiemThanhVien = t.Sum(x => x.DiemThanhVien),
+                             ThuNhap = t.Sum(x => x.ThuNhap),
+                             IdNhanVien = t.Key.IdNhanVien,
+                            ApplicationUser = t.Key.ApplicationUser
+                             
+                         })
+                         .AsEnumerable().Select(x => new ThamGia() {
+
+                             DiemThanhVien = x.DiemThanhVien,
+                             ThuNhap = x.ThuNhap,
+                             IdNhanVien = x.IdNhanVien,
+                             ApplicationUser = x.ApplicationUser
+                        });
+            return query.ToList();
+        }
+
     }
 }

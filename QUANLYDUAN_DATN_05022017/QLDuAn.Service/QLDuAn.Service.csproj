@@ -73,7 +73,6 @@
     <Compile Include="HeSoLapService.cs" />
     <Compile Include="HeSoNhanCongService.cs" />
     <Compile Include="HeSoThoiGianService.cs" />
-    <Compile Include="HopDongService.cs" />
     <Compile Include="KhachHangService.cs" />
     <Compile Include="NhomCongViecService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -62,11 +62,11 @@ namespace QLDuAn.Web.Api
 
         [Route("gethangmucduan")]
         [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage request, int page, int pageSize, string keyword, int idDuAn, int LoaiHm)
+        public HttpResponseMessage GetAll(HttpRequestMessage request, int page, int pageSize, string keyword, int idDuAn, int LoaiHm , bool? filter)
         {
             return CreateReponse(request, () =>
             {
-                var model = _hangMucService.GetHangMucDuAn(idDuAn, LoaiHm, keyword);
+                var model = _hangMucService.GetHangMucDuAn(idDuAn, LoaiHm, keyword , filter);
                 var query = model.Skip(page * pageSize).Take(pageSize);
                 var responseData = Mapper.Map<IEnumerable<HangMuc>, IEnumerable<HangMucViewModel>>(query);
                 Paginnation<HangMucViewModel> pagination = new Paginnation<HangMucViewModel>
@@ -102,10 +102,9 @@ namespace QLDuAn.Web.Api
         {
             return CreateReponse(request, () =>
             {
-                HttpResponseMessage respose;
                 if (!ModelState.IsValid)
                 {
-                    respose = request.CreateResponse(HttpStatusCode.BadRequest, ModelState.IsValid);
+                    return request.CreateResponse(HttpStatusCode.BadRequest, ModelState.IsValid);
                 }
                 else
                 {
@@ -117,21 +116,76 @@ namespace QLDuAn.Web.Api
                     _hangMucService.save();
                     if (hangMucResponse != null)
                     {
+                        var donGiaDiemTT = 0;
+                        var donGiaDiemGT = 0;
+                        var hm = _hangMucService.GetHangMucById(hangMucResponse.ID);
+
+                        decimal? diemHm = 0m;
+                        if (hm.HeSoLap != null && hm.HeSoTg != null)
+                        {
+                            diemHm = hm.DiemDanhGia * hm.HeSoLap.Hesl * hm.HeSoTg.HeSoTgdk * hm.HesoKcn * hm.NhomCongViec.HeSoCV;
+                        }
+
+                        if (hangMucViewModel.ThamGia.Count() > 0)
+                        { 
+
+                        List<ThamGia> listTG = new List<ThamGia>();
+                        foreach (var item in hangMucViewModel.ThamGia)
+                        {
+                            if (hangMucResponse.LoaiHangMuc == 0)
+                            {
+                                listTG.Add(new ThamGia()
+                                {
+                                    IdHangMuc = hangMucResponse.ID,
+                                    IdDuAn = hangMucResponse.IdDuAn,
+                                    IdNhanVien = item.IdNhanVien,
+                                    HeSoThamGia = item.HeSoThamGia,
+                                    LoaiHangMuc = item.LoaiHangMuc,
+                                    DiemThanhVien = (diemHm * item.HeSoThamGia) ?? 0,
+                                    ThuNhap = donGiaDiemTT * diemHm * item.HeSoThamGia
+                                });
+                            }
+                            else
+                            {
+                                listTG.Add(new ThamGia()
+                                {
+                                    IdHangMuc = hangMucResponse.ID,
+                                    IdDuAn = hangMuc.IdDuAn,
+                                    IdNhanVien = item.IdNhanVien,
+                                    HeSoThamGia = item.HeSoThamGia,
+                                    LoaiHangMuc = item.LoaiHangMuc,
+                                    DiemThanhVien = (diemHm * item.HeSoThamGia) ?? 0,
+                                    ThuNhap = donGiaDiemGT * diemHm * item.HeSoThamGia
+                                });
+                            }
+
+                        }
+                        _thamGiaService.Add(listTG, hangMucResponse.ID, hangMucResponse.LoaiHangMuc);
+                        _thamGiaService.Save();
+
                         var duan = _duAnService.GetAllInfoById(hangMuc.IdDuAn);
                         var point = _thamGiaService.TotalPoint(hangMuc.IdDuAn, hangMuc.LoaiHangMuc);
 
                         //tính đơn giá điểm trục tiếp
-                        var q0 = (duan.HopDong.GiaTriHopDong * duan.TyLeTheoDT) / 100;
+                        var q0 = (duan.GiaTriHopDong * duan.TyLeTheoDT) / 100;
                         var q1 = q0 - duan.LuongThueNgoai;
                         var q2 = (q1 * duan.LuongTTQtt) / 100;
-                        var donGiaDiemTT = q2 / point;
+
+                        if (point != 0)
+                        {
+                            donGiaDiemTT = Convert.ToInt32(q2 / point);
+                        }
 
                         // tính đơn giá điểm gián tiếp
-                        var g0 = (duan.HopDong.GiaTriHopDong * duan.TyLeTheoDT) / 100;
+                        var g0 = (duan.GiaTriHopDong * duan.TyLeTheoDT) / 100;
                         var g1 = g0 - duan.LuongThueNgoai;
                         var g2 = (g1 * duan.LuongGTQgt) / 100;
                         var g3 = (g2 * duan.LuongGTV22) / 100;
-                        var donGiaDiemGT = g3 / point;
+
+                        if (point != 0)
+                        {
+                            donGiaDiemGT = Convert.ToInt32(g3 / point);
+                        }
 
                         if (hangMuc.LoaiHangMuc == 0)
                         {
@@ -145,50 +199,48 @@ namespace QLDuAn.Web.Api
                             duan.DonGiaDiemGT = donGiaDiemGT;
                             _duAnService.Update(duan);
                         }
-                        _duAnService.Save();
 
-                        var hm = _hangMucService.GetHangMucById(hangMucResponse.ID);
-                        var diemHm = hm.DiemDanhGia * hm.HeSoLap.Hesl * hm.HeSoTg.HeSoTgdk * hm.HesoKcn * hm.NhomCongViec.HeSoCV;
-                        List<ThamGia> listTG = new List<ThamGia>();
-                        foreach (var item in hangMucViewModel.ThamGia)
+                        var Tg = _thamGiaService.GetByIdHm(hangMucResponse.ID, hangMucResponse.LoaiHangMuc);
+                        List<ThamGia> listTGUp = new List<ThamGia>();
+                        foreach (var item in Tg)
                         {
                             if (hangMucResponse.LoaiHangMuc == 0)
                             {
-                                listTG.Add(new ThamGia()
+                                listTGUp.Add(new ThamGia()
                                 {
                                     IdHangMuc = hangMucResponse.ID,
-                                    IdDuAn = hangMuc.IdDuAn,
+                                    IdDuAn = hangMucResponse.IdDuAn,
                                     IdNhanVien = item.IdNhanVien,
                                     HeSoThamGia = item.HeSoThamGia,
                                     LoaiHangMuc = item.LoaiHangMuc,
-                                    DiemThanhVien = diemHm * item.HeSoThamGia,
+                                    DiemThanhVien = (diemHm * item.HeSoThamGia) ?? 0,
                                     ThuNhap = donGiaDiemTT * diemHm * item.HeSoThamGia
                                 });
                             }
                             else
                             {
-                                listTG.Add(new ThamGia()
+                                listTGUp.Add(new ThamGia()
                                 {
                                     IdHangMuc = hangMucResponse.ID,
-                                    IdDuAn = hangMuc.IdDuAn,
+                                    IdDuAn = hangMucResponse.IdDuAn,
                                     IdNhanVien = item.IdNhanVien,
                                     HeSoThamGia = item.HeSoThamGia,
                                     LoaiHangMuc = item.LoaiHangMuc,
-                                    DiemThanhVien = diemHm * item.HeSoThamGia,
+                                    DiemThanhVien = (diemHm * item.HeSoThamGia) ?? 0,
                                     ThuNhap = donGiaDiemGT * diemHm * item.HeSoThamGia
                                 });
                             }
 
                         }
-                        _thamGiaService.Add(listTG, hangMucResponse.ID, hangMucResponse.LoaiHangMuc);
+                        _thamGiaService.Add(listTGUp, hangMucResponse.ID, hangMucResponse.LoaiHangMuc);
+                        _thamGiaService.Save();
+                        }
                     }
-
-                    _hangMucService.save();
-                    respose = request.CreateResponse(HttpStatusCode.Created, hangMucResponse);
+                   return request.CreateResponse(HttpStatusCode.Created, hangMucResponse);
                 }
-                return respose;
             });
         }
+
 
         [Route("updated")]
         [HttpPut]
@@ -214,37 +266,42 @@ namespace QLDuAn.Web.Api
                     {
                         var duan = _duAnService.GetAllInfoById(hangMuc.IdDuAn);
                         var point = _thamGiaService.TotalPoint(hangMuc.IdDuAn, hangMuc.LoaiHangMuc);
-
-                        //tính đơn giá điểm trục tiếp
-                        var q0 = (duan.HopDong.GiaTriHopDong * duan.TyLeTheoDT) / 100;
-                        var q1 = q0 - duan.LuongThueNgoai;
-                        var q2 = (q1 * duan.LuongTTQtt) / 100;
-                        var donGiaDiemTT = q2 / point;
-
-                        // tính đơn giá điểm gián tiếp
-                        var g0 = (duan.HopDong.GiaTriHopDong * duan.TyLeTheoDT) / 100;
-                        var g1 = g0 - duan.LuongThueNgoai;
-                        var g2 = (g1 * duan.LuongGTQgt) / 100;
-                        var g3 = (g2 * duan.LuongGTV22) / 100;
-                        var donGiaDiemGT = g3 / point;
-
-                        if (hangMuc.LoaiHangMuc == 0)
-                        {
-                            duan.TongDiemTT = point;
-                            duan.DonGiaDiemTT = donGiaDiemTT;
-                            _duAnService.Update(duan);
-                        }
-                        else
-                        {
-                            duan.TongDiemGT = point;
-                            duan.DonGiaDiemGT = donGiaDiemGT;
-                            _duAnService.Update(duan);
-                        }
-                        _duAnService.Save();
-
+                        decimal? donGiaDiemTT = 0m;
+                        decimal? donGiaDiemGT = 0m;
+                        if (point > 0) { 
+                            if (hangMuc.LoaiHangMuc == 0)
+                            {
+                                //tính đơn giá điểm trục tiếp
+                                var q0 = (duan.GiaTriHopDong * duan.TyLeTheoDT) / 100;
+                                var q1 = q0 - duan.LuongThueNgoai;
+                                var q2 = (q1 * duan.LuongTTQtt) / 100;
+                                donGiaDiemTT = q2 / point;
+                                duan.TongDiemTT = point;
+                                duan.DonGiaDiemTT = donGiaDiemTT;
+                                _duAnService.Update(duan);
+                            }
+                            else
+                            {
+                                // tính đơn giá điểm gián tiếp
+                                var g0 = (duan.GiaTriHopDong * duan.TyLeTheoDT) / 100;
+                                var g1 = g0 - duan.LuongThueNgoai;
+                                var g2 = (g1 * duan.LuongGTQgt) / 100;
+                                var g3 = (g2 * duan.LuongGTV22) / 100;
+                                donGiaDiemGT = g3 / point;
+                                duan.TongDiemGT = point;
+                                duan.DonGiaDiemGT = donGiaDiemGT;
+                                _duAnService.Update(duan);
+                            }
+                            _duAnService.Save();
+                          }
                         var hm = _hangMucService.GetHangMucById(hangMuc.ID);
-                        var diemHm = hm.DiemDanhGia * hm.HeSoLap.Hesl * hm.HeSoTg.HeSoTgdk * hm.HesoKcn * hm.NhomCongViec.HeSoCV;
+                        decimal? diemHm = 0m;
+                        if (hm.HeSoLap != null && hm.HeSoTg != null)
+                        {
+                            diemHm = hm.DiemDanhGia * hm.HeSoLap.Hesl * hm.HeSoTg.HeSoTgdk * hm.HesoKcn * hm.NhomCongViec.HeSoCV;
+                        }
                         List<ThamGia> listTG = new List<ThamGia>();
+                        if(hangMucViewModel.ThamGia.Count() > 0) { 
                         foreach (var item in hangMucViewModel.ThamGia)
                         {
                             if (hangMuc.LoaiHangMuc == 0)
@@ -256,7 +313,7 @@ namespace QLDuAn.Web.Api
                                     IdNhanVien = item.IdNhanVien,
                                     HeSoThamGia = item.HeSoThamGia,
                                     LoaiHangMuc = item.LoaiHangMuc,
-                                    DiemThanhVien = diemHm * item.HeSoThamGia,
+                                    DiemThanhVien = (diemHm * item.HeSoThamGia)??0,
                                     ThuNhap = donGiaDiemTT * diemHm * item.HeSoThamGia
                                 });
                             }
@@ -269,14 +326,14 @@ namespace QLDuAn.Web.Api
                                     IdNhanVien = item.IdNhanVien,
                                     HeSoThamGia = item.HeSoThamGia,
                                     LoaiHangMuc = item.LoaiHangMuc,
-                                    DiemThanhVien = diemHm * item.HeSoThamGia,
+                                    DiemThanhVien = (diemHm * item.HeSoThamGia)??0,
                                     ThuNhap = donGiaDiemGT * diemHm * item.HeSoThamGia
                                 });
                             }
                         }
                         _thamGiaService.Add(listTG, hangMuc.ID, hangMuc.LoaiHangMuc);
+                        }
                     }
-
                     _hangMucService.save();
                     respose = request.CreateResponse(HttpStatusCode.Accepted, hangMucViewModel);
                 }
@@ -310,6 +367,21 @@ namespace QLDuAn.Web.Api
             });
         }
 
+
+        [Route("updatestatus")]
+        [HttpGet]
+        public HttpResponseMessage UpdateStatus(HttpRequestMessage request, int id , bool status)
+        {
+            return CreateReponse(request, () => {
+
+                var oldHangMuc = _hangMucService.getByID(id);
+                oldHangMuc.TrangThai = status;
+                _hangMucService.Update(oldHangMuc);
+                _hangMucService.save();
+                return request.CreateResponse(HttpStatusCode.Accepted , id);
+            });
+
+        }
 
 
     }

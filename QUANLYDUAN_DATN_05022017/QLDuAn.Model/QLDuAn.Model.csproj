@@ -73,7 +73,6 @@
     <Compile Include="Models\HangMuc.cs" />
     <Compile Include="Models\HeSoNhanCong.cs" />
     <Compile Include="Models\HeSoTg.cs" />
-    <Compile Include="Models\HopDong.cs" />
     <Compile Include="Models\KhachHang.cs" />
     <Compile Include="Models\HeSoLap.cs" />
     <Compile Include="Models\NhomCongViec.cs" />

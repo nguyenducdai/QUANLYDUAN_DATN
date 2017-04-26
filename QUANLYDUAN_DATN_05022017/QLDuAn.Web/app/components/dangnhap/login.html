@@ -1,39 +1,33 @@
-﻿<div class="login-box">
-        <div class="login-logo">
-            <a href="#"><b>ASO</b>company</a>
-        </div>
-        <!-- /.login-logo -->
-        <div class="login-box-body">
-            <p class="login-box-msg">Đăng nhập để bắt đầu phiên làm việc</p>
-            <form role="form" ng-submit="doLogin()">
-                <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="tên đăng nhập" ng-model="loginData.userName">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+﻿
+<div class="col-lg-6 col-lg-offset-3" style="background:#fff ; margin-top:60px;box-shadow:0 1px 1px rgba(0,0,0,.1) ; border-radius:5px;padding:40px 50px;" id="login_admin" >
+        <h4 id="login-title"><i class="fa fa-user" aria-hidden="true"></i>  Đăng Nhập</h4>
+        <form role="form" ng-submit="doLogin()">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Tên tài khoản</label>
+                    <input type="text" class="form-control" id="login_input" placeholder="tên đăng nhập" ng-model="loginData.userName">
                 </div>
-                <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="mật khẩu" ng-model="loginData.password">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <div class="form-group">
+                    <label>Mật Khẩu</label>
+                    <input type="password" class="form-control" id="login_input" placeholder="mật khẩu" ng-model="loginData.password">
                 </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                <input type="checkbox"> nhớ mật khẩu
-                            </label>
-                        </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox"> Ghi nhớ
+                        </label>
+                        <button type="submit" class="btn btn-info btn-flat pull-right btn-sm" id="btn_submit">Đăng nhập</button>
                     </div>
-                    <!-- /.col -->
-                    <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
-                    </div>
-                    <!-- /.col -->
+                <div class="form-group">
+                    <p> Bạn <a> quên mật khẩu ? </a></p>
                 </div>
-            </form>
-            <a href="#">Quên mật khẩu ? </a><br>
-            <a href="register.html" class="text-center">Đăng ký thành viên</a>
-
-        </div>
-        <!-- /.login-box-body -->
+                   
+                </div>
+            <div class="col-md-6">
+                <p class="text-center text-black-white">Trong quá trình hoạt động nếu có lỗi , click  <a href="/register">liên hệ</a> <br>hoặc </p><div>
+                 <button class="btn btn-block btn-default btn-sm" type="button" id="btn_phone"><i class="fa fa-mobile" aria-hidden="true"></i> Phone cho chúng tôi</button>
+                </div>
+            </div>
+        </form>
     </div>
-    <!-- /.login-box -->
-
+   
+</div>

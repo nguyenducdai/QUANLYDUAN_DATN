@@ -1,0 +1,32 @@
+﻿<md-dialog>
+    <form role="form" name="frmHSTG" novalidate ng-submit="CapNhatHstg()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Cập nhật Hệ số Thời gian</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()" aria-label="">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+
+                <div class="form-group">
+                    <label for="InputProject">Thời Gian dự kiến</label>
+                    <input type="text" ng-model="HesltgUpdate.ThoiGianDk" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="InputProject">Hệ số </label>
+                    <input type="text" class="form-control" id="InputProject" ng-model="HesltgUpdate.HeSoTgdk " />
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <button type="submit" class="btn btn-info btn-flat">Tạo Hệ số</button>
+            <span flex></span>
+            <button type="reset" class="btn btn-default btn-flat">xóa sạch</button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

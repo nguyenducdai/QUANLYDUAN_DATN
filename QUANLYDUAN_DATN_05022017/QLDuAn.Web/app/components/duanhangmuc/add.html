@@ -1,141 +1,146 @@
-﻿<section class="content-header"></section>
-<section class="content">
-        <div class="box box-solid">
-            <div class="box-header with-border">
-                <h3 class="box-title"><strong>Thêm Hạng mục công viêc cho dự án </strong></h3>
-                <div>
-                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <small>chú ý : Tđsadáhêm thành viên tham gia dự án trước khi khi chọn hạng mục công việc</small>
-                    <button class="btn btn-default pull-right"  ui-sref ="duan">Đóng</button>
-                </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="box-group" id="accordion">
-                    <div class="col-md-7">
-                        <form novalidate name="frmHmDa" ng-submit="AddHangMucDuAn()">
-                            <input type="hidden" name="select" ng-model="HmDa.IdDuAn"/>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="Input2">Tên hạng mục công việc</label>
-                                        <input type="text" class="form-control" ng-model="HmDa.TenHangMuc">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label for="Input2">Mô tả</label>
-                                        <textarea type="text" class="form-control" ng-model="HmDa.MoTaHangMuc"> </textarea>
-                                     </div>
+﻿<section class="content">
+    <div class="box box-solid">
+        <div class="box-body">
+            <div class="box-group" id="accordion">
+                <div class="col-md-7">
+                    <form novalidate name="frmHmDa" ng-submit="AddHangMucDuAn()">
+                        <input type="hidden" name="select" ng-model="HmDa.IdDuAn" />
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="Input2">Tên hạng mục công việc</label>
+                                    <input type="text" class="form-control" ng-model="HmDa.TenHangMuc" name="temHm" required>
+                                    <span ng-show="frmHmDa.temHm.$invalid" class="has-error">Tên Hạng Mục công việc không được để trống</span>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="Input2">Mô tả</label>
+                                    <textarea type="text" class="form-control" ng-model="HmDa.MoTaHangMuc" name="moTa"> </textarea>
+                                </div>
 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="Input2">Nhóm công việc</label>
+                                    <select name="NhomCongViec" class="form-control" ng-model="HmDa.IdNhomCongViec" ng-options="option.ID as option.NhomCV for option in NhomCvs" ng-change="changNhomCongViec(HmDa.IdNhomCongViec)" required>
+                                        <option value="">..............</option>
+                                    </select>
+                                    <span ng-show="frmHmDa.NhomCongViec.$invalid" class="has-error">Chon Nhóm Công Việc</span>
+                                    <input type="hidden" class="form-control" ng-model="HmDa.IdNhomCongViec">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Input3">Mức độ truyền thông</label>
+                                    <select class="form-control" ng-model="HmDa.IdMucDoTruyenThong" ng-options="option.Id as option.SoNam for option in  MucDoTruyenThong ">
+                                        <option value="">...............</option>
+                                    </select>
+                                    <input type="hidden" ng-model="HmDa.IdMucDoTruyenThong">
                                 </div>
                             </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="Input2">Nhóm công việc</label>
-                                            <select name="IdNhomCongViec" class="form-control" ng-model="HmDa.IdNhomCongViec" ng-options="option.ID as option.NhomCV for option in NhomCvs" ng-change="changNhomCongViec(HmDa.IdNhomCongViec)">
-                                                <option value="">--chọn nhóm công việc--</option>
-                                            </select>
-                                            <input type="hidden" class="form-control" ng-model="HmDa.IdNhomCongViec">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Input3">Mức độ truyền thông</label>
-                                            <select class="form-control" style="width: 100%;" ng-model="HmDa.IdMucDoTruyenThong" ng-options="option.Id as option.SoNam for option in  MucDoTruyenThong ">
-                                                <option value="">--chọn mức độ truyền thống--</option>
-                                            </select>
-                                            <input type="hidden" ng-model="HmDa.IdMucDoTruyenThong">
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="Input4">Ngày Thực Hiện</label>
+                                    <input type="date" class="form-control" id="Input4" ng-model="HmDa.NgayBatDau" name="NgayBatDau">
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="Input4">Ngày Thực Hiện</label>
-                                            <input type="date" class="form-control" id="Input4" ng-model="HmDa.NgayBatDau" name="NgayBatDau">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Input5">Ngày yêu cầu hoàn thành</label>
-                                            <input type="date" class="form-control" id="Input5" ng-model="HmDa.NgayHoanThanh">
-                                        </div>
-                                    </div>
+                                <div class="col-md-6">
+                                    <label for="Input5">Ngày yêu cầu hoàn thành</label>
+                                    <input type="date" class="form-control" id="Input5" ng-model="HmDa.NgayHoanThanh">
                                 </div>
-                          
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="Input14">Khoảng ngày dự kiến hoàn thành</label>
-                                            <select class="form-control" name="ThoiGianThucHienDuKien" ng-model="HmDa.ThoiGianDuKien" ng-options="option.Id as option.ThoiGianDk for option in HeSoThoiGian">
-                                                <option value="">_chon thời gian thực hiện dự kiên _</option>
-                                            </select>
-                                            <input type="hidden" ng-model="HmDa.ThoiGianDuKien" />
-                                        </div>
+                            </div>
+                        </div>
 
-                                        <div class="col-md-6">
-                                            <label for="Input15">Điểm đánh giá</label>
-                                            <input type="number" class="form-control" id="Input15" ng-model="HmDa.DiemDanhGia">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Input6">Người thực hiện theo lệnh sản xuất</label>
-                                    <select class="form-control" ng-model="HmDa.IdNguoiThucHienTheoLenhSX" ng-options="option.Id as option.FullName for option in ThanhVien ">
-                                        <option value="">__chọn người đại diện__</option>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="Input14">Khoảng ngày dự kiến hoàn thành</label>
+                                    <select class="form-control" name="ThoiGianThucHienDuKien" ng-model="HmDa.ThoiGianDuKien" ng-options="option.Id as option.ThoiGianDk for option in HeSoThoiGian">
+                                        <option value="">................</option>
                                     </select>
-                                    <input type="hidden" ng-model="HmDa.IdNguoiThucHienTheoLenhSX" />
+                                    <input type="hidden" ng-model="HmDa.ThoiGianDuKien" />
                                 </div>
 
-                                <div class="box-footer">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Thêm</button>
-                                    <button class="btn btn-default" ui-sref="duan"><i class="fa fa-fw fa-mail-reply"></i>Trở về</button>
+                                <div class="col-md-6">
+                                    <label for="Input15">Điểm đánh giá</label>
+                                    <input type="number" class="form-control" id="Input15" ng-model="HmDa.DiemDanhGia">
                                 </div>
-                           
-                        </form>
-                    </div><!--end/right-->
-                    <div class="col-md-5">
-                        <form name="frmThanhvien"  ng-submit="addThanhVien()">
-                                <div class="form-group">
-                                    <label for="Input7">Nhân viên tham gia</label>
-                                    <select class="form-control" name="thanhvientg" ng-model="User" ng-options="option.FullName for option in ThanhVien track by option.Id" required>
-                                        <option value="">_chọn thành viên tham gia_</option>
-                                    </select>
-                                    <input type="hidden" ng-model="User">
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <label for="Input8">Tỉ Lệ Tham gia (%)</label>
-                                            <input type="number" class="form-control" id="Input8"  name="Tile" ng-model="User.Tile" required>
-                                            <span ng-show="frmThanhvien.Tile.$invalid" class="text-danger">nhập tỉ lệ tham gia</span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="Input8"></label>
-                                            <button type="submit" class="btn btn-default" ng-disabled="frmThanhvien.$invalid"> <i class="fa fa-save"></i> Thêm</button>
-                                        </div>
-                                     </div>
-                                </div>
-                        </form>
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr>
-                                    <th style="width: 10px">#</th>
-                                    <th>Thành viên dsa</th>
-                                    <th>Tỷ lệ tham gia</th>
-                                    <th>hành động</th>
-                                </tr>
-                                <tr ng-repeat="item in HmDa.ThamGia">
-                                    <td>{{$index + 1 }}</td>
-                                    <td>{{item.FullName}}</td>
-                                    <td><span class="badge bg-red">{{item.HeSoThamGia}}</span></td>
-                                    <td>
-                                        <button class="btn-default" ng-click="removeUser(item.IdNhanVien)">xóa</button>
-                                    </td>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Input6">Người thực hiện theo lệnh sản xuất</label>
+                            <select class="form-control" ng-model="HmDa.IdNguoiThucHienTheoLenhSX" ng-options="option.Id as option.FullName for option in ThanhVien ">
+                                <option value="">................</option>
+                            </select>
+                            <input type="hidden" ng-model="HmDa.IdNguoiThucHienTheoLenhSX" />
+                        </div>
 
-                                </tr>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-info  btn-flat" ng-disabled="frmHmDa.$invalid"><i class="fa fa-save"></i> Tạo công việc</button>
+                            <button class="btn btn-default  btn-flat" ui-sref="duan.hangmuc({id:HmDa.IdDuAn})"><i class="fa fa-fw fa-mail-reply"></i>Trở về</button>
+                        </div>
 
-                            </tbody>
-                        </table>
+                    </form>
+                </div><!--end/right-->
+                <div class="col-md-5">
+                    <form name="frmThanhvien" ng-submit="addThanhVien()">
+                        <div class="form-group">
+                            <label for="Input7">Nhân viên tham gia</label>
+                            <select class="form-control" name="thanhvientg" ng-model="User" ng-options="option.FullName for option in ThanhVien track by option.Id" required>
+                                <option value="">..............</option>
+                            </select>
+                            <input type="hidden" ng-model="User">
+                        </div>
+                        <div class="form-group">
+                            <label for="Input8">Tỉ Lệ Tham gia (%)</label>
+                            <input type="number" class="form-control" id="Input8" name="Tile" ng-model="User.Tile" required>
+                            <span ng-show="frmThanhvien.Tile.$invalid" class="has-error">nhập tỉ lệ tham gia</span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info btn-block btn-flat" ng-disabled="frmThanhvien.$invalid">Thêm nhân viên thực hiện công việc</button>
+                        </div>
+                    </form>
+                    <div class="well well-sm text-success">
+                        <h5><strong> <i class="fa fa-info-circle" aria-hidden="true"></i> </strong>Tổng số số phần trăm tham gia dự án không vượt quá 100% <strong class="pull-right label label-warning">{{Total}}/{{LimitPersent}} % </strong> </h5>
                     </div>
+
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Họ tên</th>
+                                <th>Tỷ lệ tham gia</th>
+                                <th>hành động</th>
+                            </tr>
+                            <tr ng-repeat="item in HmDa.ThamGia">
+                                <td>{{$index + 1 }}</td>
+                                <td>{{item.FullName}}</td>
+                                <td><span class="badge bg-red">{{item.HeSoThamGia}} %</span></td>
+                                <td>
+                                    <button class="btn-default btn-flat" ng-click="removeUser(item.IdNhanVien)">xóa</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <!-- /.box-body -->
         </div>
-        <!-- /.box -->
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+    <div class="sk-fading-circle" ng-if="loadding">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
+    </div>
+
 </section>

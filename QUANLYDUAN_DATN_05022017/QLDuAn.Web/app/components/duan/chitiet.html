@@ -1,0 +1,128 @@
+﻿<md-dialog>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Chi tiết dự án</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="col-md-6">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Số Hơp Đồng</label>
+                        <input ng-model="detail.SoHopDong">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Tên Dự án </label>
+                        <input ng-model="detail.TenDuAn">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>giá trị Dự án </label>
+                        <input ng-model="detail.GiaTriHopDong">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label> Tên Khách Hàng </label>
+                        <input ng-model="detail.KhachHang.TenKhach">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label> Tỉ lệ theo doanh thu (%)</label>
+                        <input ng-model="detail.TyLeTheoDT">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label> Lương Thuê Ngoài</label>
+                        <input ng-model="detail.LuongThueNgoai">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Nội Dung</label>
+                        <textarea ng-model="detail.MoTa" md-maxlength="150" rows="5" md-select-on-focus=""></textarea>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3">
+                    <md-input-container class="md-block">
+                        <label> Lương Thuê Ngoài</label>
+                        <input ng-model="detail.TongChiQL">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Loại Công Trình</label>
+                        <input ng-model="detail.LoaiCongTrinh">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Lương Trực tiếp QTT (%)</label>
+                        <input ng-model="detail.LuongTTQtt">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Luơng DPQDPT (%)</label>
+                        <input ng-model="detail.LuongDPQdp">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Lương gián tiếp QGT (%)</label>
+                        <input ng-model="detail.LuongGTQgt">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Luong gián tiếp V21</label>
+                        <input ng-model="detail.LuongGTV21">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Luong gián tiếp V22</label>
+                        <input ng-model="detail.LuongGTV22">
+                    </md-input-container>
+                </div>
+                <div class="col-md-3">
+                    <md-input-container class="md-block">
+                        <label>Thời gian thưc hiện từ ngày</label>
+                        <input ng-model="detail.NgayBatDau | date :'dd/MM/yyyy'">
+                    </md-input-container>
+       
+                    <md-input-container class="md-block">
+                        <label>Đến ngày</label>
+                        <input ng-model="detail.NgayKetThuc | date :'dd/MM/yyyy'">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Ngày Ký</label>
+                        <input ng-model="detail.NgayKy | date :'dd/MM/yyyy'">
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block">
+                        <label>Năm Quyết Toán</label>
+                        <input ng-model="detail.NamQuyetToan | date :'dd/MM/yyyy'">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Tổng điểm Trực tiếp</label>
+                        <input ng-model="detail.TongDiemTT | number">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Đơn giá điểm Trực tiếp</label>
+                        <input ng-model="detail.DonGiaDiemTT | number">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Tổng điểm gián tiếp</label>
+                        <input ng-model="detail.TongDiemGT | number">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Đơn giá điểm gián tiếp</label>
+                        <input ng-model="detail.DonGiaDiemGT | number">
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+</md-dialog>

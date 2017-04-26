@@ -1,37 +1,52 @@
-﻿<form role="form" novalidate name="frmThemKh" ng-submit="suaKhachHang(KhachHangEdit.ID)">
-    <div class="box-body">
-        <div class="form-group">
-            <label for="TenKhach">Tên khách Hàng</label>
-            <input type="text" class="form-control" placeholder="nhập tên khách hàng" ng-model="KhachHangEdit.TenKhach">
-        </div>
-        <div class="form-group">
-            <label for="TenKhach">Địa chỉ mail</label>
-            <input type="text" class="form-control" placeholder="nhập địa chỉ mail" ng-model="KhachHangEdit.Email">
-        </div>
-        <div class="form-group">
-            <label for="sodienthoai">Số diện thoại</label>
-            <input type="text" class="form-control" placeholder="nhập số điện thoại" ng-model="KhachHangEdit.SoDienThoai">
-        </div>
-        <div class="form-group">
-            <label for="soFax">Số Fax</label>
-            <input type="text" class="form-control" placeholder="nhập số fax" ng-model="KhachHangEdit.SoFax">
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="radio" ng-model="KhachHangEdit.GioiTinh" ng-value="true"> Nam <br>
-                <input type="radio" ng-model="KhachHangEdit.GioiTinh" ng-value="false"> Nữ
-            </label>
-        </div>
+﻿<md-dialog>
+    <form role="form" novalidate name="frmThemKh" ng-submit="suaKhachHang()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Cập nhật thông tin khách hàng <br /> <small class="text-danger">{{KhachHangEdit.TenKhach}}</small></h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
 
-        <div class="form-group">
-            <label for="diaChi">Địa chỉ</label>
-            <textarea type="text" class="form-control" ng-model="KhachHangEdit.DiaChi"></textarea>
-        </div>
-    </div>
-    <!-- /.box-body -->
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="form-group">
+                    <label for="TenKhach">Tên khách Hàng</label>
+                    <input type="text" class="form-control" placeholder="nhập tên khách hàng" ng-model="KhachHangEdit.TenKhach">
+                </div>
+                <div class="form-group">
+                    <label for="TenKhach">Địa chỉ mail</label>
+                    <input type="text" class="form-control" placeholder="nhập địa chỉ mail" ng-model="KhachHangEdit.Email">
+                </div>
+                <div class="form-group">
+                    <label for="sodienthoai">Số diện thoại</label>
+                    <input type="text" class="form-control" placeholder="nhập số điện thoại" ng-model="KhachHangEdit.SoDienThoai">
+                </div>
+                <div class="form-group">
+                    <label for="soFax">Số Fax</label>
+                    <input type="text" class="form-control" placeholder="nhập số fax" ng-model="KhachHangEdit.SoFax">
+                </div>
 
-    <div class="box-footer">
-        <button type="submit" class="btn btn-primary">cập nhật khách hàng</button>
-        <button class="btn btn-danger" ng-click="cancel()">trở về</button>
-    </div>
-</form>
+                <div class="form-group">
+                    <label for="diaChi">Địa chỉ</label>
+                    <textarea type="text" class="form-control" ng-model="KhachHangEdit.DiaChi"></textarea>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="radio" ng-model="KhachHangEdit.GioiTinh" ng-value="true"> Nam <br>
+                        <input type="radio" ng-model="KhachHangEdit.GioiTinh" ng-value="false"> Nữ
+                    </label>
+                </div>
+
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <button type="submit" class="btn btn-info btn-flat">cập nhật khách hàng</button>
+            <span flex></span>
+            <button type="reset" class="btn btn-default btn-flat">xóa sạch</button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+

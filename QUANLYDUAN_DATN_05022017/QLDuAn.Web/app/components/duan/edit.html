@@ -1,128 +1,147 @@
-﻿<div class="panel">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="panel-heading">
-            <h3>Cập nhật : {{items.TenDuAn}}</h3>
-            <button class="md-icon-button pull-right" ng-click="cancel()"><i class="fa fa-times" aria-hidden="true"></i>Đóng </button>
-        </div>
-        <!-- /.box-header -->
-        <div class="panel-body">
-            <form role="form" name="frmDuAn" novalidate ng-submit="update()">
-                <div class="box-body">
-                    <div class="col-md-7 set-padding">
-                        <div class="form-group">
-                            <label for="InputProject">Số H/D </label>
-                            <select class="form-control" name="IdHopDong" ng-model="items.IdHopDong" ng-options="option.ID as option.TenHopDong for option in HopDong">
-                                <option value="">_số hợp đồng_</option>
-                            </select>
-                            <input type="hidden" ng-model="items.IdHopDong" />
-                        </div>
-                        <div class="form-group">
-                            <label for="InputProject">Tên Dự án </label>
-                            <input type="text" class="form-control" id="InputProject" name="TenDuAn" ng-model="items.TenDuAn" />
-                        </div>
-                        <div class="form-group">
-                            <label for="InputDateAction">Số ngày thực hiện thực tế</label>
-                            <input type="number" class="form-control" id="InputDateAction" name="SoNgayThucHienThucTe" ng-model="items.SoNgayThucHienThucTe">
-                        </div>
-                        <div class="form-group">
-                            <label for="InputDescation">Mô tả</label>
-                            <textarea type="text" id="InputDescation" name="MoTa" class="form-control" ng-model="items.MoTa"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputNamQuyetToan">Năm Quyết Toán</label>
-                            <!--<md-datepicker ng-model="date" ng-init="date = (items.NamQuyetToan|toDate)" ng-change="items.NamQuyetToan = date.toISOString()"></md-datepicker>
-                            <input type="hidden" ng-model="items.NamQuyetToan" />-->
-                        </div>
-                        <div class="form-group">
-                            <label for="InputLoaiCongTrinh">Loại Công Trình</label>
-                            <select name="LoaiCongTrinh" class="form-control" ng-model="items.LoaiCongTrinh" ng-options="option.value as option.name for option in LoaiCongTrinh">
-                                <option value="">_chọn loại công trình_</option>
-                            </select>
-                            <input type="hidden" ng-model="items.LoaiCongTrinh" />
-                        </div>
-                        <div class="form-group">
-                            <label for="InputTiLeTheoDt">Tỉ Lệ Theo Doanh thu (%)</label>
-                            <select name="TyLeTheoDT" class="form-control" ng-model="items.TyLeTheoDT" ng-options="option.value as option.name for option in TyLeTheoDT">
-                                <option value="">_chọn tỷ lệ_</option>
-                            </select>
-                            <input type="hidden" ng-model="items.TyLeTheoDT" />
-                        </div>
-                        <div class="form-group">
-                            <label for="InputLuongThueNgoai">Lương Thuê Ngoài</label>
-                            <input type="text" class="form-control" id="InputLuongThueNgoai" name="LuongThueNgoai" ng-model="items.LuongThueNgoai" />
-                        </div>
-                        <div class="form-group">
-                            <label for="InputTongChiQL">Tổng Chi QL (%) </label>
-                            <select name="InputTongChiQL" class="form-control" ng-model="items.TongChiQL" ng-options="option.value as option.name for option in TongChiQL">
-                                <option value="">_chọn tỷ lệ_</option>
-                            </select>
-                            <input type="hidden" ng-model="items.TongChiQL" />
-                        </div>
+﻿<md-dialog>
+    <form role="form" name="frmDuAn" novalidate ng-submit="update()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Cập Nhật Dự Án đâs</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="MoTaHangMucCv">Số Hơp Đồng</label>
+                        <input class="form-control ng-pristine ng-valid md-input ng-empty ng-touched" id="" type="text" name="" ng-model="items.SoHopDong">
                     </div>
-                    <div class="col-md-5 set-padding">
-                        <fieldset class="set-boder">
-                            <legend>Trực tiếp</legend>
-                            <div class="form-group">
-                                <label for="InputLuongTrucLuongTTQtt">Lương Trực tiếp Qtt (%) </label>
-                                <select name="LuongTTQtt" class="form-control" ng-model="items.LuongTTQtt" ng-options="option.value as option.name for option in LuongTTQtt">
-                                    <option value="">_chon số %_</option>
-                                </select>
-                                <input type="hidden" ng-model="items.LuongTTQtt" />
-                            </div>
 
-                            <div class="form-group">
-                                <label for="InputLuongDPQdp">Luơng DPQdpt</label>
-                                <select name="LuongDPQdp" class="form-control" ng-model="items.LuongDPQdp" ng-options="option.value as option.name for option in LuongDPQdp">
-                                    <option value="">_chon số %_</option>
-                                </select>
-                                <input type="hidden" ng-model="items.LuongDPQdp" />
-                            </div>
-                        </fieldset>
+                    <div class="form-group">
+                        <label for="InputProject">Tên Dự án </label>
+                        <input type="text" class="form-control" id="InputProject" name="TenDuAn" ng-model="items.TenDuAn" />
+                    </div>
+                    <div class="form-group">
+                        <label for="MoTaHangMucCv">giá trị Dự án</label>
+                        <input class="form-control" id="Giatriduan" type="number" name="GiaTriHopDong" ng-model="items.GiaTriHopDong">
+                    </div>
+                    <div class="form-group">
+                        <label for="KhachHang">Khách Hàng</label>
+                        <select name="IdKhachHang" class="form-control" ng-model="items.IdKhachHang"
+                                ng-options="option.ID as option.TenKhach for option in ListKhachHang">
+                            <option value=""> ............ </option>
+                        </select>
+                        <input type="hidden" ng-model="items.IdKhachHang" name="IdKhachHang" />
+                    </div>
+                    <div class="form-group">
+                        <label for="InputDescation">Mô tả</label>
+                        <textarea type="text" id="InputDescation" name="MoTa" class="form-control" ng-model="items.MoTa"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputTiLeTheoDt">Tỉ Lệ Theo Doanh thu (%)</label>
+                        <select name="TyLeTheoDT" class="form-control" ng-model="items.TyLeTheoDT" ng-options="option.value as option.name for option in TyLeTheoDT">
+                            <option value="">-----</option>
+                        </select>
+                        <input type="hidden" ng-model="items.TyLeTheoDT" />
+                    </div>
 
-                        <fieldset class="set-boder">
-                            <legend>Gian tiếp tiếp</legend>
-                            <div class="form-group">
-                                <label for="InputLuongGTQgt">Lương gián tiếp Qgt (%)</label>
-                                <select name="LuongGTQgt" class="form-control" ng-model="items.LuongGTQgt" ng-options="option.value as option.name for option in LuongGTQgt">
-                                    <option value="">_chon số %_</option>
-                                </select>
-                                <input type="hidden" ng-model="items.LuongGTQgt" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="InputLuongGTV21">Luong gián tiếp V21</label>
-                                <select name="LuongGTV21" class="form-control" ng-model="items.LuongGTV21" ng-options="option.value as option.name for option in LuongGTV21">
-                                    <option value="">_chon số %_</option>
-                                </select>
-                                <input type="hidden" ng-model="items.LuongGTV21" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="InputLuongGTV22">Luong gián tiếp V22</label>
-                                <select name="LuongGTV22" class="form-control" ng-model="items.LuongGTV22" ng-options="option.value as option.name for option in LuongGTV22">
-                                    <option value="">_chon số %_</option>
-                                </select>
-                                <input type="hidden" ng-model="items.LuongGTV22" />
-                            </div>
-                        </fieldset>
-                        <div class="form-group">
-                            <label for="InputCheckBox">Tình trạng dự án</label>
-                            <div>
-                                <input type="radio" id="InputCheckBox1" name="TrangThai" value="0"  ng-model="items.TrangThai" ng-value="0"/>chưa hoàn thành
-                                <input type="radio" id="InputCheckBox2" name="TrangThai" value="1" ng-model="items.TrangThai" ng-value="1"/>  Đã Hoàn Thành
-                            </div>
-                        </div>
-
+                    <div class="form-group">
+                        <label for="InputLuongThueNgoai">Lương Thuê Ngoài</label>
+                        <input type="text" class="form-control" id="InputLuongThueNgoai" name="LuongThueNgoai" ng-model="items.LuongThueNgoai" />
                     </div>
                 </div>
-                <!-- /.box-body -->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="InputTongChiQL">Tổng Chi QL (%) </label>
+                        <select name="InputTongChiQL" class="form-control" ng-model="items.TongChiQL" ng-options="option.value as option.name for option in TongChiQL">
+                            <option value="">-----</option>
+                        </select>
+                        <input type="hidden" ng-model="items.TongChiQL" />
+                    </div>
+                    <div class="form-group">
+                        <label for="InputLoaiCongTrinh">Loại Công Trình</label>
+                        <select name="LoaiCongTrinh" class="form-control" ng-model="items.LoaiCongTrinh" ng-options="option.value as option.name for option in LoaiCongTrinh">
+                            <option value="">..............</option>
+                        </select>
+                        <input type="hidden" ng-model="items.LoaiCongTrinh" />
+                    </div>
+                    <div class="form-group">
+                        <label for="InputLuongTrucLuongTTQtt">Lương Trực tiếp Qtt (%) </label>
+                        <select name="LuongTTQtt" class="form-control" ng-model="items.LuongTTQtt" ng-options="option.value as option.name for option in LuongTTQtt">
+                            <option value="">-----</option>
+                        </select>
+                        <input type="hidden" ng-model="items.LuongTTQtt" />
+                    </div>
 
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Thêm dự án</button>
-                    <button type="reset" class="btn btn-default">xóa sạch</button>
+                    <div class="form-group">
+                        <label for="InputLuongDPQdp">Luơng DPQdpt</label>
+                        <select name="LuongDPQdp" class="form-control" ng-model="items.LuongDPQdp" ng-options="option.value as option.name for option in LuongDPQdp">
+                            <option value="">-----</option>
+                        </select>
+                        <input type="hidden" ng-model="items.LuongDPQdp" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InputLuongGTQgt">Lương gián tiếp Qgt (%)</label>
+                        <select name="LuongGTQgt" class="form-control" ng-model="items.LuongGTQgt" ng-options="option.value as option.name for option in LuongGTQgt">
+                            <option value="">-----</option>
+                        </select>
+                        <input type="hidden" ng-model="items.LuongGTQgt" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InputLuongGTV21">Luong gián tiếp V21</label>
+                        <select name="LuongGTV21" class="form-control" ng-model="items.LuongGTV21" ng-options="option.value as option.name for option in LuongGTV21">
+                            <option value="">-----</option>
+                        </select>
+                        <input type="hidden" ng-model="items.LuongGTV21" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InputLuongGTV22">Luong gián tiếp V22</label>
+                        <select name="LuongGTV22" class="form-control" ng-model="items.LuongGTV22" ng-options="option.value as option.name for option in LuongGTV22">
+                            <option value="">-----</option>
+                        </select>
+                        <input type="hidden" ng-model="items.LuongGTV22" />
+                    </div>
                 </div>
-            </form>
-        </div>
-    </div>
-</div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Thời gian thưc hiện từ ngày</label>
+                        <input type="date" ng-model="items.NgayBatDau" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Đến ngày</label>
+                        <input type="date" ng-model="items.NgayKetThuc" class="form-control" />
+                        ({{items.SoNgayThucHien =(items.NgayKetThuc- items.NgayBatDau)/1000/60/60/24}} ngày)
+                    </div>
+                    <div class="form-group">
+                        <label for="NgayKy">Ngày Ký</label>
+                        <input type="date" ng-model="items.NgayKy" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="InputNamQuyetToan">Năm Quyết Toán</label>
+                        <input type="date" ng-model="items.NamQuyetToan" class="form-control" />
+                    </div>
 
+                    <div class="form-group">
+                        <label for="InputCheckBox">Tình trạng dự án</label>
+                        <div>
+                            <input type="radio" id="InputCheckBox1" name="TrangThai" ng-value="0" checked="checked" ng-model="items.TrangThai" /> chưa hoàn thành
+                            <input type="radio" id="InputCheckBox2" name="TrangThai" ng-value="1" ng-model="items.TrangThai" />  Đã Hoàn Thành
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <button type="submit" class="btn btn-info btn-flat">Cập Nhật dự án</button>
+            <span flex></span>
+            <button type="reset" class="btn btn-default btn-flat">xóa sạch</button>
+
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>

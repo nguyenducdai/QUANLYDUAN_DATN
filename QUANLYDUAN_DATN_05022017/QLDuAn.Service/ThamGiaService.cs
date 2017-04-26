@@ -28,6 +28,9 @@ namespace QLDuAn.Service
 
         decimal TotalPoint(int IdDuAn, int LoaiHangMuc);
 
+        IEnumerable<ThamGia> GetIncomeById(int idDuan, int LoaiHm);
+
+
         void Save();
     }
 
@@ -101,6 +104,11 @@ namespace QLDuAn.Service
         public decimal TotalPoint(int IdDuAn, int LoaiHangMuc)
         {
             return _thamGiaRepository.TotalPoint(IdDuAn, LoaiHangMuc);
+        }
+
+        public IEnumerable<ThamGia> GetIncomeById(int idDuan, int LoaiHm)
+        {
+            return _thamGiaRepository.GetIncomeById(idDuan, LoaiHm);
         }
     }
 }

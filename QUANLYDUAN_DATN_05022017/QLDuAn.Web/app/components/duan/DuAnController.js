@@ -3,9 +3,11 @@
 
     DuAnController.$inject = ['$scope', 'service', 'notification', '$state', '$mdDialog', '$ngBootbox'];
     function DuAnController($scope, service, notification, $state, $mdDialog, $ngBootbox) {
-
+        
+        $scope.ListKhachHang = {};
         $scope.showAdd = showAdd;
         $scope.addDuan = addDuan;
+        $scope.showDetail = showDetail;
         $scope.cancel = cancel;
         $scope.LoadData = LoadData;
         $scope.viewDetail = viewDetail;
@@ -24,6 +26,7 @@
         };
         $scope.Detail = {};
         $scope.items = {};
+        $scope.detail = {};
         $scope.LoaiCongTrinh = {};
         $scope.TyLeTheoDT = {};
         $scope.TongChiQL = {};
@@ -32,6 +35,7 @@
         $scope.LuongGTV22 = {};
         $scope.LuongTTQtt = {};
         $scope.LuongDPQdp = {};
+        $scope.loadding = false;
 
         //pagination
         $scope.page = 0;
@@ -58,17 +62,9 @@
             return objTemp.data;
         }
 
-        function LoadCbxHopDong(page) {
-            page = page || 0;
-            var config = {
-                params: {
-                    page: page,
-                    pageSize: 5,
-                    keyword: $scope.keyword
-                }
-            }
-            service.get('api/hd/getall', config, function (result) {
-                $scope.HopDong = result.data.items;
+        function LoadKhachHang() {
+            service.get('api/kh/getcustomer', null, function (result) {
+                $scope.ListKhachHang = result.data;
             }, function (error) {
             });
           
@@ -81,16 +77,44 @@
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: false,
-                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+                fullscreen: $scope.customFullscreen ,// Only for -xs, -sm breakpoints.
+                scope: $scope,
+                preserveScope: true
                 })
-               .then(function (answer) {
-                   $scope.status = 'You said the information was "' + answer + '".';
-               }, function () {
-                   $scope.status = 'You cancelled the dialog.';
-               });
+               .then(null, null);
         }
 
-        LoadCbxHopDong();
+        function showDetail(ev, id) {
+            var config = {
+                params: {
+                    id: id
+                }
+            }
+            $mdDialog.show({
+                locals: {
+                    detail: $scope.detail,
+                },
+                controller: 'DuAnController',
+                templateUrl: '/app/components/duan/chitiet.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: false,
+                fullscreen: $scope.customFullscreen,// Only for -xs, -sm breakpoints.
+                scope: $scope,
+                preserveScope: true
+            }).then(null, null);
+
+            service.get('api/duan/getdetail', config, function (result) {
+                $scope.detail = result.data;
+                $scope.detail.NamQuyetToan = new Date(result.data.NamQuyetToan);
+                $scope.detail.NgayKy = new Date(result.data.NgayKy);
+                $scope.detail.NgayBatDau = new Date(result.data.NgayBatDau);
+                $scope.detail.NgayKetThuc = new Date(result.data.NgayKetThuc);
+            }, function (error) {
+            });
+        }
+
+        LoadKhachHang();
         $scope.LoaiCongTrinh = loadCbxLoaiCt(max);
         $scope.TyLeTheoDT = loadCbxLoaiCt(arrTiLe); 
         $scope.TongChiQL = loadCbxLoaiCt(arrTiLe);
@@ -105,10 +129,11 @@
         }
 
         function addDuan() {
+            $scope.loadding = true;
             service.post('api/duan/created', $scope.ObjDuAn, function (result) {
-                notification.success('Thêm bản ghi thành công !');
+                notification.success('Thêm dự án thành công thành công !');
                 $mdDialog.cancel();
-                LoadData();
+                $scope.LoadData();
             }, function (error) {
             });
            
@@ -169,13 +194,13 @@
                         scope: $scope,
                         preserveScope: true
                      })
-                    .then(function (answer) {
-                        $scope.status = 'You said the information was "' + answer + '".';
-                    }, function () {
-                        $scope.status = 'You cancelled the dialog.';
-                    });
+                    .then(null,null);
                 service.get('api/duan/getdetail', config, function (result) {
                     $scope.items = result.data;
+                    $scope.items.NamQuyetToan = new Date(result.data.NamQuyetToan);
+                    $scope.items.NgayKy = new Date(result.data.NgayKy);
+                    $scope.items.NgayBatDau = new Date(result.data.NgayBatDau);
+                    $scope.items.NgayKetThuc = new Date(result.data.NgayKetThuc);
                 }, function (error) {
                 });
             } else {
@@ -184,15 +209,20 @@
         }
 
         $scope.update = function () {
+            $scope.loadding = true;
             service.put('api/duan/update', $scope.items, function (result) {
                 $mdDialog.cancel();
+                $scope.LoadData();
                 notification.success("cập nhật dự án số " + result.data.ID + " thành công");
-                LoadData();
             }, function (error) {
             });
         }
+        $scope.refresh = function () {
+            LoadData();
+        }
 
         function LoadData(page) {
+            $scope.loadding = true;
             page = page || 0;
             var config = {
                 params: {
@@ -202,6 +232,7 @@
                 }
             }
             service.get('api/duan/getall', config, function (result) {
+                $scope.loadding = false;
                 $scope.ListDuAn = result.data.items;
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPage;

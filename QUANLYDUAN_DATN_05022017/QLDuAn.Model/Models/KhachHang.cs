@@ -29,6 +29,6 @@ namespace QLDuAn.Model.Models
 
         public bool GioiTinh { get; set; }
 
-        public virtual IEnumerable<HopDong> HopDong { get; set; }
+        public virtual IEnumerable<DuAn> DuAn { get; set; }
     }
 }

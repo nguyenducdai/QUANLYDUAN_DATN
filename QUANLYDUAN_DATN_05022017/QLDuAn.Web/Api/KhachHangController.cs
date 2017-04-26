@@ -16,7 +16,6 @@ namespace QLDuAn.Web.Api
     [Authorize]
     public class KhachHangController : BaseController
     {
-       
         private IKhachHangService _ikhachHangService;
         #region
         public KhachHangController(ErrorService error , IKhachHangService iKhachHangService) :base(error)
@@ -43,6 +42,18 @@ namespace QLDuAn.Web.Api
                     TotalCount = model.Count()
                 };
                 return request.CreateResponse(System.Net.HttpStatusCode.OK, pagination); ;
+            });
+        }
+
+        [Route("getcustomer")]
+        [HttpGet]
+        public HttpResponseMessage GetAllCustomer(HttpRequestMessage request)
+        {
+            return CreateReponse(request, () =>
+            {
+                var model = _ikhachHangService.GetAll();
+                var responseData = Mapper.Map<IEnumerable<KhachHang>, IEnumerable<KhachHangViewModel>>(model);
+                return request.CreateResponse(System.Net.HttpStatusCode.OK, responseData); ;
             });
         }
 
@@ -91,7 +102,6 @@ namespace QLDuAn.Web.Api
 
         }
 
-
         [HttpGet]
         [Route("getbyid")]
         public HttpResponseMessage GetById( HttpRequestMessage request , int id)
@@ -115,7 +125,7 @@ namespace QLDuAn.Web.Api
 
         [HttpPut]
         [Route("update")]
-        public HttpResponseMessage Update(HttpRequestMessage request, KhachHangViewModel khachHangVM)
+        public HttpResponseMessage Updated(HttpRequestMessage request, KhachHangViewModel khachHangVM)
         {
             return CreateReponse(request, () => {
                 HttpResponseMessage response;

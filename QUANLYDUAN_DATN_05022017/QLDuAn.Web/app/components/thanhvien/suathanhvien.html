@@ -1,89 +1,96 @@
-﻿<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            Thêm thành viên
-            <button class="btn btn-danger pull-right" ng-click="cancel()"> Hủy bỏ</button>
-        </div>
-    </div>
+﻿
+<md-dialog>
     <form role="form" method="post" name="frmFormEditUser" novalidate ng-submit="capnhatThanhVien()">
-        <div class="panel-body">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Tên đầy đủ</label>
-                    <input type="text" class="form-control" ng-model="UpdateThanhVien.FullName">
-                </div>
-                <div class="form-group">
-                    <label>Tên đăng nhập</label>
-                    <input type="text" class="form-control" ng-model="UpdateThanhVien.UserName">
-                </div>
-                <div class="form-group">
-                    <label>Địa chỉ Mail</label>
-                    <input type="email" class="form-control" ng-model="UpdateThanhVien.Email">
-                </div>
-                <div class="form-group">
-                    <label for="sodienthoai">Số diện thoại</label>
-                    <input type="text" class="form-control" ng-model="UpdateThanhVien.PhoneNumber">
-                </div>
-                <div class="form-group">
-                    <label>Mô tả bản Thân</label>
-                    <textarea class="form-control" rows="3" ng-model="UpdateThanhVien.Bio"></textarea>
-                </div>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Cập nhật thông tin thành viên</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </md-button>
             </div>
-            <div class="col-md-4">
+        </md-toolbar>
 
-                <div class="form-group">
-                    <label class="control-label">Ngày sinh</label>
-                    <input type="date" class="form-control" ng-model="UpdateThanhVien.Birthday">
-                </div>
-                <div class="form-group">
-                    <label>Ngày bắt đầu làm việc</label>
-                    <input type="date" class="form-control" ng-model="UpdateThanhVien.Startdate">
-                </div>
-                <div class="form-group">
-                    <label>Chức Vụ</label>
-                    <input type="text" class="form-control" ng-model="UpdateThanhVien.Function">
-                </div>
-                <label>Hình ảnh</label>
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="chooseImage()">Chọn ảnh</button>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tên đầy đủ</label>
+                        <input type="text" class="form-control" ng-model="UpdateThanhVien.FullName">
                     </div>
-                    <!-- /btn-group -->
-                    <input type="text" class="form-control" ng-model="UpdateThanhVien.Image">
-                </div>
-                <div class="form-group">
-                    <label>Địa chỉ</label>
-                    <input type="text" class="form-control" ng-model="UpdateThanhVien.Adress">
-                </div>
-
-            </div>
-
-            <div class="col-md-2">
-                <label>giới tính</label>
-                <div class="form-group">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" ng-model="UpdateThanhVien.Sex" ng-value="true">
-                            Nam
-                        </label>
-                        <label>
-                            <input type="radio" ng-model="UpdateThanhVien.Sex" ng-value="false">
-                            Nữ
-                        </label>
+                    <div class="form-group">
+                        <label>Tên đăng nhập</label>
+                        <input type="text" class="form-control" ng-model="UpdateThanhVien.UserName">
+                    </div>
+                    <div class="form-group">
+                        <label>Địa chỉ Mail</label>
+                        <input type="email" class="form-control" ng-model="UpdateThanhVien.Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="sodienthoai">Số diện thoại</label>
+                        <input type="text" class="form-control" ng-model="UpdateThanhVien.PhoneNumber">
+                    </div>
+                    <div class="form-group">
+                        <label>Mô tả bản Thân</label>
+                        <textarea class="form-control" rows="3" ng-model="UpdateThanhVien.Bio"></textarea>
                     </div>
                 </div>
-                <label>Nhóm người dùng </label>
-                <div class="form-group">
-                    <label ng-repeat="group in groups">
-                        <input type="checkbox" checklist-model="UpdateThanhVien.Groups" checklist-value="group"> {{group.Name}}
-                    </label>
+                <div class="col-md-4">
+
+                    <div class="form-group">
+                        <label class="control-label">Ngày sinh</label>
+                        <input type="date" class="form-control" ng-model="UpdateThanhVien.Birthday">
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày bắt đầu làm việc</label>
+                        <input type="date" class="form-control" ng-model="UpdateThanhVien.Startdate">
+                    </div>
+                    <div class="form-group">
+                        <label>Chức Vụ</label>
+                        <input type="text" class="form-control" ng-model="UpdateThanhVien.Function">
+                    </div>
+                    <label>Hình ảnh</label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="chooseImage()">Chọn ảnh</button>
+                        </div>
+                        <!-- /btn-group -->
+                        <input type="text" class="form-control" ng-model="UpdateThanhVien.Image">
+                    </div>
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+                        <input type="text" class="form-control" ng-model="UpdateThanhVien.Adress">
+                    </div>
 
                 </div>
-            </div>
+                <div class="col-md-2">
+                    <label>giới tính</label>
+                    <div class="form-group">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" ng-model="UpdateThanhVien.Sex" ng-value="true">
+                                Nam
+                            </label>
+                            <label>
+                                <input type="radio" ng-model="UpdateThanhVien.Sex" ng-value="false">
+                                Nữ
+                            </label>
+                        </div>
+                    </div>
+                    <label>Nhóm người dùng </label>
+                    <div class="form-group">
+                        <label ng-repeat="group in groups">
+                            <input type="checkbox" checklist-model="UpdateThanhVien.Groups" checklist-value="group"> {{group.Name}}
+                        </label>
 
-        </div>
-        <div class="panel-footer">
-            <button type="submit" class="btn btn-success"> Lưu Lại</button>
-        </div>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <button type="submit" class="btn btn-info btn-flat">Tạo Thành viên</button>
+            <span flex></span>
+            <button type="reset" class="btn btn-default btn-flat">xóa sạch</button>
+        </md-dialog-actions>
     </form>
-</div>
+</md-dialog>
