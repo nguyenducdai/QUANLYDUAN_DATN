@@ -80,6 +80,7 @@ namespace QLDuAn.Web.Api
                     var thongbao = new ThongBao();
                     thongbao.UpdateThongBao(thongBaoVM);
                     thongbao.NguoiTao = User.Identity.Name;
+                    thongbao.Created_at = DateTime.Now;
                     var responData = _thongBaoService.Add(thongbao);
                     _thongBaoService.save();
                     return resquest.CreateResponse(HttpStatusCode.Created, thongBaoVM);

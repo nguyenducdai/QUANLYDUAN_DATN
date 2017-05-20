@@ -55,5 +55,7 @@ namespace QLDuAn.Web.Models
 
         public IEnumerable<ApplicationGroupViewModel> Groups { get; set; }
 
+        public IEnumerable<DuAnViewModel> DuAn { get; set; }
+
     }
 }

@@ -16,11 +16,13 @@
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label>Tiêu đề thông báo</label>
-                                        <input type="text" class="form-control" ng-model="ThongBao.TieuDe">
+                                        <input type="text" class="form-control" ng-model="ThongBao.TieuDe" name="TieuDe" required>
+                                        <span ng-show="frmThongbao.TieuDe.$invalid" class="has-error">Nhập tiêu đề thông báo</span>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Nội dung</label>
-                                        <textarea class="form-control"  ng-model="ThongBao.NoiDung"></textarea>
+                                        <textarea class="form-control"  ng-model="ThongBao.NoiDung" name="NoiDung" required> </textarea>
+                                        <span ng-show="frmThongbao.NoiDung.$invalid" class="has-error">Nhập nội dung thông báo</span>
                                     </div>
                                
                                     <div class="row">
@@ -49,7 +51,7 @@
                                 <!-- /.box-body -->
 
                                 <div class="box-footer">
-                                    <button type="submit" class="btn btn-info btn-flat" ng-disabled="frmThongbao.$invalid" disabled="disabled"> <i class="fa fa-save"></i> Thêm Mới</button>
+                                    <button type="submit" class="btn btn-info btn-flat" ng-disabled="frmThongbao.$invalid"> <i class="fa fa-save"></i> Thêm Mới</button>
                                 </div>
                             </form>
                         </div>

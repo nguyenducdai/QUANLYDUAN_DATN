@@ -31,11 +31,11 @@ namespace QLDuAn.Data.Repositories
 
         public IEnumerable<DuAn> GetDaByIdUser(string idNhanVien)
         {
-            var query = from da in DBContext.DuAn
+            var query = (from da in DBContext.DuAn
                         join tg in DBContext.ThamGia
                         on da.ID equals tg.IdDuAn
                         where tg.IdNhanVien == idNhanVien
-                        select da;
+                        select da).Distinct();
             return query.ToList();
         }
 

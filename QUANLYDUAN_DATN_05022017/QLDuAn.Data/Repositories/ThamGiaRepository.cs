@@ -10,9 +10,13 @@ namespace QLDuAn.Data.Repositories
     {
         void DeleteHangMuc(int IdDuAn, int IdHangMuc, int LoaiHangMuc);
 
-        decimal TotalPoint(int IdDuAn,int LoaiHangMuc);
+        decimal TotalPoint(int IdDuAn, int LoaiHangMuc);
 
         IEnumerable<ThamGia> GetIncomeById(int idDuan, int LoaiHm);
+
+        IEnumerable<ThamGia> GetIncomeByIdUser(int IdDuAn, string idNhanVien, int LoaiHangMuc);
+
+        //IEnumerable<ApplicationUser> GetApplicationUserAndProject();
 
     }
 
@@ -45,7 +49,7 @@ namespace QLDuAn.Data.Repositories
             var query = from tg in DBContext.ThamGia
                         where tg.IdDuAn == IdDuAn && tg.LoaiHangMuc == LoaiHangMuc
                         select tg;
-            if(query.Count() > 0)
+            if (query.Count() > 0)
             {
                 return query.Sum(x => x.DiemThanhVien);
             }
@@ -66,13 +70,13 @@ namespace QLDuAn.Data.Repositories
 
                          }
                          into t
-                         select new 
+                         select new
                          {
                              DiemThanhVien = t.Sum(x => x.DiemThanhVien),
                              ThuNhap = t.Sum(x => x.ThuNhap),
                              IdNhanVien = t.Key.IdNhanVien,
-                            ApplicationUser = t.Key.ApplicationUser
-                             
+                             ApplicationUser = t.Key.ApplicationUser
+
                          })
                          .AsEnumerable().Select(x => new ThamGia() {
 
@@ -80,9 +84,52 @@ namespace QLDuAn.Data.Repositories
                              ThuNhap = x.ThuNhap,
                              IdNhanVien = x.IdNhanVien,
                              ApplicationUser = x.ApplicationUser
-                        });
+                         });
             return query.ToList();
         }
 
+        public IEnumerable<ThamGia> GetIncomeByIdUser(int IdDuAn, string idNhanVien, int LoaiHangMuc)
+        {
+            var query = (from tg in DBContext.ThamGia
+                         join hm in DBContext.HangMuc
+                         on tg.IdHangMuc equals hm.ID
+                         where tg.IdDuAn == IdDuAn && tg.IdNhanVien == idNhanVien && tg.LoaiHangMuc == LoaiHangMuc && hm.TrangThai == true
+                         select new
+                         {
+                             HeSoThamGia = tg.HeSoThamGia,
+                             DiemThanhVien = tg.DiemThanhVien,
+                             ThuNhap = tg.ThuNhap,
+                             HangMuc = hm
+                         }).AsEnumerable().Select(x=> new ThamGia() {
+                             HeSoThamGia = x.HeSoThamGia,
+                             DiemThanhVien = x.DiemThanhVien,
+                             ThuNhap = x.ThuNhap,
+                             HangMuc = x.HangMuc
+                         });
+            return query;
+        }
+
+        //public IEnumerable<ApplicationUser> GetApplicationUserAndProject()
+        //{
+        //    var query = (from user in DBContext.Users
+        //                 join tg in DBContext.ThamGia
+        //                 on user.Id equals tg.IdNhanVien
+        //                 join da in DBContext.DuAn
+        //                 on tg.IdDuAn equals da.ID
+        //                 select new
+        //                 {
+        //                     Id = user.Id,
+        //                     FullName = user.FullName,
+        //                     Function = user.Function,
+        //                     DuAn = da
+
+        //                 }).AsEnumerable().Select(x => new ApplicationUser()
+        //                 {
+        //                     Id = x.Id,
+        //                     FullName= x.FullName,
+        //                     Function = x.Function,
+        //                     D
+        //                 });
+        //}
     }
 }

@@ -4,7 +4,7 @@
     function notification() {
         toastr.options = {
             "debug": false,
-            "positionClass": "toast-bottom-right",
+            "positionClass": "toast-top-right",
             "onclick": null,
             "fadeIn": 300,
             "fadeOut": 1000,

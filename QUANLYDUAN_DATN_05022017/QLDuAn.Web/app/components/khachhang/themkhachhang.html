@@ -15,23 +15,29 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Tên khách Hàng</label>
-                        <input type="text" class="form-control" ng-model="AddKhachHang.TenKhach">
+                        <input type="text" class="form-control" ng-model="AddKhachHang.TenKhach" name="khachhang" required>
+                        <span ng-show="frmThemKh.khachhang.$invalid" class="has-error">nhập tên khách hàng</span>
+
                     </div>
                     <div class="form-group">
                         <label>Địa chỉ mail</label>
-                        <input type="text" class="form-control" ng-model="AddKhachHang.Email">
+                        <input type="text" class="form-control" ng-model="AddKhachHang.Email" name="mail" required>
+                        <span ng-show="frmThemKh.mail.$invalid" class="has-error">nhập địa chỉ mail</span>
                     </div>
                     <div class="form-group">
                         <label>Số diện thoại</label>
-                        <input type="text" class="form-control" ng-model="AddKhachHang.SoDienThoai">
+                        <input type="text" class="form-control" ng-model="AddKhachHang.SoDienThoai" name="sdt" required>
+                        <span ng-show="frmThemKh.sdt.$invalid" class="has-error">nhập số điện thoại</span>
                     </div>
                     <div class="form-group">
                         <label>Số Fax</label>
-                        <input type="text" class="form-control" ng-model="AddKhachHang.SoFax">
+                        <input type="text" class="form-control" ng-model="AddKhachHang.SoFax" name="fax" required>
+                        <span ng-show="frmThemKh.fax.$invalid" class="has-error">nhập số fax</span>
                     </div>
                     <div class="form-group">
                         <label>Địa chỉ</label>
-                        <textarea type="text" class="form-control" ng-model="AddKhachHang.DiaChi"></textarea>
+                        <textarea type="text" class="form-control" ng-model="AddKhachHang.DiaChi" name="diachi"></textarea>
+                        <span ng-show="frmThemKh.diachi.$invalid" class="has-error">nhập địa chỉ</span>
                     </div>
                     <div class="checkbox">
                         <label>
@@ -43,7 +49,7 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
-            <button type="submit" class="btn btn-info btn-flat">Tạo khách hàng</button>
+            <button type="submit" class="btn btn-info btn-flat" ng-disabled="frmThemKh.$invalid">Tạo khách hàng</button>
             <span flex></span>
             <button type="reset" class="btn btn-default btn-flat ">xóa sạch</button>
         </md-dialog-actions>

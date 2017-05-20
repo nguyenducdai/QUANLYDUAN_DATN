@@ -19,7 +19,8 @@
     "angular-chart.js": "*",
     "angular-ui-select": "*",
     "angular-sanitize": "*",
-    "angular-bootstrap": "*"
+    "angular-bootstrap": "*",
+    "jquery-ui": "*"
   }
 }
 

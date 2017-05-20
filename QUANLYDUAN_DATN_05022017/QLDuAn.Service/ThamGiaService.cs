@@ -30,6 +30,11 @@ namespace QLDuAn.Service
 
         IEnumerable<ThamGia> GetIncomeById(int idDuan, int LoaiHm);
 
+        IEnumerable<ThamGia> GetHangMucByIdUser(int idDuan ,string idNhanVien) ;
+
+        IEnumerable<ThamGia> GetIncomeByIdUser(int IdDuAn, string idNhanVien, int LoaiHangMuc);
+
+
 
         void Save();
     }
@@ -109,6 +114,18 @@ namespace QLDuAn.Service
         public IEnumerable<ThamGia> GetIncomeById(int idDuan, int LoaiHm)
         {
             return _thamGiaRepository.GetIncomeById(idDuan, LoaiHm);
+        }
+
+        public IEnumerable<ThamGia> GetHangMucByIdUser(int idDuan, string idNhanVien)
+        {
+            return _thamGiaRepository.GetMuti(x => x.IdDuAn.Equals(idDuan) && x.IdNhanVien.Equals(idNhanVien), new string[] {"HangMuc" , "HangMuc.ApplicationUser" });
+
+        }
+
+        public IEnumerable<ThamGia> GetIncomeByIdUser(int IdDuAn, string idNhanVien, int LoaiHangMuc)
+        {
+            return _thamGiaRepository.GetIncomeByIdUser(IdDuAn,idNhanVien,LoaiHangMuc);
+
         }
     }
 }

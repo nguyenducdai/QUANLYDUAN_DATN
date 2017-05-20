@@ -60,14 +60,13 @@ namespace QLDuAn.Service
         public IEnumerable<DuAn> GetAll(string keyword)
         {
             if (string.IsNullOrEmpty(keyword))
-                return _duAnRepository.GetAll(new string[] { "KhachHang" });
+                return _duAnRepository.GetAll(new string[] {"KhachHang","HangMuc"});
             else
-                return _duAnRepository.GetMuti(x => x.TenDuAn.Contains(keyword) && x.MoTa.Contains(keyword) , new string[] { "KhachHang" });
+                return _duAnRepository.GetMuti(x => x.TenDuAn.Contains(keyword) && x.MoTa.Contains(keyword), new string[] {"KhachHang"});
         }
-
         public DuAn GetById(int id)
         {
-            return _duAnRepository.GetById(id);
+            return _duAnRepository.GetByConditon(x=>x.ID.Equals(id), new string[] {"HangMuc" });
         }
 
         public IEnumerable<DuAn> Paginate(int page, out int total, int pageSize)

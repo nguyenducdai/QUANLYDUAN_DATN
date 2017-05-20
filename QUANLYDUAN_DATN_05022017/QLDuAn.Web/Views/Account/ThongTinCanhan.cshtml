@@ -2,105 +2,77 @@
 @model QLDuAn.Web.Models.ApplicationUserViewModel
 @{
     ViewBag.Title = "thông tin các nhân";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
-<div class="col-md-9">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"> <i class="fa fa-rss"></i> Hạng mục công việc</a></li>
-                    @{
-                        if (Request.IsAuthenticated)
-                        {
-                            using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { @id = "frmLogout" }))
+<h5 class="page-title">
+    Thông tin cá nhân
+</h5>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Model.Image" class="img-circle img-responsive"> </div>
+        <div class="col-md-9 col-lg-9">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>chúc vụ</td>
+                        <td>@Model.Function</td>
+                    </tr>
+                    <tr>
+                        <td>Họ và tên:</td>
+                        <td>@Model.FullName</td>
+                    </tr>
+                    <tr>
+                        <td>Ngày Sinh</td>
+                        <td>@Model.Birthday.ToShortDateString()</td>
+                    </tr>
+
+                    <tr>
+                    <tr>
+                        <td>Giới tính</td>
+                        @{
+                            if (Model.Sex == true)
                             {
-                                @Html.AntiForgeryToken()
-                                <li role="presentation" class="pull-right" id="btnLogout"><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Thoát</a></li>
+                                <td>Nam</td>
                             }
+                            else
+                            {
+                                <td>Nữ</td>
 
-                            <li role="presentation" class="pull-right "><a href="Thong-tin.html" class="text-blue"><i class="fa fa-user" aria-hidden="true"></i> xin chào : @User.Identity.Name</a></li>
-
+                            }
                         }
-                    }
 
-                </ul>
-            </div>
+                    </tr>
+                    <tr>
+                        <td>Địa chỉ</td>
+                        <td>@Model.Adress </td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><a href="mailto:info@support.com">@Model.Email</a></td>
+                    </tr>
+                    <tr>
+                        <td>Phone Number</td>
+                        <td>
+                            @Model.PhoneNumber (Mobile)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>giới thiệu bản thân</td>
+                        <td>
+                            @Model.Bio
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a href="cap-nhat-thong-tin.html" class="btn btn-info">Cập nhật</a>
+            <a href="us/home" class="btn btn-default">trở về</a>
         </div>
+
     </div>
-    <div class="row">
-        <div class="col-md-12" id="content_alert">
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="home">
-                    <h2 class="page-header"><i class="fa fa-bell-o" aria-hidden="true"></i> Thông tin cá nhân<small>hôm nay : 23/12/2017</small></h2>
-                        <div class="col-md-12">
-                            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Model.Image" class="img-circle img-responsive"> </div>
-                            <div class="col-md-9 col-lg-9">
-                                <table class="table table-user-information">
-                                    <tbody>
-                                        <tr>
-                                            <td>chúc vụ</td>
-                                            <td>@Model.Function</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Họ và tên:</td>
-                                            <td>@Model.FullName</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ngày Sinh</td>
-                                            <td>@Model.Birthday.ToShortDateString()</td>
-                                        </tr>
-
-                                        <tr>
-                                        <tr>
-                                            <td>Giới tính</td>
-                                           @{
-                                               if (Model.Sex == true)
-                                               {
-                                                   <td>Nam</td>
-                                               }
-                                               else
-                                               {
-                                                <td>Nữ</td>
-
-                                                   }
-                                               }
-
-                                            </tr>
-                                        <tr>
-                                            <td>Địa chỉ</td>
-                                            <td>@Model.Adress </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email</td>
-                                            <td><a href="mailto:info@support.com">@Model.Email</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone Number</td>
-                                            <td>
-                                                @Model.PhoneNumber (Mobile)
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>giới thiệu bản thân</td>
-                                            <td>
-                                                @Model.Bio
-                                            </td>
-                                        </tr>
+</div>
 
 
-                                    </tbody>
-                                </table>
-
-                                <a href="cap-nhat-thong-tin.html" class="btn btn-primary">Cập nhật</a>
-                                <a href="account/home" class="btn btn-primary">trở về</a>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr>
 
 
 

@@ -7,7 +7,10 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using QLDuAn.Data;
 using QLDuAn.Model.Models;
+using QLDuAn.Service;
+using QLDuAn.Web.Infastructure.Core;
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using static QLDuAn.Web.App_Start.IdentityConfig;
@@ -106,10 +109,22 @@ namespace QLDuAn.Web.App_Start
                 }
                 if (user != null)
                 {
-                    ClaimsIdentity identity = await userManager.CreateIdentityAsync(
-                                                           user,
-                                                           DefaultAuthenticationTypes.ExternalBearer);
-                    context.Validated(identity);
+                    var applicationGroupService = ServiceFactory.Get<IApplicationGroupService>();
+                    var listGroup = applicationGroupService.GetListGroupByIdUser(user.Id);
+                    if(listGroup.Any(x=>x.Name == Common.CommonConstants.Administator))
+                    {
+                        ClaimsIdentity identity = await userManager.CreateIdentityAsync(
+                                                        user,
+                                                        DefaultAuthenticationTypes.ExternalBearer);
+                        context.Validated(identity);
+                    }
+                    else
+                    {
+                        context.Rejected();
+                        context.SetError("invalid_group", "bạn không có quyền truy cập");
+                    }
+                  
+                   
                 }
                 else
                 {

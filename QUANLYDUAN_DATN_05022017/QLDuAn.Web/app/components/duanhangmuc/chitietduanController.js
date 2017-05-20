@@ -27,13 +27,18 @@
 
         $scope.LoaiHangMucDaTt = LoaiHangMucDaTt;
 
+        $scope.movebin = movebin;
+
         $rootScope.changeSelected = changeSelected;
 
         $rootScope.exportExcel = exportExcel;
 
+        $rootScope.exportPDF = exportPDF;
+
         $scope.filter = filter;
 
-        $scope.selectAll = selectAll;
+        $scope.selectAllTT = selectAllTT;
+        $scope.selectAllGT = selectAllGT;
 
         $scope.deleteAll = deleteAll;
 
@@ -45,8 +50,12 @@
 
         $rootScope.totalPoint = totalPoint;
 
+        $scope.isActive = 0;
+
         $scope.incomeDirect = {}
         $scope.incomeIndirect = {}
+        $scope.seleted = {}
+        $scope.seletedGt = {}
 
         $scope.loadding = false;
         $scope.loaddingbar = false;
@@ -56,13 +65,12 @@
             var compare = $filter('date')(rowDate, 'dd-MM-yyyy');
 
             var dateNow = parseDate(current).getTime();
-            var endDate = parseDate(compare).getTime();
-
-            if (dateNow > endDate && !status) {
+            var endDate = compare ? parseDate(compare).getTime():null;
+            if (dateNow > endDate && !status && endDate != null) {
                 return -1;
-            } else if (dateNow == endDate && !status) {
+            } else if (dateNow == endDate && !status && endDate != null) {
                 return 1;
-            } else if(status==true){
+            } else if(status){
                 return 0;
             }
         }
@@ -115,22 +123,47 @@
         }
 
         function deleteAll(loaihm) {
+            $ngBootbox.confirm("bạn có chắc chắn muốn xóa các hạng mục được chọn không ? ").then(function () {
+                var listID = [];
+                if (loaihm == 0) {
+                    $.each($scope.seleted, function (i, item) {
+                        listID.push(item.ID);
+                    });
+                    var config = {
+                        params: {
+                            listId: JSON.stringify(listID)
+                        }
+                    }
+                    service.get('api/hm/movebinmuti', config, function (result) {
+                        displayGT(loaihm);
+                        notification.success('Đã di chuyển ' + listID.length + 'hạng mục vào thùng rác thành công');
+                    }, function (error) { });
+                } else {
+                    $.each($scope.seletedGt, function (i, item) {
+                        listID.push(item.ID);
+                    });
+                    console.log(listID);
+                    var config = {
+                        params: {
+                            listId: JSON.stringify(listID)
+                        }
+                    }
 
-        }
-        
-        $scope.$watch("HangMucDuAnTT", function (n, o) {
-            var checked = $filter("filter", function (n) {
-                return {checked:true}
+                    service.get('api/hm/movebinmuti', config, function (result) {
+                        displayGT(loaihm);
+                        notification.success('Đã di chuyển ' + listID.length + 'hạng mục vào thùng rác thành công');
+                    }, function (error) { });
+                }
+
+
             });
-            if (checked.length) {
-                //console.log(checked);
-            }
-            
-        },true);
+          
+           
+        }
 
         $scope.isAll = false;
-        function selectAll() {
-            if ($scope.isAll == false) {
+        function selectAllTT() {
+            if ($scope.isAll === false) {
                 angular.forEach($scope.HangMucDuAnTT, function (item) {
                     item.checked = true;
                 });
@@ -141,7 +174,51 @@
                 });
                 $scope.isAll = false;
             }
+
+         
         }
+
+        $scope.isAllGt = false;
+        function selectAllGT() {
+            if ($scope.isAllGt == false) {
+                angular.forEach($scope.HangMucDuAnGt, function (item) {
+                    item.checked = true;
+                });
+                $scope.isAllGt = true;
+            } else {
+                angular.forEach($scope.HangMucDuAnGt, function (item) {
+                    item.checked = false;
+                });
+                $scope.isAllGt = false;
+            }
+           
+        }
+
+    
+
+ 
+        $scope.$watch("HangMucDuAnTT", function (n, o) {
+            var checked = $filter("filter")(n, { checked: true });
+            if (checked.length) {
+                $scope.seleted = checked;
+                $(".btn_delall").removeAttr('disabled');
+            } else {
+                $(".btn_delall").attr('disabled', 'disabled');
+            }
+
+        }, true);
+
+        $scope.$watch("HangMucDuAnGt", function (n, o) {
+            var checked = $filter("filter")(n, { checked: true });
+            if (checked.length) {
+                $scope.seletedGt = checked;
+                $(".btn_delall").removeAttr('disabled');
+            } else {
+                $(".btn_delall").attr('disabled', 'disabled');
+            }
+
+        }, true);
+
 
         function upadteStatus(id,status,stProject) {
             var config = {
@@ -164,7 +241,6 @@
 
 
         $scope.displayGT = displayGT;
-        $scope.Delete = Delete;
         var flag = '';
 
         function filter(loaihangmuc) {
@@ -195,6 +271,7 @@
 
         function displayGT(loaihangmuc) {
             flag = loaihangmuc;
+            $scope.isActive = loaihangmuc;
             LoaiHangMucDaTt(loaihangmuc);
         }
         //loai hang muc tt=0
@@ -218,12 +295,22 @@
                 if (loaihangmuc == 0) {
                     $scope.HangMucDuAnTT = result.data.items;
                     for (var i = 0; i < $scope.HangMucDuAnTT.length; i++) {
-                        $scope.HangMucDuAnTT[i].DiemHM = $scope.HangMucDuAnTT[i].DiemDanhGia * $scope.HangMucDuAnTT[i].NhomCongViec.HeSoCV * $scope.HangMucDuAnTT[i].HeSoTg.HeSoTgdk * $scope.HangMucDuAnTT[i].HeSoLap.Hesl * $scope.HangMucDuAnTT[i].HesoKcn;;
+                        if ($scope.HangMucDuAnTT[i].HeSoTg != null) {
+                            $scope.HangMucDuAnTT[i].DiemHM = $scope.HangMucDuAnTT[i].DiemDanhGia * $scope.HangMucDuAnTT[i].NhomCongViec.HeSoCV * $scope.HangMucDuAnTT[i].HeSoTg.HeSoTgdk * $scope.HangMucDuAnTT[i].HeSoLap.Hesl * $scope.HangMucDuAnTT[i].HesoKcn;
+                        } else {
+                            $scope.HangMucDuAnTT[i].DiemHM = 0;
+                        }
+                        
                     }
                 } else {
                     $scope.HangMucDuAnGt = result.data.items;
                     for (var i = 0; i < $scope.HangMucDuAnGt.length; i++) {
-                        $scope.HangMucDuAnGt[i].DiemHM = $scope.HangMucDuAnGt[i].DiemDanhGia * $scope.HangMucDuAnGt[i].NhomCongViec.HeSoCV * $scope.HangMucDuAnGt[i].HeSoTg.HeSoTgdk * $scope.HangMucDuAnGt[i].HeSoLap.Hesl * $scope.HangMucDuAnGt[i].HesoKcn;
+                        if ($scope.HangMucDuAnGt[i].HeSoTg != null) {
+                            $scope.HangMucDuAnGt[i].DiemHM = $scope.HangMucDuAnGt[i].DiemDanhGia * $scope.HangMucDuAnGt[i].NhomCongViec.HeSoCV * $scope.HangMucDuAnGt[i].HeSoTg.HeSoTgdk * $scope.HangMucDuAnGt[i].HeSoLap.Hesl * $scope.HangMucDuAnGt[i].HesoKcn;
+                        }
+                        else {
+                            $scope.HangMucDuAnGt[i].DiemHM = 0;
+                        }
                     }
                 }
                 $scope.page = result.data.Page;
@@ -234,21 +321,20 @@
             });
         }
 
-        function Delete(id) {
-          
-                $ngBootbox.confirm('bạn có chắc chắn muốn xóa  hạng mục công việc thứ ' +id+ ' không ? ').then(function (result) {
-                    var config = {
-                        params: {
-                            id: id
-                        }
+        function movebin(id, loaiHm) {
+
+            $ngBootbox.confirm("bạn có chắc chắn muốn xóa không ? ").then(function () {
+                var config = {
+                    params: {
+                        id: id
                     }
-                    service.del('api/hm/delete', config, function (result) {
-                        LoaiHangMucDaTt(0);
-                        LoaiHangMucDaTt(1);
-                        notification.success('Xóa hạng mục công việc thành công ! ');
-                    }, function (error) {
-                    });
-                })
+                }
+                service.get('api/hm/movebin', config, function (result) {
+                    displayGT(loaiHm);
+                    notification.success('Đã di chuyển hạng mục ' + id + ' vào thùng rác ');
+                }, function (error) { });
+            });
+           
         }
 
         function LoadById() {
@@ -284,6 +370,25 @@
                 if (result.status = 200) {
                     window.location.href = result.data.Message;
                     notification.success('tải xuống file excel thành công');
+                }
+            }, function (error) {
+                notification.success('lỗi xuất file');
+                $scope.loadding = false;
+            });
+        }
+
+        function exportPDF() {
+            $scope.loadding = true;
+            var config = {
+                params: {
+                    idDuAn: $rootScope.cbxSelected.ID
+                }
+            }
+            service.get('api/duan/exportpdf', config, function (result) {
+                $scope.loadding = false;
+                if (result.status = 200) {
+                    window.location.href = result.data;
+                    notification.success('tải xuống pdf thành công');
                 }
             }, function (error) {
                 notification.success('lỗi xuất file');

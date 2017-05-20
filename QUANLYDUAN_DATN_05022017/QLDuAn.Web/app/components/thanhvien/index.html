@@ -1,7 +1,7 @@
 ﻿<section class="content">
     <div class="box box-solid">
         <div class="box-header">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="input-group input-group-sm">
                     <input type="text" name="table_search" class="form-control" ng-change="loadApplicationUser(page)" ng-model="keyword">
                     <div class="input-group-btn">
@@ -9,28 +9,28 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <button class="btn btn-success btn-sm btn-flat" ng-click="themThanhVien($event)"><i class="fa fa-plus"></i> Tạo mới nhân viên</button>
-                <button class="btn btn-danger  btn-sm btn-flat" disabled><i class="fa fa-trash-o"></i> xóa tất cả</button>
-                <button class="btn btn-default btn-sm btn-flat" ui-sref="nhomnguoidung"><i class="fa fa-users"></i></button>
-                <button class="btn btn-default btn-sm btn-flat"><i class="fa fa-key"></i></button>
-                <button class="btn btn-default btn-sm btn-flat">CSV</button>
-                <button class="btn btn-default btn-sm btn-flat">PDf</button>
-                <button class="btn btn-default btn-sm btn-flat">Excel</button>
+            <div class="col-sm-8">
+                <div class="pull-right">
+                    <button class="btn btn-default btn-sm btn-flat" ng-click="themThanhVien($event)"><i class="fa fa-plus"></i></button>
+                    <button class="btn btn-default  btn-sm btn-flat" disabled><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-default btn-sm btn-flat" ui-sref="nhomnguoidung"><i class="fa fa-users"></i></button>
+                    <button class="btn btn-default btn-sm btn-flat"><i class="fa fa-key"></i></button>
+                </div>
+               
             </div>
          </div>
         <div class="box-body no-padding">
-            <table class="table">
+            <table class="table table-bordered table-hover table-striped">
                 <tbody>
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>Hình ảnh</th>
                         <th>Tên nhân viên</th>
-                        <th>địa chỉ mail</th>
-                        <th>chức vụ</th>
-                        <th>giới tính</th>
-                        <th>địa chỉ</th>
-                        <th></th>
+                        <th>Địa chỉ mail</th>
+                        <th>Chức vụ</th>
+                        <th>Giới tính</th>
+                        <th>Địa chỉ</th>
+                        <th style="width: 50px"></th>
                     </tr>
                     <tr ng-repeat="item in ListNhanVien">
                         <td>{{$index +1}}</td>
@@ -41,8 +41,8 @@
                         <td>{{ item.Sex  | ConverFilter : 'Nam' : 'Nữ'}}</td>
                         <td>{{ item.Adress }}</td>
                         <td>
-                            <button class="btn btn-danger btn-xs btn-flat" ng-click="delete(item.Id)"> <i class="fa fa-trash-o"></i> xóa</button>
-                            <button class="btn btn-info btn-xs btn-flat"  ng-click="suaThanhVien($ev , item.Id)"> <i class="fa fa-pencil"></i>sửa</button>
+                            <button class="btn btn-default btn-xs" ng-click="delete(item.Id)"> <i class="fa fa-trash-o"></i></button>
+                            <button class="btn btn-default btn-xs "  ng-click="suaThanhVien($ev , item.Id)"> <i class="fa fa-pencil"></i></button>
                         </td>
                     </tr>
                             

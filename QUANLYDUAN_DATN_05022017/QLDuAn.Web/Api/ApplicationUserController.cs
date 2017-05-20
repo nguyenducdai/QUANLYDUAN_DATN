@@ -13,6 +13,9 @@ using QLDuAn.Web.Models;
 using System.Threading.Tasks;
 using QLDuAn.Web.Infastructure.Extentions;
 using QLDuAn.Common.Exceptions;
+using Microsoft.AspNet.Identity;
+using System.Web;
+using System.Data.Entity;
 
 namespace QLDuAn.Web.Api
 {
@@ -22,18 +25,22 @@ namespace QLDuAn.Web.Api
         private ApplicationUserManager _userManager;
         private IApplicationGroupService _applicationGroupService;
         private IApplicationRoleService _applicationRoleService;
+        private IDuAnService _duanService;
 
         public ApplicationUserController(
             ErrorService errorService , 
             ApplicationUserManager userManager , 
             IApplicationGroupService applicationGroupService,
-            IApplicationRoleService applicationRoleService) : base(errorService)
+            IApplicationRoleService applicationRoleService,
+            IDuAnService duAnService) : base(errorService)
         {
             this._userManager = userManager;
             this._applicationGroupService = applicationGroupService;
             this._applicationRoleService = applicationRoleService;
+            this._duanService = duAnService;
         }
 
+    
         [HttpGet]
         [Route("getall")]
         public HttpResponseMessage GetAll(HttpRequestMessage request , string keyword , int page , int pageSize)
@@ -73,6 +80,46 @@ namespace QLDuAn.Web.Api
                 var responseData = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<ApplicationUserViewModel>>(model);
 
                 return request.CreateResponse(HttpStatusCode.OK, responseData); ;
+            });
+        }
+
+        [HttpGet]
+        [Route("getalluserandproject")]
+        public HttpResponseMessage GetAllAndProject(HttpRequestMessage request , string keyword, int page, int pageSize)
+        {
+            return CreateReponse(request, () => {
+
+                IEnumerable<ApplicationUser> model;
+                if (string.IsNullOrEmpty(keyword))
+                {
+                    model = _userManager.Users;
+                }
+                else
+                {
+                    model = _userManager.Users.OrderByDescending(x => x.Created_at).Where(x => x.FullName.Contains(keyword) || x.Email.Contains(keyword) || x.Function.Contains(keyword));
+                }
+
+                var query = model.Skip(page * pageSize).Take(pageSize);
+                var responseData = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<ApplicationUserViewModel>>(query);
+
+
+                foreach (var item in responseData)
+                {
+                    var duanModel =  _duanService.GetDaByIdUser(item.Id);
+                    var duanVM = Mapper.Map<IEnumerable<DuAn>, IEnumerable<DuAnViewModel>>(duanModel);
+                    item.DuAn = duanVM;
+                }
+
+
+                Paginnation<ApplicationUserViewModel> pagination = new Paginnation<ApplicationUserViewModel>()
+                {
+                    items = responseData,
+                    Page = page,
+                    TotalPage = (int)Math.Ceiling((decimal)model.Count() / pageSize),
+                    TotalCount = model.Count()
+                };
+
+                return request.CreateResponse(HttpStatusCode.OK, pagination); ;
             });
         }
 
@@ -223,8 +270,6 @@ namespace QLDuAn.Web.Api
             }
         }
 
-
-
         [HttpDelete]
         [Route("delete")]
         public async Task<HttpResponseMessage> Delete(HttpRequestMessage request, string id)
@@ -247,5 +292,32 @@ namespace QLDuAn.Web.Api
 
         }
 
+        [HttpPost]
+        [Route("updatedPassword")]
+        public async Task<HttpResponseMessage> UpdatedPassword(HttpRequestMessage request, ChangePassword changeVM)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var Id = User.Identity.GetUserId();
+
+                var user = await _userManager.FindByIdAsync(Id);
+                user.PasswordHash = _userManager.PasswordHasher.HashPassword(changeVM.Password);
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return  request.CreateResponse(HttpStatusCode.Accepted, "OK");
+                }
+                else
+                {
+                    return request.CreateResponse(HttpStatusCode.BadRequest,"có lỗi");
+                }
+            }else
+            {
+                return request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+
+            }
+        }
     }
 }

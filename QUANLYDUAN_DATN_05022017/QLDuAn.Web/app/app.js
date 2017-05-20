@@ -27,12 +27,6 @@
                 templateUrl: '/app/components/dangnhap/login.html',
                 controller: 'loginController'
             })
-            //.state("home", {
-            //    url: "/home",
-            //    templateUrl: "/app/components/home/index.html",
-            //    parent: 'baseTemplate',
-            //    controller: "HomeAdminController"
-            //})
             .state("duan.hangmuc", {
                 url: "/du-an.:id?",
                 templateUrl: '/app/components/duanhangmuc/chitetduan.html',

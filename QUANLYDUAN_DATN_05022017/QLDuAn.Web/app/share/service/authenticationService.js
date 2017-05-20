@@ -1,7 +1,7 @@
 ﻿(function (app) {
-    app.service('authenticationService', ['$http', '$q', '$window',
+    app.service('authenticationService', ['$http', '$q', '$window','authData',
 
-       function ($http, $q, $window) {
+    function ($http, $q, $window,authData) {
 
            // khởi tạo 1 tokenInfo để lưu thông tin token info
 
@@ -27,8 +27,8 @@
 
         this.setHeader = function () {
             delete $http.defaults.headers.common['X-Requested-With'];
-            if ((tokenInfo != undefined) && (tokenInfo.accessToken != undefined) && (tokenInfo.accessToken != null) && (tokenInfo.accessToken != "")) {
-                $http.defaults.headers.common['Authorization'] = 'Bearer ' + tokenInfo.accessToken;
+            if ((authData.authenticationData != undefined) && (authData.authenticationData.accessToken != undefined) && (authData.authenticationData.accessToken != null) && (authData.authenticationData.accessToken != "")) {
+                $http.defaults.headers.common['Authorization'] = 'Bearer ' + authData.authenticationData.accessToken;
                 $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
             }
 
@@ -36,8 +36,15 @@
 
         // sessionInti
         this.init = function () {
-            if ($window.sessionStorage['token_info']) {
-                tokenInfo = JSON.parse($window.sessionStorage['token_info']);
+            var tokenInfo = $window.sessionStorage['token_info'];
+            if (tokenInfo != null) {
+                tokenInfo = JSON.parse(tokenInfo);
+                if (tokenInfo != null) {
+                    authData.authenticationData.IsAuthenticate = true;
+                    authData.authenticationData.username = tokenInfo.userName;
+                    authData.authenticationData.accessToken = tokenInfo.accessToken;
+                }
+               
             }
         }
 

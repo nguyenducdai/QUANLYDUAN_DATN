@@ -1,0 +1,51 @@
+﻿<section class="content">
+    <div class="invoice">
+        <div class="row invoice-header">
+            <div class="col-md-12">
+                    <div class="pull-right">
+                        có  <strong>{{binHM.length}} </strong> hạng mục công việc  
+                        <button class="btn btn-default btn-sm" ui-sref="duan.hangmuc({id:ThongTinDuAn.ID})"><i class="fa fa-fw fa-mail-reply"></i>back</button>
+                        <button class="btn btn-default btn-sm btn_delall" ng-click="deleteAll()" > delete all </button>
+                        <button class="btn btn-default btn-sm btn_delall" ng-click="restoreAll()"> restore </button>
+</div>
+            </div>
+            <!-- /.col -->
+        </div>
+
+            <table class="table table-hover table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:10px">#</th>
+                        <th style="width:10px">
+                            <div class="hm checkbox">
+                                <label>
+                                    <input type="checkbox" ng-click="selectAllBin()">
+                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                </label>
+                            </div>
+                        </th>                       
+                        <th>Tên Hạng Mục</th>
+                        <th>Ngày Xóa</th>
+                        <th style="width:50px">..</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in binHM">
+                        <td>{{ $index + 1}}</td>
+                        <td>
+                            <div class="hm checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="item.checked">
+                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>{{item.TenHangMuc}}</td>
+                        <td>{{item.Updated_at | date :'dd/MM/yyyy'}}</td>
+                        <th><a ng-click="rehibilitate(item.ID)"><i class="fa fa-unlock" aria-hidden="true"></i></a>  -  <a ng-click="remove(item.ID)"><i class="fa fa-trash" aria-hidden="true"></i> </a></th>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+</section>

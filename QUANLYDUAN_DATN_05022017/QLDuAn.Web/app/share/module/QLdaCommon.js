@@ -8,9 +8,7 @@
         'ngMessages',
         'ngAnimate',
         'checklist-model',
-        'chart.js',
         'ngSanitize',
         'ui.select',
-        'ui.bootstrap'
     ]);
 })();

@@ -14,17 +14,20 @@
 
                 <div class="form-group">
                     <label for="InputProject">Thời Gian dự kiến</label>
-                    <input type="text" ng-model="Hestg.ThoiGianDk " class="form-control" />
+                    <input type="text" ng-model="Hestg.ThoiGianDk " class="form-control" name="ThoiGianDk" required/>
+                    <span ng-show="frmHSTG.ThoiGianDk.$invalid" class="has-error">Nhập Thời Gian dự kiến </span>
+
                 </div>
                 <div class="form-group">
                     <label for="InputProject">Hệ số </label>
-                    <input type="text" class="form-control" id="InputProject" ng-model="Hestg.HeSoTgdk " />
+                    <input type="text" class="form-control" id="InputProject" ng-model="Hestg.HeSoTgdk " name="HeSoTgdk" required/>
+                    <span ng-show="frmHSTG.HeSoTgdk.$invalid" class="has-error">Nhập hệ số</span>
                 </div>
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
-            <button type="submit" class="btn btn-info btn-flat">Tạo Hệ số</button>
+            <button type="submit" class="btn btn-info btn-flat" ng-disabled="frmHSTG.$invalid"> Tạo hế số</button>
             <span flex></span>
             <button type="reset" class="btn btn-default btn-flat">xóa sạch</button>
         </md-dialog-actions>

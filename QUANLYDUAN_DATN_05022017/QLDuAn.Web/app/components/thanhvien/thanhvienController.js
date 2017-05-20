@@ -1,15 +1,18 @@
-﻿/// <reference path="../nhomnguoidung/dsnhomnguoidung.html" />
+﻿/// <reference path="changPass.html" />
+/// <reference path="../nhomnguoidung/dsnhomnguoidung.html" />
 (function (app) {
     app.controller('thanhvienController', thanhvienController);
 
-    thanhvienController.$inject = ['$scope', 'service', '$state', 'notification', '$mdDialog', '$rootScope', '$ngBootbox']
-    function thanhvienController($scope, service, $state, notification, $mdDialog, $rootScope, $ngBootbox) {
+    thanhvienController.$inject = ['$scope','$rootScope', 'service', '$state', 'notification', '$mdDialog', '$ngBootbox']
+    function thanhvienController($scope,$rootScope, service, $state, notification, $mdDialog, $ngBootbox) {
 
         $scope.ThanhVien = {
             Created_at: new Date,
             Updatted_at:new Date,
             Groups: []
         }
+     
+        $scope.change = change;
         $scope.themThanhVien = themThanhVien;
         $scope.suaThanhVien = suaThanhVien;
         $scope.groups = {}
@@ -22,11 +25,26 @@
             Groups: []
         }
 
+        $scope.ChangePassword = {};
 
         //pagination
         $scope.page = 0;
         $scope.pagesCount = 0;
         $scope.keyword = '';
+
+        function change() {
+            if ($scope.ChangePassword.Password == $scope.ChangePassword.ConfirmPassword) {
+                
+                service.post('api/appuser/updatedPassword', $scope.ChangePassword, function (result) {
+                    notification.success("Thày đổi mật khẩu thành công");
+                    $state.go('login');
+                }, function (error) {
+                    notification.error(error);
+                });
+            } else {
+                notification.error("Mật khẩu không khớp");
+            }
+        }
 
         function themThanhVien(ev) {
             $mdDialog.show({
@@ -132,7 +150,7 @@
             var config = {
                 params: {
                     page: page,
-                    pageSize: 7,
+                    pageSize: 9,
                     keyword: $scope.keyword
                 }
             }
@@ -156,6 +174,8 @@
                 notification.error('Có lỗi sảy ra');
             })
         }
+
+   
         loadApplicationUser();
         loadApplicationGroup();
       

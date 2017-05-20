@@ -31,6 +31,8 @@ namespace QLDuAn.Service
 
         IEnumerable<HangMuc> GetHangMucByIdDuAnSuccess(int idDuAn);
 
+        IEnumerable<HangMuc> GetHangMucByIdUser(int idDuAn, string idNhanvien);
+
         void save();
     }
 
@@ -84,7 +86,7 @@ namespace QLDuAn.Service
 
         public IEnumerable<HangMuc> GetHangMucByIdDuAn(int idDuAn, int LoaiHm)
         {
-            return _hangMucRepository.GetMuti(x => x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
+            return _hangMucRepository.GetMuti(x => x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm) && x.isDelete.Equals(false), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
 
         }
 
@@ -97,25 +99,28 @@ namespace QLDuAn.Service
         {
              if (!string.IsNullOrEmpty(keyword) && filter ==true)
             {
-                return _hangMucRepository.GetMuti(x =>x.TrangThai==true && x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm) && x.TenHangMuc.Contains(keyword) || x.MoTaHangMuc.Contains(keyword), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
+                return _hangMucRepository.GetMuti(x =>x.TrangThai==true && x.isDelete==false && x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm) && x.TenHangMuc.Contains(keyword) || x.MoTaHangMuc.Contains(keyword), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
             }
-            else if (!string.IsNullOrEmpty(keyword) && filter == false)
+            else if (!string.IsNullOrEmpty(keyword) && filter == false )
             {
-                return _hangMucRepository.GetMuti(x => x.TrangThai == false && x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm) && x.TenHangMuc.Contains(keyword) || x.MoTaHangMuc.Contains(keyword), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
+                return _hangMucRepository.GetMuti(x => x.TrangThai == false && x.isDelete==false && x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm) && x.TenHangMuc.Contains(keyword) || x.MoTaHangMuc.Contains(keyword), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
             }
              else if (string.IsNullOrEmpty(keyword) && filter == true)
             {
-                return _hangMucRepository.GetMuti(x =>x.TrangThai==true && x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
+                return _hangMucRepository.GetMuti(x =>x.TrangThai==true && x.isDelete == false && x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
             }
             else if (string.IsNullOrEmpty(keyword) && filter == false)
             {
-                return _hangMucRepository.GetMuti(x => x.TrangThai == false && x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
+                return _hangMucRepository.GetMuti(x => x.TrangThai == false && x.isDelete == false && x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
+            }
+            if (!string.IsNullOrEmpty(keyword) && filter == null)
+            {
+                return _hangMucRepository.GetMuti(x => x.IdDuAn.Equals(idDuAn) && x.isDelete == false  && x.LoaiHangMuc.Equals(LoaiHm) && x.TenHangMuc.Contains(keyword) || x.MoTaHangMuc.Contains(keyword), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
             }
             else
             {
-                return _hangMucRepository.GetMuti(x => x.IdDuAn.Equals(idDuAn) && x.LoaiHangMuc.Equals(LoaiHm), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
+                return _hangMucRepository.GetMuti(x => x.IdDuAn.Equals(idDuAn) && x.isDelete == false  && x.LoaiHangMuc.Equals(LoaiHm), new string[] { "ApplicationUser", "ThamGia", "NhomCongViec", "HeSoTg", "HeSoLap", "ThamGia.ApplicationUser" });
             }
-
         }
 
         
@@ -133,9 +138,15 @@ namespace QLDuAn.Service
                 throw new NameDuplicateException("Tên hạng mục đã tồn tại");
         }
 
-        IEnumerable<HangMuc> IHangMucService.GetHangMucByIdDuAn(int idDuAn)
+       public IEnumerable<HangMuc> GetHangMucByIdDuAn(int idDuAn)
         {
             return _hangMucRepository.GetMuti(x => x.IdDuAn.Equals(idDuAn));
         }
+
+        public IEnumerable<HangMuc> GetHangMucByIdUser(int idDuAn, string idNhanvien)
+        {
+            return _hangMucRepository.GetHangMucByIdUser(idDuAn,idNhanvien);
+        }
+
     }
 }

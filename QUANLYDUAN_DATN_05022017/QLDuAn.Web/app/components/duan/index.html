@@ -1,7 +1,7 @@
 ﻿<section class="content">
     <div class="box-header with-border">
-        <div class="col-md-8">
-            <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="col-md-3">
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control  ng-pristine ng-untouched ng-valid ng-empty" placeholder="Search" ng-model="keyword" ng-change="LoadData(page)" aria-invalid="false">
                     <div class="input-group-btn">
@@ -10,24 +10,17 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <button class="btn btn-success btn-sm btn-flat" ng-click="showAdd($event)"><i class="fa fa-pencil"></i> Tạo dự án</button>
-                <button class="btn btn-danger btn-sm btn-flat" disabled><i class="fa fa-trash"></i> Xóa Tất cả</button>
-                <button class="btn btn-info btn-sm btn-flat" ng-click="refresh()"> <i class="fa fa-refresh"></i> làm mới</button>
-                <button class="btn btn-info btn-sm btn-flat" ui-sref="duan.hangmuc"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i> xem hạng mục công việc</button>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="pull-right">
-                <button class="btn btn-default btn-sm btn-flat">Csv</button>
-                <button class="btn btn-default btn-sm btn-flat">Excel</button>
-                <button class="btn btn-default btn-sm btn-flat">Pdf</button>
-                <button class="btn btn-default btn-sm btn-flat">Print</button>
+            <div class="col-md-9">
+                <div class="pull-right">
+                    <button class="btn btn-sm  btn-default btn-flat" ng-click="showAdd($event)"><i class="fa fa-pencil"></i> Tạo dự án</button>
+                    <button class="btn btn-sm  btn-default btn-flat" ng-click="refresh()"> <i class="fa fa-refresh"></i> làm mới</button>
+                    <button class="btn btn-sm  btn-default btn-flat" ui-sref="duan.hangmuc"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i> hạng mục công việc</button>
+                </div>
             </div>
         </div>
     </div>
     <div class="box-body table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th style="width: 10px">#</th>
@@ -37,40 +30,42 @@
                     <th data-toggle="tooltip" title="Khách Hàng">Khách Hàng</th>
                     <th data-toggle="tooltip" title="ngày ký hợp đồng">Ngày Ký</th>
                     <th data-toggle="tooltip" title="Năm quyết toán">Năm QT</th>
-                    <th>Trạng thái</th>
+                    <th data-toggle="tooltip" title="số hạng mục công việc">HM Công Việc </th>
+                    <th data-toggle="tooltip" title="Số nhân viên tham gia"><i class="fa fa-users" aria-hidden="true"></i></th>
+                    <th><i class="fa fa-check text-success"></i></th>
                     <th style="width: 15px">Hàng động</th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr ng-repeat="item in ListDuAn">
-                    <td><input type="checkbox" id="ickeck"></td>
-                    <td><a ui-sref="duan.hangmuc({id:item.ID})"><strong>{{item.SoHopDong}}</strong></a></td>
+                    <td> {{ $index +1  }}</td>
+                    <td><a ui-sref="duan.hangmuc({id:item.ID})">{{item.SoHopDong}}</a></td>
                     <td><a ui-sref="duan.hangmuc({id:item.ID})">{{item.TenDuAn}}</a></td>
                     <td>{{item.LoaiCongTrinh}}</td>
                     <td>{{item.KhachHang.TenKhach}}</td>
                     <td>{{item.NgayKy | date:'dd/MM/yyyy'}}</td>
                     <td>{{item.NamQuyetToan | date:'dd/MM/yyyy'}}</td>
-                    <td><span ng-class="{'badge bg-red':item.TrangThai==true ,'badge bg-green':item.TrangThai==false}">{{item.TrangThai | ConverFilter : 'Hoàn thành' : 'chưa hoàn thành'}} </span></td>
-                    <td>
-                        <button class="btn btn-info btn-xs btn-flat" ng-click="showDetail($event , item.ID)"><i class="fa fa-eye" aria-hidden="true"></i> chi tiết</button>
-                        <button class="btn btn-danger btn-xs btn-flat" ng-click="delete(item.ID)"><i class="fa fa-trash-o" aria-hidden="true"></i> xóa</button>
-                        <button class="btn  btn-info btn-xs btn-flat" ng-click="edit(item.ID,ev)"><i class="fa fa-pencil" aria-hidden="true"></i> sửa</button>
+                    <td>{{item.HangMuc.length }}</td>
+                    <td><a ng-click="showAllEplo($event,item.ID)"><i class="fa fa-list-alt" aria-hidden="true"></i></a></td>
+                    <td ng-if="item.TrangThai==true" class="text-center">
+                        <i class="fa fa-check text-success" data-toggle="tooltip" title="Hoàn thành" ng-click="upadteStatus(itemGt.ID ,false,1)"></i>
                     </td>
-                </tr>
-                <tr class="collapse demo1">
-                    <td>2</td>
-                    <td>05 May 2013</td>
-                    <td>Credit Account</td>
-                    <td class="text-success">$11.00</td>
-                    <td class="text-error"></td>
-                    <td class="text-success">$161.00</td>
+                    <td ng-if="item.TrangThai==false" class="text-center">
+                        <i class="fa fa-times-circle text-red" data-toggle="tooltip" title="Chưa hoàn thành" ng-click="upadteStatus(itemGt.ID ,true,1)"></i>
+                    </td>
+                    <td>
+                        <button class="btn btn-default btn-xs btn-flat" ng-click="showDetail($event , item.ID)"><i class="fa fa-eye" aria-hidden="true"></i> chi tiết</button>
+                        <button class="btn btn-default btn-xs btn-flat" ng-click="delete(item.ID)"><i class="fa fa-trash-o" aria-hidden="true"></i> xóa</button>
+                        <button class="btn  btn-default btn-xs btn-flat" ng-click="edit(item.ID,ev)"><i class="fa fa-pencil" aria-hidden="true"></i> sửa</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
         <!-- /.table -->
         <div class="col-md-12">
-            <div class="col-md-6"><p><span>Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
+            <div class="col-md-6"><p><span>Trang: {{page+1
+}} - Tổng số bản ghi: {{totalCount}}</span></p></div>
             <div class="col-md-6">
                 <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="LoadData(page)"></pager-directive>
             </div>

@@ -61,7 +61,7 @@ namespace QLDuAn.Model.Models
 
         public int TrangThai { get; set; }
 
-        public virtual IEnumerable<HangMuc> HangMuc { get; set; }
+        public virtual ICollection<HangMuc> HangMuc { get; set; }
 
         public virtual IEnumerable<ThamGia> ThamGia { get; set; }
 

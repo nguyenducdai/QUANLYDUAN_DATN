@@ -13,6 +13,15 @@ namespace QLDuAn.Web.App_Start
 {
     public class IdentityConfig
     {
+        public class EmailService : IIdentityMessageService
+        {
+            public Task SendAsync(IdentityMessage message)
+            {
+                // Plug in your email service here to send an email.
+                return Task.FromResult(0);
+            }
+        }
+
         public class ApplicationUserStore : UserStore<ApplicationUser>
         {
             public ApplicationUserStore(QLDuAnDbContext context) : base(context)
@@ -57,6 +66,13 @@ namespace QLDuAn.Web.App_Start
                     manager.UserTokenProvider =
                         new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
                 }
+
+                manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
+                {
+                    Subject = "Security Code",
+                    BodyFormat = "Your security code is {0}"
+                });
+                manager.EmailService = new EmailService();
                 return manager;
             }
         }

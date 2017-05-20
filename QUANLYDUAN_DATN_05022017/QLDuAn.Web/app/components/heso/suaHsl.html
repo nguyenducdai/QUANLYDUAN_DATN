@@ -14,17 +14,19 @@
 
                 <div class="form-group">
                     <label for="InputProject">Số Năm</label>
-                    <input type="text" ng-model="HeslUpdate.SoNam " class="form-control" />
+                    <input type="text" ng-model="HeslUpdate.SoNam " class="form-control" name="SoNam" required />
+                    <span ng-show="frmNCV.SoNam.$invalid" class="has-error">Nhập số năm </span>
                 </div>
                 <div class="form-group">
                     <label for="InputProject">Hệ số lặp</label>
-                    <input type="text" class="form-control" id="InputProject" ng-model="HeslUpdate.Hesl " />
+                    <input type="text" class="form-control" id="InputProject" ng-model="HeslUpdate.Hesl" name="hsl" required />
+                    <span ng-show="frmNCV.hsl.$invalid" class="has-error">Nhập hệ số lặp </span>
                 </div>
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
-            <button type="submit" class="btn btn-info btn-flat">Tạo Hệ số</button>
+            <button type="submit" class="btn btn-info btn-flat" ng-disabled="frmNCV.$invalid">Tạo Hệ số</button>
             <span flex></span>
             <button type="reset" class="btn btn-default btn-flat">xóa sạch</button>
         </md-dialog-actions>

@@ -43,11 +43,12 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="Input4">Ngày Thực Hiện</label>
-                                    <input type="date" class="form-control" id="Input4" ng-model="HmDa.NgayBatDau" name="NgayBatDau">
+                                    <input type="text" class="form-control" id="dt1" ng-model="HmDa.NgayBatDau">
                                 </div>
+
                                 <div class="col-md-6">
                                     <label for="Input5">Ngày yêu cầu hoàn thành</label>
-                                    <input type="date" class="form-control" id="Input5" ng-model="HmDa.NgayHoanThanh">
+                                    <input type="text" class="form-control" id="dt2" ng-model="HmDa.NgayHoanThanh">
                                 </div>
                             </div>
                         </div>
@@ -78,7 +79,7 @@
 
                         <div class="box-footer">
                             <button type="submit" class="btn btn-info btn-flat"><i class="fa fa-save"></i> Lưu công việc</button>
-                            <button class="btn btn-default btn-flat" ui-sref="duan.hangmuc({id:HmDa.IdDuAn})"><i class="fa fa-fw fa-mail-reply"></i>Trở về</button>
+                            <button class="btn btn-default btn-flat" ui-sref="duan.hangmuc({id:HmDa.IdDuAn})"><i class="fa fa-fw fa-mail-reply"></i></button>
                         </div>
 
                     </form>

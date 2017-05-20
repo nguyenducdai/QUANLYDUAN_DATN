@@ -12,6 +12,7 @@ using QLDuAn.Web.Models;
 
 namespace QLDuAn.Web.Controllers
 {
+    [Authorize]
     public class DuAnController : Controller
     {
         private IDuAnService _duAnService;
@@ -39,15 +40,8 @@ namespace QLDuAn.Web.Controllers
         public JsonResult GetHangMucCV(int idDuAn)
         {
             var idNhanVien = User.Identity.GetUserId();
-            var model = _hangMucService.GetHangMucByIdDuAn(idDuAn);
-            var viewMd = Mapper.Map<IEnumerable<HangMuc>, IEnumerable<HangMucViewModel>>(model);
-            foreach (var item in viewMd)
-            {
-                var thamGia =   _thamgiaService.GetListUserByIdHangMuc(item.ID);
-                var thamgiaVm = Mapper.Map<IEnumerable<ThamGia>, IEnumerable<ThamGiaViewModel>>(thamGia);
-                item.ThamGia = thamgiaVm;
-            }
-            var responseData = new JavaScriptSerializer().Serialize(viewMd);
+            var model = _hangMucService.GetHangMucByIdUser(idDuAn , idNhanVien);
+            var responseData = new JavaScriptSerializer().Serialize(model);
             return Json(new {
                 data = responseData,
                 status = true
@@ -66,9 +60,7 @@ namespace QLDuAn.Web.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                var model = _duAnService.GetDaByIdUser(User.Identity.GetUserId());
-                var viewVM = Mapper.Map<IEnumerable<DuAn>, IEnumerable<DuAnViewModel>>(model);
-                ViewBag.ID = new SelectList(viewVM, "ID", "TenDuAn");
+                SetViewBag();
             }
             return View();
         }
@@ -76,18 +68,42 @@ namespace QLDuAn.Web.Controllers
         public JsonResult ThongKeHangMc(int idDuAn)
         {
             var idNhanVien = User.Identity.GetUserId();
-            var model = _hangMucService.GetHangMucByIdDuAnSuccess(idDuAn);
-            var viewMd = Mapper.Map<IEnumerable<HangMuc>, IEnumerable<HangMucViewModel>>(model);
-            foreach (var item in viewMd)
-            {
-                var thamGia = _thamgiaService.GetListUserByIdHangMuc(item.ID , idNhanVien);
-                var thamgiaVm = Mapper.Map<IEnumerable<ThamGia>, IEnumerable<ThamGiaViewModel>>(thamGia);
-                item.ThamGia = thamgiaVm;
-            }
-            var responseData = new JavaScriptSerializer().Serialize(viewMd);
+            var modelDirect = _thamgiaService.GetIncomeByIdUser(idDuAn, idNhanVien , 0);
+            var modelInDirect = _thamgiaService.GetIncomeByIdUser(idDuAn, idNhanVien , 1);
+            var responseDataDirect = new JavaScriptSerializer().Serialize(modelDirect);
+            var responseDataInDirect = new JavaScriptSerializer().Serialize(modelInDirect);
+
             return Json(new
             {
-                data = responseData,
+                dataDirect = responseDataDirect,
+                dataInDirect = responseDataInDirect,
+                status = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult XepHangDoanhThu(int idDuAn)
+        {
+            var modelDirect = _thamgiaService.GetIncomeById(idDuAn , 0);
+            var modelInDirect = _thamgiaService.GetIncomeById(idDuAn, 1);
+            var responseDataDirect = new JavaScriptSerializer().Serialize(modelDirect);
+            var responseDataInDirect = new JavaScriptSerializer().Serialize(modelInDirect);
+
+            return Json(new
+            {
+                dataDirect = responseDataDirect,
+                dataInDirect = responseDataInDirect,
+                status = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult updateStatus(int id, bool status)
+        {
+            var oldHangMuc = _hangMucService.getByID(id);
+            oldHangMuc.TrangThai = status;
+            _hangMucService.Update(oldHangMuc);
+            _hangMucService.save();
+            return Json(new
+            {
                 status = true
             }, JsonRequestBehavior.AllowGet);
         }

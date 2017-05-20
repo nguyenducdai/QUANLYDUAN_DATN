@@ -110,11 +110,9 @@ namespace QLDuAn.Web.Api
         {
             return CreateReponse(request, () =>
             {
-                HttpResponseMessage response;
                 _daService.Delete(id);
                 _daService.Save();
-                response = request.CreateResponse(HttpStatusCode.Created, id);
-                return response;
+                return request.CreateResponse(HttpStatusCode.Accepted, id);
             });
         }
 
@@ -197,19 +195,24 @@ namespace QLDuAn.Web.Api
                     var hangmucGt = _hangmucService.GetHangMucByIdDuAn(idDuAn, 1);
                     var hangmucTT = _hangmucService.GetHangMucByIdDuAn(idDuAn, 0);
 
-                    var thamgiaGt = _thamGia.GetIncomeById(idDuAn,1);
-                    var thamgiaTt = _thamGia.GetIncomeById(idDuAn,0);
+                   
 
                     //fullPathTemplateStandad //, new System.IO.FileInfo()
                     using (ExcelPackage ep = new ExcelPackage(new System.IO.FileInfo(fullPath)))
                     {
+                       if(hangmucGt.Count() > 0)
+                        {
+                            ExcelWorksheet exs = ep.Workbook.Worksheets.Add("GIÁN TIẾP");
+                            var thamgiaGt = _thamGia.GetIncomeById(idDuAn, 1);
+                            this.ExcelAction(hangmucGt, thamgiaGt, exs, duan, 1);
+                        }
 
-                        ExcelWorksheet exs = ep.Workbook.Worksheets.Add("GIÁN TIẾP");
-                        ExcelWorksheet dexs = ep.Workbook.Worksheets.Add("TRỰC TIẾP");
-
-                        // indirect
-                        this.ExcelAction(hangmucGt , thamgiaGt, exs,duan,1);
-                        this.ExcelAction(hangmucTT, thamgiaTt,dexs, duan,0);
+                        if (hangmucTT.Count() > 0)
+                        {
+                            ExcelWorksheet dexs = ep.Workbook.Worksheets.Add("TRỰC TIẾP");
+                            var thamgiaTt = _thamGia.GetIncomeById(idDuAn, 0);
+                            this.ExcelAction(hangmucTT, thamgiaTt, dexs, duan, 0);
+                        }
 
 
                         // direct
@@ -259,7 +262,7 @@ namespace QLDuAn.Web.Api
 
             for (int i = 0; i < hm.Count(); i++)
             {
-                var row = hm[i].ThamGia.Count();
+                var row = hm[i].ThamGia.Count() <= 0 ? 1 : hm[i].ThamGia.Count();
                 var rangeA = "A" + stt + ":A" + (stt + row - 1);
                 var rangeB = "B" + stt + ":B" + (stt + row - 1);
                 var boder = "A" + (stt + row - 1) + ":S" + (stt + row - 1);
@@ -277,43 +280,63 @@ namespace QLDuAn.Web.Api
                 //exs.Cells["B" + stt].Style.VerticalAlignment = ExcelVerticalAlignment.Justify;
 
                 exs.Cells["C" + stt].Value = hm[i].NhomCongViec.NhomCV;
-                exs.Cells["D" + stt].Value = Convert.ToInt32(hm[i].HeSoLap.SoNam);
+        
+                exs.Cells["D" + stt].Value = Convert.ToInt32(hm[i].HeSoLap != null ? hm[i].HeSoLap.SoNam : null);
                 exs.Cells["E" + stt].Style.Numberformat.Format = "dd/MM/yyyy";
-                exs.Cells["E" + stt].Value = hm[i].NgayBatDau;
+                exs.Cells["E" + stt].Value = hm[i].NgayBatDau ?? null;
                 exs.Cells["F" + stt].Style.Numberformat.Format = "dd/MM/yyyy";
-                exs.Cells["F" + stt].Value = hm[i].NgayHoanThanh;
-                exs.Cells["G" + stt].Value = hm[i].ApplicationUser.FullName;
-
+                exs.Cells["F" + stt].Value = hm[i].NgayHoanThanh ?? null;
+                if (hm[i].ApplicationUser != null)
+                {
+                    exs.Cells["G" + stt].Value = hm[i].ApplicationUser.FullName;
+                }
+                else
+                {
+                    exs.Cells["G" + stt].Value ="...";
+                }
+                // (hm[i].ApplicationUser.FullName == null || hm[i].ApplicationUser.FullName == String.Empty || hm[i].ApplicationUser.FullName.Trim().Length == 0) ? null : hm[i].ApplicationUser.FullName;
                 List<ThamGia> tg = new List<ThamGia>();
                 foreach (var item in hm[i].ThamGia)
                 {
                     tg.Add(item);
                 }
                
-                for (int j = 0; j < tg.Count(); j++)
+                if(tg.Count() > 0)
                 {
-                    var tgStt = stt + j;
-                    exs.Cells["H" + tgStt].Value = tg[j].ApplicationUser.FullName;
-                    exs.Cells["I" + tgStt].Value = Convert.ToInt32(string.Format("{0:n0}", tg[j].HeSoThamGia));
-                    exs.Cells["J" + tgStt].Value = Convert.ToInt32(Math.Round(tg[j].DiemThanhVien));
-                    exs.Cells["J" + tgStt].Style.Numberformat.Format = "#,##0";
-                    exs.Cells["K" + tgStt].Value = Convert.ToInt32(Math.Round((double)tg[j].ThuNhap));
-                    exs.Cells["K" + tgStt].Style.Numberformat.Format = "#,##0";
-                    totalIcome = Convert.ToDecimal(totalIcome + tg[j].ThuNhap);
+                    for (int j = 0; j < tg.Count(); j++)
+                    {
+                        var tgStt = stt + j;
+                        exs.Cells["H" + tgStt].Value = tg[j].ApplicationUser.FullName;
+                        exs.Cells["I" + tgStt].Value = Convert.ToInt32(string.Format("{0:n0}", tg[j].HeSoThamGia));
+                        exs.Cells["J" + tgStt].Value = Convert.ToInt32(Math.Round(tg[j].DiemThanhVien));
+                        exs.Cells["J" + tgStt].Style.Numberformat.Format = "#,##0";
+                        exs.Cells["K" + tgStt].Value = tg[j].ThuNhap;
+                        exs.Cells["K" + tgStt].Style.Numberformat.Format = "#,##0";
+                        totalIcome = Convert.ToDecimal(totalIcome + tg[j].ThuNhap);
+                    }
                 }
-                exs.Cells["L" + stt].Value = hm[i].HeSoLap.Hesl;
+
+                exs.Cells["L" + stt].Value = hm[i].HeSoLap != null ? hm[i].HeSoLap.Hesl : 0 ;
                 exs.Cells["M" + stt].Value = hm[i].NhomCongViec.HeSoCV;
-                exs.Cells["N" + stt].Value = hm[i].SoNguoiThucHien;
-                exs.Cells["O" + stt].Value = hm[i].HesoKcn;
-                exs.Cells["P" + stt].Value = hm[i].HeSoTg.ThoiGianDk;
-                exs.Cells["Q" + stt].Value = hm[i].HeSoTg.HeSoTgdk;
-                exs.Cells["R" + stt].Value = hm[i].DiemDanhGia;
-                int DiemHM = Convert.ToInt32(hm[i].DiemDanhGia * hm[i].NhomCongViec.HeSoCV * hm[i].HeSoTg.HeSoTgdk * hm[i].HeSoLap.Hesl * hm[i].HesoKcn);
-                exs.Cells["S" + stt].Value = DiemHM;
+                exs.Cells["N" + stt].Value = hm[i].SoNguoiThucHien ?? 0;
+                exs.Cells["O" + stt].Value = hm[i].HesoKcn ?? null;
+                exs.Cells["P" + stt].Value = hm[i].HeSoTg != null ? hm[i].HeSoTg.ThoiGianDk : null;
+                exs.Cells["Q" + stt].Value = hm[i].HeSoTg != null ? hm[i].HeSoTg.HeSoTgdk : 0 ;
+                exs.Cells["R" + stt].Value = hm[i].DiemDanhGia ?? 0;
+                int DiemHM = 0;
+                if (hm[i].HeSoTg !=null && hm[i].HeSoLap != null)
+                {
+                    DiemHM = Convert.ToInt32(hm[i].DiemDanhGia * hm[i].NhomCongViec.HeSoCV * hm[i].HeSoTg.HeSoTgdk * hm[i].HeSoLap.Hesl * hm[i].HesoKcn);
+                }
+                exs.Cells["S" + stt].Value = DiemHM != 0 ? DiemHM : 0 ;
                 stt = stt + row;
             }
-            exs.Cells["M11"].Value = string.Format("{0:n0}", totalIcome);
-            this.GetIncome(exs,thamgia, loaiDa, stt);
+            exs.Cells["M11"].Value = string.Format("{0:n0}", Math.Round((double)(totalIcome != null  ? totalIcome : 0)));
+            
+            if(thamgia.Count() > 0)
+            {
+                this.GetIncome(exs, thamgia, loaiDa, stt);
+            }
 
         }
 
@@ -323,7 +346,7 @@ namespace QLDuAn.Web.Api
             exs.Cells["C4:M4"].Value = duan.KhachHang.TenKhach;
             exs.Cells["C5:G5"].Value = string.Format("{0:n0}", Math.Round((double)duan.GiaTriHopDong));
             exs.Cells["C6:G6"].Value = duan.NgayKetThuc - duan.NgayBatDau;
-            exs.Cells["C6:G6"].Value = duan.NgayHoanThanh - duan.NgayBatDau;
+            exs.Cells["C7:G7"].Value = duan.NgayHoanThanh - duan.NgayBatDau;
             exs.Cells["C8:G8"].Value = duan.SoHopDong;
             exs.Cells["C9:G9"].Value = duan.NgayKy;
             exs.Cells["I5"].Value = duan.LoaiCongTrinh;
@@ -359,8 +382,8 @@ namespace QLDuAn.Web.Api
                 exs.Cells["K9"].Value = string.Format("{0:n0}", Math.Round((double)k9));
                 exs.Cells["K10"].Value = string.Format("{0:n0}", Math.Round((double)k10));
                 exs.Cells["K11"].Value = string.Format("{0:n0}", Math.Round((double)k11));
-                exs.Cells["P8"].Value = string.Format("{0:n0}", Math.Round((double)duan.TongDiemGT)) + " đ";
-                exs.Cells["P9"].Value = string.Format("{0:n0}", Math.Round((double)duan.DonGiaDiemGT)) + " đ";
+                exs.Cells["P8"].Value = string.Format("{0:n0}", Math.Round((double)(duan.TongDiemGT != null ? duan.TongDiemGT : 0))) + " đ";
+                exs.Cells["P9"].Value = string.Format("{0:n0}", Math.Round((double)(duan.DonGiaDiemGT != null ? duan.TongDiemGT : 0))) + " đ";
             }else
             {
                 exs.Cells["I9"].Value = Convert.ToInt32(duan.LuongTTQtt) + " %";
@@ -415,8 +438,8 @@ namespace QLDuAn.Web.Api
             exs.Cells["B5"].Value = " Giá trị hợp đồng trước VAT:";
             exs.Cells["B6"].Value = " Số ngày thực hiện theo HĐ:";
             exs.Cells["B7"].Value = " Số ngày thực hiện thực tế:";
-            exs.Cells["B7"].Value = " Số HĐ::";
-            exs.Cells["B7"].Value = " Ngày ký HĐ";
+            exs.Cells["B8"].Value = " Số HĐ::";
+            exs.Cells["B9"].Value = " Ngày ký HĐ";
 
             exs.Cells["H5"].Value = "Loại công trình:";
             exs.Cells["H6"].Value = "Tỷ lệ theo DT:";
@@ -521,11 +544,11 @@ namespace QLDuAn.Web.Api
             }
             var end = 0;
             var totalPoint = 0m;
-            var totalIncome = 0m;
+            decimal? totalIncome = 0m;
             for (int i = 0; i < tg.Count(); i++)
             {
                 totalPoint = totalPoint + tg[i].DiemThanhVien;
-                totalIncome = totalIncome + tg[i].DiemThanhVien;
+                totalIncome = totalIncome + tg[i].ThuNhap;
             }
             for (int i = 0; i < tg.Count(); i++)
             {
@@ -553,6 +576,51 @@ namespace QLDuAn.Web.Api
             this.SetHeader(exs, loaiDA);
             this.GenerateInfoProject(duan, exs, loaiDA);
             this.GenerateContent(hangmuc, thamgia, exs , loaiDA);
+        }
+
+        [HttpGet]
+        [Route("exportpdf")]
+        public HttpResponseMessage exportPDF(HttpRequestMessage request, int idDuAn)
+        {
+            return CreateReponse(request, () =>
+            {
+                string fileName = string.Concat(DateTime.Now.ToString("ddMMyyyyhhmmss") + "aso.pdf");
+                string folder = ConfigHelper.GetValueByKey("ReportFolder");
+                string path = HttpContext.Current.Server.MapPath(folder);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                string pathFull = Path.Combine(path,fileName);
+                var replaces = new Dictionary<string, string>();
+
+                try
+                {
+                        var template = File.ReadAllText(HttpContext.Current.Server.MapPath("/Assets/template/templateExportPDF.html"));
+                // data
+                var duan = _daService.GetAllInfoById(idDuAn);
+                var hangmucGt = _hangmucService.GetHangMucByIdDuAn(idDuAn, 1);
+                var hangmucTT = _hangmucService.GetHangMucByIdDuAn(idDuAn, 0);
+                replaces.Add("{{Duan.Tenduan}}", duan.TenDuAn);
+                template = template.Parse(replaces);
+
+                // pdf
+                using (FileStream ms = new FileStream(pathFull, FileMode.Create))
+                {
+                    var pdf = TheArtOfDev.HtmlRenderer.PdfSharp.PdfGenerator.GeneratePdf(template, PdfSharp.PageSize.A4);
+                    pdf.Save(ms);
+                }
+                    return request.CreateResponse(HttpStatusCode.OK, Path.Combine(folder, fileName));
+
+                }
+                catch (Exception ex)
+                {
+
+                    return request.CreateResponse(HttpStatusCode.OK, ex.Message);
+
+                }
+
+            });
         }
     }
 }

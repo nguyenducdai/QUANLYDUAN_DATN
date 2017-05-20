@@ -35,6 +35,8 @@ namespace QLDuAn.Web.Models
 
         public bool TrangThai { get; set; }
 
+        public bool isDelete { get; set; }
+
         public DateTime? Created_at { get; set; }
 
         public DateTime? Updated_at { get; set; }

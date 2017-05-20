@@ -1,9 +1,10 @@
 ﻿using QLDuAn.Data.Infrastrusture;
 using QLDuAn.Data.Repositories;
 using QLDuAn.Model.Models;
-using System.Collections.Generic;
-using System.Linq;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace QLDuAn.Service
 {
@@ -14,6 +15,8 @@ namespace QLDuAn.Service
         void Del(int id);
 
         IEnumerable<ThongBao> GetAll();
+
+        IEnumerable<ThongBao> GetAlertByDateNow();
 
         IEnumerable<ThongBao> GetAll(string keyword);
 
@@ -46,6 +49,11 @@ namespace QLDuAn.Service
             _thongBaoRepository.Delete(id);
         }
 
+        public IEnumerable<ThongBao> GetAlertByDateNow()
+        {
+            return _thongBaoRepository.GetMuti(x=>x.Created_at.Value.Day ==  DateTime.Now.Day && x.Created_at.Value.Month == DateTime.Now.Month && x.Created_at.Value.Year == DateTime.Now.Year);
+        }
+
         public IEnumerable<ThongBao> GetAll()
         {
             return _thongBaoRepository.GetAll();
@@ -57,7 +65,6 @@ namespace QLDuAn.Service
                 return _thongBaoRepository.GetMuti(x=>x.TieuDe.Contains(keyword) || x.NoiDung.Contains(keyword));
             else
                 return _thongBaoRepository.GetAll();
-
         }
 
         public ThongBao GetById(int id)

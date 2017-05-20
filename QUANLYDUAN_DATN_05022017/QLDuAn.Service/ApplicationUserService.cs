@@ -11,7 +11,8 @@ namespace QLDuAn.Service
     public interface IApplicationUserService
     {
      
-   }
+
+    }
     public class ApplicationUserService : IApplicationUserService
     {
         private IApplicationUserRepository _applicationUserRepository;

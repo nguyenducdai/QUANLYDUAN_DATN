@@ -1,29 +1,113 @@
 ﻿@{
     Layout = "~/Views/Shared/_RootLayout.cshtml";
 }
-<body>
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Trang chủ</a>
+<div class="page-header-fixed page-quick-sidebar-over-content">
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="/Home">
+                    <img src="~/Assets/site/images/logo_home.png" style="width: 86px;height: 40px;"/>
+                </a>
+                <div class="menu-toggler sidebar-toggler hide">
+                </div>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="#">ASO company</a></li>
-                </ul>
-                <ul cl
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
-    </nav>
-    <div class="container" id="home-page-no-sidebar">
-        @RenderBody()
-    </div>
-</body>
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            </a>
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    @{
+                        if (Request.IsAuthenticated)
+                        {
+                            <li class="dropdown dropdown-user">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 
+                                    <span class="username username-hide-on-mobile">
+                                        @User.Identity.Name
+                                    </span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                            </li>
+                                <li class="dropdown dropdown-quick-sidebar-toggler">
+                                    @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { @id = "frmLogout" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-sm btn-default" id="btnLogout"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    }
+                                </li>
+                        }
+
+                    }
+
+
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-wrapper">
+            @{Html.RenderAction("Sidebar", "Home");}
+        </div>
+        <div class="page-content-wrapper" style="padding-bottom: 25px;">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-md-9">
+                        @RenderBody()
+                    </div>
+                    <div class="col-md-3">
+                        @RenderSection("Calender", false)
+                        @RenderSection("income", false)
+                    </div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <div class="page-footer-inner">
+                    2014 &copy; Metronic by keenthemes.
+                </div>
+                <div class="scroll-to-top">
+                    <i class="icon-arrow-up"></i>
+                </div>
+            </div>
+            <div style="text-align:center; background-color: #1991a0; font-size: 14px; position: fixed; bottom: 0; width: 100%; height: 50px; z-index: 9999999;" id="footerfix">
+                <div class="row-fluid ft_agl ">
+                    <div id="footer-hotline">
+                        <div class="text-center-responsive">
+                            <span style="font-size: 16px;font-weight: bold;">H&#7895; tr&#7907; & Kinh Doanh</span>
+                            <br />
+                            <span class="hotline">
+                                <a href="tel:090 2435 340"><i class="ion-ios-telephone"></i> 090 2435 340</a>
+                            </span>
+                            <span class="hotline">
+                                <a class="hotline" href="Tel:0906878684"><i class="ion-ios-telephone"></i> 0906 878 684</a>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div id="footer-hotline">
+                        <div class="text-center-responsive">
+                            <span style="font-size: 16px;font-weight: bold;">Skype</span>
+                            <br />
+                            <a href="skype:live:1d05878c4094b1b0?chat">
+                                <span id="footer-hotline_skype">
+                                    <i class="ion-social-skype"></i> Kinh Doanh
+                                </span>
+                            </a>
+                            <a href="skype:giangsangdesign?chat">
+                                <span id="footer-hotline_skype">
+                                    <i class="ion-social-skype blue"></i> K&#7929; Thu&#7853;t
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

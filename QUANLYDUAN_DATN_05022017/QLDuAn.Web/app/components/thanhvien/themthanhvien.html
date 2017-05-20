@@ -15,33 +15,40 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Tên đầy đủ</label>
-                        <input type="text" class="form-control" ng-model="ThanhVien.FullName">
+                        <input type="text" class="form-control" ng-model="ThanhVien.FullName" name="fullname" required>
+                        <span ng-show="frmFormAddUser.fullname.$invalid" class="has-error"> nhập tên đầy đủ</span>
                     </div>
                     <div class="form-group">
                         <label>Tên đăng nhập</label>
-                        <input type="text" class="form-control" ng-model="ThanhVien.UserName">
+                        <input type="text" class="form-control" ng-model="ThanhVien.UserName" name="usename" required>
+                        <span ng-show="frmFormAddUser.usename.$invalid" class="has-error"> nhập tên đăng nhập</span>
                     </div>
                     <div class="form-group">
                         <label>Mật khẩu</label>
-                        <input type="text" class="form-control" ng-model="ThanhVien.Password">
+                        <input type="text" class="form-control" ng-model="ThanhVien.Password" name="password" required>
+                        <span ng-show="frmFormAddUser.password.$invalid" class="has-error"> nhập mật khẩu</span>
                     </div>
                     <div class="form-group">
                         <label>Địa chỉ Mail</label>
-                        <input type="email" class="form-control" ng-model="ThanhVien.Email">
+                        <input type="email" class="form-control" ng-model="ThanhVien.Email" name="email" required>
+                        <span ng-show="frmFormAddUser.email.$invalid" class="has-error"> nhập địa chỉ mail</span>
                     </div>
                     <div class="form-group">
                         <label>Mô tả bản Thân</label>
-                        <textarea class="form-control" rows="3" ng-model="ThanhVien.Bio"></textarea>
+                        <textarea class="form-control" rows="3" ng-model="ThanhVien.Bio" name="bio"></textarea>
+
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Ngày sinh</label>
-                        <input type="date" class="form-control" ng-model="ThanhVien.Birthday">
+                        <input type="date" class="form-control" name="ngaysinh" ng-model="ThanhVien.Birthday" required>
+                        <span ng-show="frmFormAddUser.ngaysinh.$invalid" class="has-error"> nhập ngày sinh</span>
                     </div>
                     <div class="form-group">
                         <label>Ngày bắt đầu làm việc</label>
-                        <input type="date" class="form-control" ng-model="ThanhVien.Startdate">
+                        <input type="date" class="form-control" ng-model="ThanhVien.Startdate" name="start" required>
+                        <span ng-show="frmFormAddUser.start.$invalid" class="has-error"> nhập ngày bắt đầu làm việc</span>
                     </div>
                     <div class="form-group">
                         <label>Chức Vụ</label>
@@ -57,12 +64,14 @@
                     </div>
                     <div class="form-group">
                         <label>Địa chỉ</label>
-                        <input type="text" class="form-control" ng-model="ThanhVien.Adress">
+                        <input type="text" class="form-control" ng-model="ThanhVien.Adress" name="diachi" required>
+                        <span ng-show="frmFormAddUser.diachi.$invalid" class="has-error"> nhập địa chỉ</span>
                     </div>
 
                     <div class="form-group">
                         <label for="sodienthoai">Số diện thoại</label>
-                        <input type="text" class="form-control" ng-model="ThanhVien.PhoneNumber">
+                        <input type="text" class="form-control" ng-model="ThanhVien.PhoneNumber" name="sdt" required>
+                        <span ng-show="frmFormAddUser.sdt.$invalid" class="has-error"> nhập số điện thoại</span>
                     </div>
 
                 </div>

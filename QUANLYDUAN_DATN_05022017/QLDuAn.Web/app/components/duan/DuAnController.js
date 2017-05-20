@@ -11,6 +11,7 @@
         $scope.cancel = cancel;
         $scope.LoadData = LoadData;
         $scope.viewDetail = viewDetail;
+        $scope.showAllEplo = showAllEplo;
         $scope.ObjDuAn = {
             TongDiem : null,
             DonGiaDiemDiem :null,
@@ -36,6 +37,11 @@
         $scope.LuongTTQtt = {};
         $scope.LuongDPQdp = {};
         $scope.loadding = false;
+
+
+        $scope.items = {};
+        $scope.EmployeeDirect = {};
+        $scope.EmployeeInDirect = {};
 
         //pagination
         $scope.page = 0;
@@ -154,20 +160,25 @@
         // Function Delete a record
         $scope.delete = function (id) {
             if (id != null) {
-                $ngBootbox.confirm('bạn có chắc chắn muốn xóa không ? ').then(function () {
-                    var config = {
-                        params: {
-                            id: id
-                        }
+                var config = {
+                    params: {
+                        id: id
                     }
-                    service.del('api/duan/delete', config, function (result) {
-
-                        notification.success('xóa dữ liệu thành công !');
-                        LoadData();
-                    }, function (error) {
-
-                    });
-                });
+                }
+                service.get('api/duan/getbyid', config, function (result) {
+                    
+                    console.log(result.data);
+                    if (result.data.HangMuc.length > 0) {
+                        $ngBootbox.alert('Xóa hết các hạng mục công việc trước khí xóa dự án ?', 'Oops!').then(null);
+                    } else {
+                        $ngBootbox.confirm('bạn có chắc chắn muốn xóa không ? ').then(function () {
+                            service.del('api/duan/delete', config, function (result) {
+                                notification.success('xóa dữ liệu thành công !');
+                                LoadData();
+                            }, function (error) { });
+                        });
+                    }
+                }, function (error) { });
             } else {
                 notification.error('vui lòng chọn dự án cần xóa');
             }
@@ -239,6 +250,50 @@
                 $scope.totalCount = result.data.TotalCount;
             }, function (error) {
             });
+        }
+
+        function showAllEplo(ev, id) {
+            var config = {
+                params: {
+                    idDuan: id,
+                    loaiHm: 1
+                }
+            }
+            service.get('api/duan/income', config, function (result) {
+                $scope.EmployeeInDirect = result.data;
+            }, function (error) { });
+
+            var config1 = {
+                params: {
+                    idDuan: id,
+                    loaiHm: 0
+                }
+            }
+            service.get('api/duan/income', config1, function (result) {
+                $scope.EmployeeDirect = result.data;
+            }, function (error) { });
+
+
+            console.log($scope.items);
+
+
+            $mdDialog.show({
+                locals: {
+                    EmployeeDirect: $scope.EmployeeDirect,
+                    EmployeeInDirect: $scope.EmployeeInDirect
+                },
+                controller: 'DuAnController',
+                templateUrl: '/app/components/duan/ThanhVienDuAn.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: false,
+                fullscreen: $scope.customFullscreen,
+                scope: $scope,
+                preserveScope: true
+            })
+          .then(null, null);
+
+           
         }
         LoadData();
     }

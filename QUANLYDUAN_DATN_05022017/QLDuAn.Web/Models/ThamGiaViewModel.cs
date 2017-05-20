@@ -22,10 +22,6 @@ namespace QLDuAn.Web.Models
 
         public decimal? DiemThanhVien { get; set; }
 
-        //public DuAnViewModel DuAn { get; set; }
-
-        //public HangMucDuAnViewModel HangMuc { get; set; }
-
         public ApplicationUserViewModel ApplicationUser { get; set; }
     }
 }

@@ -41,6 +41,8 @@ namespace QLDuAn.Model.Models
 
         public bool TrangThai { get; set; }
 
+        public bool isDelete { get; set; }
+
         [ForeignKey("IdDuAn")]
         public virtual DuAn DuAn { get; set; }
 

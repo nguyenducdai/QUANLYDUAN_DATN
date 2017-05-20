@@ -1,4 +1,5 @@
 ﻿<section class="content">
+
     <div class="box box-solid">
         <div class="box-body">
             <div class="box-group" id="accordion">
@@ -16,7 +17,6 @@
                                     <label for="Input2">Mô tả</label>
                                     <textarea type="text" class="form-control" ng-model="HmDa.MoTaHangMuc" name="moTa"> </textarea>
                                 </div>
-
                             </div>
                         </div>
                         <div class="form-group">
@@ -42,15 +42,17 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="Input4">Ngày Thực Hiện</label>
-                                    <input type="date" class="form-control" id="Input4" ng-model="HmDa.NgayBatDau" name="NgayBatDau">
+                                    <input type="text" class="form-control" id="dt1" ng-model="HmDa.NgayBatDau">
                                 </div>
+                                
                                 <div class="col-md-6">
                                     <label for="Input5">Ngày yêu cầu hoàn thành</label>
-                                    <input type="date" class="form-control" id="Input5" ng-model="HmDa.NgayHoanThanh">
+                                    <input type="text" class="form-control" id="dt2" ng-model="HmDa.NgayHoanThanh">
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
+                      
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
@@ -93,7 +95,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Input8">Tỉ Lệ Tham gia (%)</label>
-                            <input type="number" class="form-control" id="Input8" name="Tile" ng-model="User.Tile" required>
+                            <input type="text" class="form-control" id="Input8" name="Tile" ng-model="User.Tile" required>
                             <span ng-show="frmThanhvien.Tile.$invalid" class="has-error">nhập tỉ lệ tham gia</span>
                         </div>
                         <div class="form-group">

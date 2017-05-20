@@ -1,0 +1,50 @@
+﻿<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Chi tiết dự án</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div class="col-md-6">
+                <p>Nhân viên tham gia dự án trực tiếp</p>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:10px">#</th>
+                            <th>Họ tên</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in EmployeeDirect">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.ApplicationUser.FullName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <p>Nhân viên tham gia dự án gián tiếp</p>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:10px">#</th>
+                            <th>Họ tên</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in EmployeeInDirect">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.ApplicationUser.FullName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

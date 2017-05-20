@@ -11,20 +11,21 @@
         </md-toolbar>
         <md-dialog-content>
             <div class="md-dialog-content">
-
                 <div class="form-group">
                     <label for="InputProject">Số Người thực hiện</label>
-                    <input type="number" ng-model="HesoncUpdate.SoNguoiThucHien" class="form-control" />
+                    <input type="number" ng-model="HesoncUpdate.SoNguoiThucHien" class="form-control" name="SoNguoiThucHien" required />
+                    <span ng-show="frmNc.SoNguoiThucHien.$invalid" class="has-error">Nhập số người thực hiện </span>
                 </div>
                 <div class="form-group">
                     <label for="InputProject">Hệ số </label>
-                    <input type="number" class="form-control" id="InputProject" ng-model="HesoncUpdate.HeSoNcKcn" />
+                    <input type="number" class="form-control" id="InputProject" ng-model="HesoncUpdate.HeSoNcKcn" name="HeSoNcKcn" required/>
+                    <span ng-show="frmNc.HeSoNcKcn.$invalid" class="has-error">Nhập hệ số</span>
                 </div>
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
-            <button type="submit" class="btn btn-info btn-flat">Tạo Hệ số</button>
+            <button type="submit" class="btn btn-info btn-flat"  ng-disabled="frmNCV.$invalid">Tạo Hệ số</button>
             <span flex></span>
             <button type="reset" class="btn btn-default btn-flat">xóa sạch</button>
         </md-dialog-actions>

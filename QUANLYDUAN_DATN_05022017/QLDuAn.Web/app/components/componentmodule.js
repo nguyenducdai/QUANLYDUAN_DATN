@@ -32,19 +32,6 @@
             templateUrl: '/app/components/nhomnguoidung/themnhomnguoidung.html',
             controller: 'themnhomnguoidungController'
         })
-
-        .state('hopdong', {
-            url: '/hopdong',
-            parent: 'base',
-            templateUrl: '/app/components/hopdong/index.html',
-            controller: 'danhsachHdController'
-        })
-        .state('hd-create', {
-            url: '/hd/themmoi',
-            parent: 'base',
-            templateUrl: '/app/components/hopdong/add.html',
-            controller: 'ThemHdController'
-        })
          .state('duan', {
              url: '/duan',
              parent: 'base',
@@ -57,14 +44,14 @@
             templateUrl: '/app/components/duanhangmuc/add.html',
             controller: 'themduanhangmucController'
         })
-        //.state('chitietduan', {
-        //    url: '/chitet/:id',
-        //   // parent: 'baseTemplate',
-        //     templateUrl: '/app/components/duanhangmuc/chitetduan.html',
-        //     controller: 'chitietduanController'
-        //})
+           .state('bin', {
+            url: '/bin/:idDuAn-:LoaiHM',
+            parent: 'base',
+            templateUrl: '/app/components/duanhangmuc/bin.html',
+            controller: 'binController'
+        })
          .state('hm_edit', {
-             url: '/sua-hang-muc/:IdHangMuc',
+             url: '/sua-hang-muc/:IdHangMuc/:LoaiHM',
              parent: 'base',
             templateUrl: '/app/components/duanhangmuc/edithm.html',
             controller: 'suaduanhmController'
@@ -104,6 +91,18 @@
             templateUrl: "/app/components/heso/index.html",
             parent: 'base',
             controller: "HeSoController"
+        })
+         .state("changepw", {
+             url: "/changepassword",
+             templateUrl: "/app/components/thanhvien/doimk.html",
+             parent: 'base',
+             controller: "thanhvienController"
+         })
+        .state("nhanvienduan", {
+            url: "/emp&pro",
+            templateUrl: "/app/components/NhanVienDuAn/nhanvienduan.html",
+            parent: 'base',
+            controller: "nhanvVienDaController"
         });
     }
 })();

@@ -18,15 +18,15 @@
                                 <th>Nhóm CV</th>
                                 <th>Hệ số CVKCV</th>
                                 <th style="width:5%">
-                                    <button class="btn btn-info btn-xs btn-flat" ng-click="showFrmAddNCV($event)"> <i class="fa fa-plus" aria-hidden="true"></i> Tạo</button>
+                                    <button class="btn btn-default btn-xs" ng-click="showFrmAddNCV($event)"><i class="fa fa-plus" aria-hidden="true"></i> Tạo</button>
                                 </th>
                             </tr>
                             <tr ng-repeat="itemNcv in ListNhomCongViec">
                                 <td>{{itemNcv.NhomCV}}</td>
                                 <td>{{itemNcv.HeSoCV}}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-xs btn-flat" ng-click="deleteNcv(itemNcv.ID)">xóa</button>
-                                    <button class="btn btn-info btn-xs btn-flat" ng-click="showFrmEditNCV($event , itemNcv.ID)">sửa</button>
+                                    <button class="btn btn-default btn-xs" ng-click="deleteNcv(itemNcv.ID)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    <button class="btn btn-default btn-xs" ng-click="showFrmEditNCV($event , itemNcv.ID)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -38,14 +38,14 @@
                             <tr>
                                 <th>Số NHT</th>
                                 <th>Hệ số LL</th>
-                                <th style="width:5%"><button class="btn btn-info btn-xs btn-flat" ng-click="showFrmAddHSL($event)"> <i class="fa fa-plus" aria-hidden="true"></i> Tạo</button></th>
+                                <th style="width:5%"><button class="btn btn-default btn-xs" ng-click="showFrmAddHSL($event)"> <i class="fa fa-plus" aria-hidden="true"></i> Tạo</button></th>
                             </tr>
                             <tr ng-repeat="itemHsoLap in ListHeSoLap">
                                 <td>{{itemHsoLap.SoNam}}</td>
                                 <td>{{itemHsoLap.Hesl}}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-xs btn-flat" ng-click="deleteHsl(itemHsoLap.Id)">xóa</button>
-                                    <button class="btn btn-info btn-xs btn-flat"  ng-click="showFrmEditHSL($event , itemHsoLap.Id)">sửa</button>
+                                    <button class="btn btn-default btn-xs" ng-click="deleteHsl(itemHsoLap.Id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    <button class="btn btn-default btn-xs"  ng-click="showFrmEditHSL($event , itemHsoLap.Id)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -58,14 +58,14 @@
                             <tr>
                                 <th>Số NTH</th>
                                 <th>Hệ số NCKNC</th>
-                                <th style="width:5%"><button class="btn btn-info btn-xs btn-flat" ng-click="showFrmAddHSNC($event)"> <i class="fa fa-plus" aria-hidden="true"></i> Tạo</button></th>
+                                <th style="width:5%"><button class="btn btn-default btn-xs" ng-click="showFrmAddHSNC($event)"> <i class="fa fa-plus" aria-hidden="true"></i> Tạo</button></th>
                             </tr>
                             <tr ng-repeat="itemKcn in ListHeSoNhanCongKnc">
                                 <td>{{itemKcn.SoNguoiThucHien}}</td>
                                 <td>{{itemKcn.HeSoNcKcn}}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-xs btn-flat" ng-click="deleteHsnc(itemKcn.Id)">xóa</button>
-                                    <button class="btn btn-info btn-xs btn-flat" ng-click="showFrmEditHSNC($event , itemKcn.Id)">sửa</button>
+                                    <button class="btn btn-default btn-xs" ng-click="deleteHsnc(itemKcn.Id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    <button class="btn btn-default btn-xs" ng-click="showFrmEditHSNC($event , itemKcn.Id)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -77,14 +77,14 @@
                             <tr>
                                 <th>TGDK</th>
                                 <th>HSTGDK</th>
-                                <th style="width:5%"><button class="btn btn-info btn-xs btn-flat" ng-click="showFrmAddHSTG($event)">  <i class="fa fa-plus" aria-hidden="true"></i> Tạo</button></th>
+                                <th style="width:5%"><button class="btn btn-default btn-xs" ng-click="showFrmAddHSTG($event)">  <i class="fa fa-plus" aria-hidden="true"></i> Tạo</button></th>
                             </tr>
                             <tr ng-repeat="itemThoiGian in ListHeSoThoiGian">
                                 <td>{{itemThoiGian.ThoiGianDk}}</td>
                                 <td>{{itemThoiGian.HeSoTgdk}}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-xs btn-flat" ng-click="deleteHstg(itemThoiGian.Id)">xóa</button>
-                                    <button class="btn btn-info btn-xs btn-flat" ng-click="showFrmEditHSTG($event , itemThoiGian.Id)">sửa</button>
+                                    <button class="btn btn-default btn-xs" ng-click="deleteHstg(itemThoiGian.Id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    <button class="btn btn-default btn-xs" ng-click="showFrmEditHSTG($event , itemThoiGian.Id)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
                         </tbody>

@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using QLDuAn.Model.Models;
 using AutoMapper;
+using QLDuAn.Web.Infastructure.Extentions;
 
 namespace QLDuAn.Web.Controllers
 {
@@ -117,7 +118,67 @@ namespace QLDuAn.Web.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<ActionResult> CapNhatThongTin(ApplicationUserViewModel appVM)
+        {
+            var id = User.Identity.GetUserId();
+            var model = await _applicationUserManager.FindByIdAsync(id);
+            if(appVM.Image == null)
+            {
+                appVM.Image = model.Image;
+            }
+            appVM.Id = id;
+            appVM.Created_at = model.Created_at;
+            appVM.Updatted_at = model.Updatted_at;
+            model.UpdateApplicationUser(appVM);
+            var result = await _applicationUserManager.UpdateAsync(model);
+            if (result.Succeeded)
+            {
+                ViewBag.Success = "Cập nhật thành công";
+                return RedirectToAction("CapNhatThongTin");
 
+            }
+            else
+            {
+                ViewBag.Success = "Có lỗi sảy ra";
+                return RedirectToAction("CapNhatThongTin");
+
+            }
+
+        }
+
+
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return View("ForgotPasswordConfirmation");
+                }
+
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
 
 
     }

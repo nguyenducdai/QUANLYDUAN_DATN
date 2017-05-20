@@ -24,6 +24,7 @@ namespace QLDuAn.Web.Infastructure.Extentions
             hangMuc.HesoKcn = hangMucVM.HesoKcn;
             hangMuc.LoaiHangMuc = hangMucVM.LoaiHangMuc;
             hangMuc.TrangThai = hangMucVM.TrangThai;
+            hangMuc.isDelete = hangMucVM.isDelete;
             hangMuc.Created_at = hangMucVM.Created_at;
             hangMuc.Updated_at = hangMucVM.Updated_at;
         }

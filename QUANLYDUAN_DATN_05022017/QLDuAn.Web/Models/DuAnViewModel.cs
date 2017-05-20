@@ -64,7 +64,7 @@ namespace QLDuAn.Web.Models
 
         public IEnumerable<ThamGiaViewModel> ThamGia { get; set; }
 
-        public IEnumerable<HangMucViewModel> HangMucViewModel { get; set; }
+        public IEnumerable<HangMucViewModel> HangMuc { get; set; }
 
         public KhachHangViewModel KhachHang { get; set; }
     }

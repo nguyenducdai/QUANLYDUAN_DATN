@@ -1,45 +1,53 @@
-﻿  <!-- Blog Sidebar Widgets Column -->
-<div class="col-md-3">
-    <!-- Blog Search Well -->
-    <div class="well">
-        <h4>Tìm kiếm</h4>
-        <div class="input-group">
-            <input type="text" class="form-control">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </span>
-        </div>
-        <!-- /.input-group -->
-    </div>
+﻿@using QLDuAn.Common;
+<div class="page-sidebar navbar-collapse collapse">
+    <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+        <li class="sidebar-toggler-wrapper">
+            <div class="sidebar-toggler">
+            </div>
+        </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="NH&#7854;N TIN">
+            <a href="/">
+                <i class="fa fa-home" aria-hidden="true"></i>
+                <span class="title">
+                    TRANG CHỦ
+                </span>
+            </a>
+        </li>
 
-    <!-- Blog Categories Well -->
-    <div class="well">
-        <h4>Lựa chọn</h4>
-        <ul class="list-unstyled">
-            <li>
-                <a href="#"> <i class="fa fa-caret-right" aria-hidden="true"></i> Thông Báo</a>
-            </li>
-            <li>
-                <a href="/hang-muc-cong-viec.html"> <i class="fa fa-caret-right" aria-hidden="true"></i>  Hạng mục công việc</a>
-            </li>
-
-            <li>
-                <a href="/Thong-ke.html"> <i class="fa fa-caret-right" aria-hidden="true"></i> Thống kê doanh thu</a>
-            </li>
-
-            <li>
-                <a href="/thong-tin-ca-nhan.html"> <i class="fa fa-caret-right" aria-hidden="true"></i>Thông tin các nhân</a>
-            </li>
-
-        </ul>
-    </div>
-
-    <!-- Side Widget Well -->
-    <div class="well">
-        <h4>Lịch</h4>
-        <div id="datepicker-inline"></div>
-    </div>
-
+        <li class='tooltips @Url.MakeActiveClass("Home")'>
+            <a href="/us/home">
+                <i class="fa fa-bell-o" aria-hidden="true"></i>
+                <span class="title">
+                    THÔNG BÁO
+                </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <li class='tooltips @Url.MakeActiveClass("DuAn")' data-container="body" data-placement="right" data-html="true" data-original-title="KHÁCH HÀNG">
+            <a href="/hang-muc-cong-viec.html">
+                <i class="fa fa-wikipedia-w" aria-hidden="true"></i>
+                <span class="title">
+                    HẠNG MỤC CÔNG VIỆC
+                </span>
+            </a>
+        </li>
+        <li class='tooltips @Url.MakeActiveClass("DuAn")' data-container="body" data-placement="right" data-html="true" data-original-title="L&#7882;CH H&#7864;N">
+            <a href="/Thong-ke.html">
+                <i class="fa fa-area-chart" aria-hidden="true"></i>
+                <span class="title">
+                   DOANH THU ƯỚC TÍNH
+                </span>
+            </a>
+        </li>
+        <li class='tooltips @Url.MakeActiveClass("Account")' data-container="body" data-placement="right" data-html="true" data-original-title="EMAIL MARKETTING">
+            <a href="/thong-tin-ca-nhan.html">
+                <i class="fa fa-product-hunt" aria-hidden="true"></i>
+                <span class="title">
+                    THÔNG TIN CÁ NHÂN
+                </span>
+            </a>
+        </li>
+       
+    </ul>
+    <!-- END SIDEBAR MENU -->
 </div>

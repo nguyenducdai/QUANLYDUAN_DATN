@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using OfficeOpenXml;
+using System;
+using System.Configuration;
 
 namespace QLDuAn.Common
 {
@@ -7,6 +9,6 @@ namespace QLDuAn.Common
         public static string GetValueByKey(string key)
         {
             return ConfigurationManager.AppSettings[key].ToString();
-        }
+        }       
     }
 }

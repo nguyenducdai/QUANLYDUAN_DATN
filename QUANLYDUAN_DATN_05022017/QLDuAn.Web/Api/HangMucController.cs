@@ -10,6 +10,7 @@ using System.Web.Http;
 using QLDuAn.Service;
 using System.Linq;
 using System;
+using System.Web.Script.Serialization;
 
 namespace QLDuAn.Web.Api
 {
@@ -45,7 +46,7 @@ namespace QLDuAn.Web.Api
             return CreateReponse(request, () =>
             {
                 var model = _hangMucService.getAll(keyword);
-                var query = model.OrderByDescending(x => x.Created_at).Skip(page * pageSize).Take(pageSize);
+                var query = model.OrderByDescending(x => x.NgayHoanThanh > DateTime.Now).Skip(page * pageSize).Take(pageSize);
                 var responseData = Mapper.Map<IEnumerable<HangMuc>, IEnumerable<HangMucViewModel>>(query);
                 Paginnation<HangMucViewModel> pagination = new Paginnation<HangMucViewModel>
                 {
@@ -67,7 +68,7 @@ namespace QLDuAn.Web.Api
             return CreateReponse(request, () =>
             {
                 var model = _hangMucService.GetHangMucDuAn(idDuAn, LoaiHm, keyword , filter);
-                var query = model.Skip(page * pageSize).Take(pageSize);
+                var query = model.OrderByDescending(x =>x.TrangThai.Equals(false) && x.NgayHoanThanh > DateTime.Now).Skip(page * pageSize).Take(pageSize);
                 var responseData = Mapper.Map<IEnumerable<HangMuc>, IEnumerable<HangMucViewModel>>(query);
                 Paginnation<HangMucViewModel> pagination = new Paginnation<HangMucViewModel>
                 {
@@ -81,6 +82,19 @@ namespace QLDuAn.Web.Api
             });
         }
 
+
+        [Route("getIsdelete")]
+        [HttpGet]
+        public HttpResponseMessage GetAllIsDelete(HttpRequestMessage request, int idDuAn, int LoaiHm)
+        {
+            return CreateReponse(request, () =>
+            {
+                var model = _hangMucService.getAll();
+                var query = model.Where(x =>x.IdDuAn.Equals(idDuAn) && x.isDelete == true && x.LoaiHangMuc.Equals(LoaiHm));
+                var responseData = Mapper.Map<IEnumerable<HangMuc>, IEnumerable<HangMucViewModel>>(query);
+                return request.CreateResponse(HttpStatusCode.OK, responseData);
+            });
+        }
 
 
         [Route("getbyid")]
@@ -141,8 +155,8 @@ namespace QLDuAn.Web.Api
                                     IdNhanVien = item.IdNhanVien,
                                     HeSoThamGia = item.HeSoThamGia,
                                     LoaiHangMuc = item.LoaiHangMuc,
-                                    DiemThanhVien = (diemHm * item.HeSoThamGia) ?? 0,
-                                    ThuNhap = donGiaDiemTT * diemHm * item.HeSoThamGia
+                                    DiemThanhVien = Math.Round((diemHm * item.HeSoThamGia)/100 ?? 0),
+                                    ThuNhap = donGiaDiemTT * ((diemHm * item.HeSoThamGia)/100 ?? 0)
                                 });
                             }
                             else
@@ -154,8 +168,8 @@ namespace QLDuAn.Web.Api
                                     IdNhanVien = item.IdNhanVien,
                                     HeSoThamGia = item.HeSoThamGia,
                                     LoaiHangMuc = item.LoaiHangMuc,
-                                    DiemThanhVien = (diemHm * item.HeSoThamGia) ?? 0,
-                                    ThuNhap = donGiaDiemGT * diemHm * item.HeSoThamGia
+                                    DiemThanhVien = Math.Round((diemHm * item.HeSoThamGia)/100 ?? 0),
+                                    ThuNhap = donGiaDiemGT * ((diemHm * item.HeSoThamGia) / 100 ?? 0)
                                 });
                             }
 
@@ -213,8 +227,8 @@ namespace QLDuAn.Web.Api
                                     IdNhanVien = item.IdNhanVien,
                                     HeSoThamGia = item.HeSoThamGia,
                                     LoaiHangMuc = item.LoaiHangMuc,
-                                    DiemThanhVien = (diemHm * item.HeSoThamGia) ?? 0,
-                                    ThuNhap = donGiaDiemTT * diemHm * item.HeSoThamGia
+                                    DiemThanhVien = Math.Round((diemHm * item.HeSoThamGia)/100 ?? 0),
+                                    ThuNhap = donGiaDiemTT * ((diemHm * item.HeSoThamGia) / 100 ?? 0)
                                 });
                             }
                             else
@@ -226,8 +240,8 @@ namespace QLDuAn.Web.Api
                                     IdNhanVien = item.IdNhanVien,
                                     HeSoThamGia = item.HeSoThamGia,
                                     LoaiHangMuc = item.LoaiHangMuc,
-                                    DiemThanhVien = (diemHm * item.HeSoThamGia) ?? 0,
-                                    ThuNhap = donGiaDiemGT * diemHm * item.HeSoThamGia
+                                    DiemThanhVien = Math.Round((diemHm * item.HeSoThamGia)/100 ?? 0),
+                                    ThuNhap = donGiaDiemGT * ((diemHm * item.HeSoThamGia) / 100 ?? 0)
                                 });
                             }
 
@@ -257,7 +271,7 @@ namespace QLDuAn.Web.Api
                 else
                 {
                     var hangMuc = _hangMucService.getByID(hangMucViewModel.ID);
-                    var HeSoNC = _heSoNhanCongService.GetHeSoKcn(hangMucViewModel.SoNguoiThucHien);
+                    var HeSoNC = _heSoNhanCongService.GetHeSoKcn(hangMucViewModel.ThamGia.Count());
                     hangMuc.UpdateHangMuc(hangMucViewModel);
                     hangMuc.HesoKcn = HeSoNC.HeSoNcKcn;
                     _hangMucService.Update(hangMuc);
@@ -266,9 +280,21 @@ namespace QLDuAn.Web.Api
                     {
                         var duan = _duAnService.GetAllInfoById(hangMuc.IdDuAn);
                         var point = _thamGiaService.TotalPoint(hangMuc.IdDuAn, hangMuc.LoaiHangMuc);
+
+                        var hm = _hangMucService.GetHangMucById(hangMuc.ID);
+                        decimal? diemHm = 0m;
+                        if (hm.HeSoLap != null && hm.HeSoTg != null)
+                        {
+                            diemHm = hm.DiemDanhGia * hm.HeSoLap.Hesl * hm.HeSoTg.HeSoTgdk * hm.HesoKcn * hm.NhomCongViec.HeSoCV;
+                        }
+
                         decimal? donGiaDiemTT = 0m;
                         decimal? donGiaDiemGT = 0m;
-                        if (point > 0) { 
+                        if (!point.Equals(0) && hangMucViewModel.ThamGia.Count() > 0) {
+                            foreach (var item in hangMucViewModel.ThamGia)
+                            {
+                                point = point + Math.Round((diemHm * item.HeSoThamGia) / 100 ?? 0);
+                            }
                             if (hangMuc.LoaiHangMuc == 0)
                             {
                                 //tính đơn giá điểm trục tiếp
@@ -280,7 +306,7 @@ namespace QLDuAn.Web.Api
                                 duan.DonGiaDiemTT = donGiaDiemTT;
                                 _duAnService.Update(duan);
                             }
-                            else
+                            else if(hangMuc.LoaiHangMuc == 1)
                             {
                                 // tính đơn giá điểm gián tiếp
                                 var g0 = (duan.GiaTriHopDong * duan.TyLeTheoDT) / 100;
@@ -294,14 +320,9 @@ namespace QLDuAn.Web.Api
                             }
                             _duAnService.Save();
                           }
-                        var hm = _hangMucService.GetHangMucById(hangMuc.ID);
-                        decimal? diemHm = 0m;
-                        if (hm.HeSoLap != null && hm.HeSoTg != null)
-                        {
-                            diemHm = hm.DiemDanhGia * hm.HeSoLap.Hesl * hm.HeSoTg.HeSoTgdk * hm.HesoKcn * hm.NhomCongViec.HeSoCV;
-                        }
+                      
                         List<ThamGia> listTG = new List<ThamGia>();
-                        if(hangMucViewModel.ThamGia.Count() > 0) { 
+                        if(hm.ThamGia.Count() > 0 || hangMucViewModel.ThamGia.Count() > 0) { 
                         foreach (var item in hangMucViewModel.ThamGia)
                         {
                             if (hangMuc.LoaiHangMuc == 0)
@@ -313,8 +334,8 @@ namespace QLDuAn.Web.Api
                                     IdNhanVien = item.IdNhanVien,
                                     HeSoThamGia = item.HeSoThamGia,
                                     LoaiHangMuc = item.LoaiHangMuc,
-                                    DiemThanhVien = (diemHm * item.HeSoThamGia)??0,
-                                    ThuNhap = donGiaDiemTT * diemHm * item.HeSoThamGia
+                                    DiemThanhVien = Math.Round((diemHm * item.HeSoThamGia)/100 ?? 0),
+                                    ThuNhap = donGiaDiemTT * ((diemHm * item.HeSoThamGia) / 100 ?? 0)
                                 });
                             }
                             else
@@ -326,15 +347,15 @@ namespace QLDuAn.Web.Api
                                     IdNhanVien = item.IdNhanVien,
                                     HeSoThamGia = item.HeSoThamGia,
                                     LoaiHangMuc = item.LoaiHangMuc,
-                                    DiemThanhVien = (diemHm * item.HeSoThamGia)??0,
-                                    ThuNhap = donGiaDiemGT * diemHm * item.HeSoThamGia
+                                    DiemThanhVien = Math.Round((diemHm * item.HeSoThamGia)/100 ?? 0),
+                                    ThuNhap = donGiaDiemGT * ((diemHm * item.HeSoThamGia) / 100 ?? 0)
                                 });
                             }
                         }
                         _thamGiaService.Add(listTG, hangMuc.ID, hangMuc.LoaiHangMuc);
                         }
                     }
-                    _hangMucService.save();
+                    _thamGiaService.Save();
                     respose = request.CreateResponse(HttpStatusCode.Accepted, hangMucViewModel);
                 }
 
@@ -344,14 +365,186 @@ namespace QLDuAn.Web.Api
 
         [Route("delete")]
         [HttpDelete]
-        public HttpResponseMessage Delete(HttpRequestMessage request, int id)
+        public HttpResponseMessage Delete(HttpRequestMessage request, int id ,int LoaiHm,int idDuAn)
         {
             return CreateReponse(request, () =>
             {
                 _hangMucService.Delete(id);
                 _hangMucService.save();
+
+                var donGiaDiemTT = 0;
+                var donGiaDiemGT = 0;
+
+                var duan = _duAnService.GetAllInfoById(idDuAn);
+                var point = _thamGiaService.TotalPoint(idDuAn,LoaiHm);
+
+                //tính đơn giá điểm trục tiếp
+                var q0 = (duan.GiaTriHopDong * duan.TyLeTheoDT) / 100;
+                var q1 = q0 - duan.LuongThueNgoai;
+                var q2 = (q1 * duan.LuongTTQtt) / 100;
+
+                if (point != 0)
+                {
+                    donGiaDiemTT = Convert.ToInt32(q2 / point);
+                }
+
+                // tính đơn giá điểm gián tiếp
+                var g0 = (duan.GiaTriHopDong * duan.TyLeTheoDT) / 100;
+                var g1 = g0 - duan.LuongThueNgoai;
+                var g2 = (g1 * duan.LuongGTQgt) / 100;
+                var g3 = (g2 * duan.LuongGTV22) / 100;
+
+                if (point != 0)
+                {
+                    donGiaDiemGT = Convert.ToInt32(g3 / point);
+                }
+
+                if (LoaiHm == 0)
+                {
+                    duan.TongDiemTT = point;
+                    duan.DonGiaDiemTT = donGiaDiemTT;
+                    _duAnService.Update(duan);
+                }
+                else
+                {
+                    duan.TongDiemGT = point;
+                    duan.DonGiaDiemGT = donGiaDiemGT;
+                    _duAnService.Update(duan);
+                }
+                _duAnService.Save();
                 HttpResponseMessage respose = request.CreateResponse(HttpStatusCode.OK, id); ;
                 return respose;
+            });
+        }
+
+        [Route("deleteMuti")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteMuti(HttpRequestMessage request, string listId , int LoaiHm, int idDuAn)
+        {
+            return CreateReponse(request, () =>
+            {
+                var list = new JavaScriptSerializer().Deserialize<List<int>>(listId);
+                foreach (var item in list)
+                {
+                    _hangMucService.Delete(item);
+                   
+                }
+                _hangMucService.save();
+                var donGiaDiemTT = 0;
+                var donGiaDiemGT = 0;
+
+                var duan = _duAnService.GetAllInfoById(idDuAn);
+                var point = _thamGiaService.TotalPoint(idDuAn, LoaiHm);
+
+                //tính đơn giá điểm trục tiếp
+                var q0 = (duan.GiaTriHopDong * duan.TyLeTheoDT) / 100;
+                var q1 = q0 - duan.LuongThueNgoai;
+                var q2 = (q1 * duan.LuongTTQtt) / 100;
+
+                if (point != 0)
+                {
+                    donGiaDiemTT = Convert.ToInt32(q2 / point);
+                }
+
+                // tính đơn giá điểm gián tiếp
+                var g0 = (duan.GiaTriHopDong * duan.TyLeTheoDT) / 100;
+                var g1 = g0 - duan.LuongThueNgoai;
+                var g2 = (g1 * duan.LuongGTQgt) / 100;
+                var g3 = (g2 * duan.LuongGTV22) / 100;
+
+                if (point != 0)
+                {
+                    donGiaDiemGT = Convert.ToInt32(g3 / point);
+                }
+
+                if (LoaiHm == 0)
+                {
+                    duan.TongDiemTT = point;
+                    duan.DonGiaDiemTT = donGiaDiemTT;
+                    _duAnService.Update(duan);
+                }
+                else
+                {
+                    duan.TongDiemGT = point;
+                    duan.DonGiaDiemGT = donGiaDiemGT;
+                    _duAnService.Update(duan);
+                }
+                _duAnService.Save();
+              
+                HttpResponseMessage respose = request.CreateResponse(HttpStatusCode.OK, "OK"); ;
+                return respose;
+            });
+        }
+
+        [Route("movebin")]
+        [HttpGet]
+        public HttpResponseMessage MoveBin(HttpRequestMessage request, int id)
+        {
+            return CreateReponse(request, () =>
+            {
+                var oldHM = _hangMucService.GetHangMucById(id);
+                oldHM.isDelete = true;
+                oldHM.Updated_at = DateTime.Now;
+                _hangMucService.Update(oldHM);
+                _hangMucService.save();
+                HttpResponseMessage respose = request.CreateResponse(HttpStatusCode.OK, id); ;
+                return respose;
+            });
+        }
+
+
+        [Route("movebinmuti")]
+        [HttpGet]
+        public HttpResponseMessage MoveBinMuti(HttpRequestMessage request, string listId)
+        {
+            return CreateReponse(request, () =>
+            {
+                var list = new JavaScriptSerializer().Deserialize<List<int>>(listId);
+                foreach (var item in list)
+                {
+                    var oldHM = _hangMucService.GetHangMucById(item);
+                    oldHM.isDelete = true;
+                    oldHM.Updated_at = DateTime.Now;
+                    _hangMucService.Update(oldHM);
+                }
+                _hangMucService.save();
+                return request.CreateResponse(HttpStatusCode.OK, listId); ;
+            });
+        }
+
+        [Route("restore")]
+        [HttpGet]
+        public HttpResponseMessage Restore(HttpRequestMessage request, int id)
+        {
+            return CreateReponse(request, () =>
+            {
+                var oldHM = _hangMucService.GetHangMucById(id);
+                oldHM.isDelete = false;
+                oldHM.Updated_at = DateTime.Now;
+                _hangMucService.Update(oldHM);
+                _hangMucService.save();
+                HttpResponseMessage respose = request.CreateResponse(HttpStatusCode.OK, id); ;
+                return respose;
+            });
+        }
+
+
+        [Route("restoreall")]
+        [HttpGet]
+        public HttpResponseMessage RestoreAll(HttpRequestMessage request, string listId)
+        {
+            return CreateReponse(request, () =>
+            {
+            var list = new JavaScriptSerializer().Deserialize<List<int>>(listId);
+                foreach (var item in list)
+                {
+                    var oldHM = _hangMucService.GetHangMucById(item);
+                    oldHM.isDelete = false;
+                    oldHM.Updated_at = DateTime.Now;
+                    _hangMucService.Update(oldHM);
+                }
+                _hangMucService.save();
+                return request.CreateResponse(HttpStatusCode.OK, listId); 
             });
         }
 

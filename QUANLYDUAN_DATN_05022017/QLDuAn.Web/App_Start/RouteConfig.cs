@@ -35,14 +35,14 @@ namespace QLDuAn.Web
 
             routes.MapRoute(
                 name: "Login",
-                url: "dang-nhap.html",
+                url:"login/do",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
                 namespaces: new string[] { "QLDuAn.Web.Controllers" }
             );
 
             routes.MapRoute(
                  name: "HomeSite",
-                 url: "account/home",
+                 url: "us/home",
                  defaults: new { controller = "Home", action = "Site", id = UrlParameter.Optional },
                  namespaces: new string[] { "QLDuAn.Web.Controllers" }
             );

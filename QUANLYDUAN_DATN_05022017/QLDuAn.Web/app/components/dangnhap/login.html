@@ -1,33 +1,46 @@
-﻿
-<div class="col-lg-6 col-lg-offset-3" style="background:#fff ; margin-top:60px;box-shadow:0 1px 1px rgba(0,0,0,.1) ; border-radius:5px;padding:40px 50px;" id="login_admin" >
+﻿<div>
+    <div class="col-lg-6 col-lg-offset-3" style="background:#fff ; margin-top:60px;box-shadow:0 1px 1px rgba(0,0,0,.1) ; border-radius:5px;padding:40px 50px;" id="login_admin">
         <h4 id="login-title"><i class="fa fa-user" aria-hidden="true"></i>  Đăng Nhập</h4>
-        <form role="form" ng-submit="doLogin()">
+        <form role="form" ng-submit="doLogin()" name="frmLogin">
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Tên tài khoản</label>
-                    <input type="text" class="form-control" id="login_input" placeholder="tên đăng nhập" ng-model="loginData.userName">
+                    <input type="text" class="form-control"  name ="usename" id="login_input" placeholder="tên đăng nhập" ng-model="loginData.userName" required>
+                    <span ng-show="frmLogin.usename.$invalid" class="has-error">*</span>
                 </div>
                 <div class="form-group">
                     <label>Mật Khẩu</label>
-                    <input type="password" class="form-control" id="login_input" placeholder="mật khẩu" ng-model="loginData.password">
+                    <input type="password" class="form-control" id="login_input" name="password" placeholder="mật khẩu" ng-model="loginData.password" required>
+                    <span ng-show="frmLogin.password.$invalid" class="has-error">*</span>
                 </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox"> Ghi nhớ
-                        </label>
-                        <button type="submit" class="btn btn-info btn-flat pull-right btn-sm" id="btn_submit">Đăng nhập</button>
-                    </div>
                 <div class="form-group">
-                    <p> Bạn <a> quên mật khẩu ? </a></p>
+                    <label>
+                        <input type="checkbox"> Ghi nhớ
+                    </label>
+                    <button type="submit" class="btn btn-info btn-flat pull-right btn-sm" id="btn_submit">Đăng nhập</button>
                 </div>
-                   
-                </div>
+              
+            </div>
             <div class="col-md-6">
-                <p class="text-center text-black-white">Trong quá trình hoạt động nếu có lỗi , click  <a href="/register">liên hệ</a> <br>hoặc </p><div>
-                 <button class="btn btn-block btn-default btn-sm" type="button" id="btn_phone"><i class="fa fa-mobile" aria-hidden="true"></i> Phone cho chúng tôi</button>
+                <p class="text-center text-black-white">Trong quá trình hoạt động nếu có lỗi , click  <a href="#">liên hệ</a> <br>hoặc </p><div>
+                    <button class="btn btn-block btn-default btn-sm" type="button" id="btn_phone"><i class="fa fa-mobile" aria-hidden="true"></i> Phone cho chúng tôi</button>
                 </div>
             </div>
         </form>
     </div>
-   
+    <div class="sk-fading-circle " ng-if="loadding">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
+    </div>
+
 </div>
